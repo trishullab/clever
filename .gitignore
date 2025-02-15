@@ -169,3 +169,10 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Added Lean dependencies
+.lake/*
+*.olean
+*.olean.cache
+*.olean.lock
+*.olean.lock.json
