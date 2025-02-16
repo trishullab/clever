@@ -1,2 +1,1 @@
-# clever
-CLEVER: Code Lean Evaluation for Verified End-to-end Reasoning
+# CLEVER: Code Lean Evaluation for Verified End-to-end Reasoning
