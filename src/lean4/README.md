@@ -29,4 +29,4 @@
 
 ## Instructions for building the project:
 - Install Lean 4: https://leanprover.github.io/lean4/doc/quickstart.html
-- Run `lake build clever` to build the project after changing the directory to `src/lean4`.
+- Run `lake build clever` to build the project after changing the directory to `src/lean4`. OR use VS Code with Lean 4 extension to build the project.
