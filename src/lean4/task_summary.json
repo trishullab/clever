@@ -1,0 +1,23 @@
+{   "tasks": [
+        {
+            "task_name": "ProgDefs/SampleProbs/Problem_0.lean",
+            "score": 4.0 
+        },
+        {
+            "task_name": "ProgDefs/SampleProbs/Problem_1.lean",
+            "score": 12.0 
+        },
+        {
+            "task_name": "ProgVer/SampleProbs/Problem_0.lean",
+            "score": 12.0 
+        },
+        {
+            "task_name": "ProgVer/SampleProbs/Problem_1.lean",
+            "score": 25.0 
+        },
+        {
+            "task_name": "ProgVer/SampleProbs/Problem_2.lean",
+            "score": 15.0 
+        }
+    ]
+}

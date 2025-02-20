@@ -2,13 +2,35 @@ name: Lean Action CI
 
 on:
   push:
+    branches: [ main ]
   pull_request:
-  workflow_dispatch:
+    branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: leanprover/lean-action@v1
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Lean (elan)
+        shell: bash
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+          source $HOME/.elan/env
+        
+      - name: Build the lean project
+        run: |
+          source $HOME/.elan/env
+          pushd src/lean4 && lake build > lean4_build.log && popd
+      
+      - name: Run Score Summarization Script
+        run: |
+          source $HOME/.elan/env
+          python src/scripts/score_solution.py
