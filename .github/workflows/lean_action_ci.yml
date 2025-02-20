@@ -40,9 +40,9 @@ jobs:
       - name: Build the lean project
         run: |
           source $HOME/.elan/env
-          pushd src/lean4 && lake build > lean4_build.log && popd
+          pushd src/lean4 && (lake build > lean4_build.log) && popd
       
       - name: Run Score Summarization Script
         run: |
           source $HOME/.elan/env
-          python src/scripts/score_solution.py
+          python src/scripts/score_solutions.py
