@@ -14,6 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Set up olean cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache
+          key: oleans
+
+      - name: Configure
+        working-directory: src/lean4
+        run: |
+          lake exe cache get
+        
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
