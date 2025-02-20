@@ -25,7 +25,7 @@ def main():
         task_name = task["task_name"]
         score = task["score"]
         # Count the number of problems from the original build log
-        rexp = rf"{task_name}:\d+:\d+:([\s\S]*?)declaration uses 'sorry'"
+        rexp = rf"{task_name}:\d+:\d+:([\s]*)declaration uses 'sorry'"
         task_regex = re.compile(rexp, re.MULTILINE)
         problems = task_regex.findall(build_log)
         if len(problems) == 0:
