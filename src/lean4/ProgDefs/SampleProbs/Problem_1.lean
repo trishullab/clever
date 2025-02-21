@@ -44,7 +44,14 @@ def binarySearchLowHi (xs: List Int) (y: Int) (low: Nat) (hi: Nat): Int :=
                then sum / 2
                else (sum - 1) / 2;
     have h_i_lt_n : mid < xs.length := by
-      sorry
+        simp [mid]
+        cases sumodd: (sum % 2)
+        . {simp
+
+        }
+        . {simp
+
+        }
     -- ^ NOTE: Prove the above lemma h_i_lt_n
     -- This proof is required to ensure that
     -- list.get can be called with the index `i`
