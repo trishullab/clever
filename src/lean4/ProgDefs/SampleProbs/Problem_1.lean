@@ -41,8 +41,8 @@ def binarySearchLowHi (xs: List Int) (y: Int) (low: Nat) (hi: Nat): Int :=
   else
     let sum := low + hi;
     let mid := if sum % 2 == 0
-               then sum / 2
-               else (sum - 1) / 2;
+                then sum / 2
+                else (sum - 1) / 2;
     have hi_leq_low: low ≤ hi := by
       simp at h_out_of_bound
       apply And.left at h_out_of_bound
@@ -119,19 +119,4 @@ It returns the index of the first occurrence of a given integer in
 a sorted list. If the integer is not in the list, return -1.
 -/
 def binarySearch (xs: List Int) (y: Int): Int :=
-  if h : xs.isEmpty then -1
-  else
-    let h1 : 0 ≤ xs.length - 1 := Nat.zero_le (xs.length - 1)
-    let h2 : xs.length - 1 < xs.length := by
-      simp at h
-      simp
-      by_cases xs.length = 0
-      rename_i h_len_eq_0
-      have h_xs_empty : xs = [] := by
-        apply List.eq_nil_of_length_eq_zero h_len_eq_0
-      contradiction
-      rename_i h_len_neq_0
-      have h_len_gt_0 : xs.length > 0 := by
-        apply Nat.pos_of_ne_zero h_len_neq_0
-      simp [h_len_gt_0]
-    binarySearchLowHi xs y 0 (xs.length - 1) h1 h2
+  binarySearchLowHi xs y 0 (xs.length - 1)
