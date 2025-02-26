@@ -8,7 +8,7 @@ theorem problem_0
 (impl: List Float → Float → Bool) --impl
 :
 -- spec
-let spec := ∃ i j, i < numbers.length ∧ j < numbers.length ∧
+let spec := ∃ i j, i < numbers.length ∧ j < numbers.length ∧ i ≠ j ∧
 Float.abs (numbers.get! i - numbers.get! j) < threshold;
 ∃ result, impl numbers threshold = result → --Program termination (not needed when using Lean)
 if result then spec else ¬spec
