@@ -5,13 +5,21 @@ import Imports.AllImports
 theorem problem_0
 (numbers: List Float) --inps
 (threshold: Float)
-(impl: List Float → Float → Bool) --impl
+(impl: List Float → Float → Option Bool) --impl
 :
 -- spec
-let spec := ∃ i j, i < numbers.length ∧ j < numbers.length ∧ i ≠ j ∧
-Float.abs (numbers.get! i - numbers.get! j) < threshold;
+let precondition := numbers.all (fun x => ¬x.isNaN ∧ x.isFinite);
+let numbers_rational := numbers.map (fun x => x.toRat0);
+let threshold_rational := threshold.toRat0;
+let spec := ∃ i j,
+i < numbers_rational.length ∧
+j < numbers_rational.length ∧
+i ≠ j ∧
+|numbers_rational.get! i - numbers_rational.get! j| < threshold_rational;
 ∃ result, impl numbers threshold = result → --Program termination (not needed when using Lean)
-if result then spec else ¬spec
+match result with
+| some result => if result then spec else ¬spec
+| none => ¬precondition
 := by
 sorry
 
@@ -23,51 +31,13 @@ sorry
 
 -- */
 -- fn separate_paren_groups(paren_string: String) -> Vec<String>{
-
-def problem_1_aux_1_string_is_balanced
-(paren_string: String) (num_open: Nat): Bool
-:=
--- Recursively check if the string is balanced
-if num_open == 0 then
-  paren_string.isEmpty
-else
-  if paren_string.isEmpty then
-    false
-  else
-    let c := paren_string.get! 0
-    if c == '(' then
-      problem_1_aux_1_string_is_balanced (paren_string.drop 1) (num_open + 1)
-    else if c == ')' then
-      problem_1_aux_1_string_is_balanced (paren_string.drop 1) (num_open - 1)
-    else
-      problem_1_aux_1_string_is_balanced (paren_string.drop 1) num_open
-termination_by paren_string.length
-decreasing_by
-  all_goals
-  {
-    rename_i _ h_non_empty_string
-    rw [String.drop_eq, String.length]
-    simp
-    rw [String.isEmpty_iff] at h_non_empty_string
-    by_cases h_paren_nil : paren_string.length ≤ 0
-    rw [Nat.le_zero_eq] at h_paren_nil
-    rw [←string_eq_iff_data_eq] at h_non_empty_string
-    have h_temp : "".data = [] := by simp
-    rw [h_temp] at h_non_empty_string
-    rw [String.length] at h_paren_nil
-    rw [List.length_eq_zero] at h_paren_nil
-    contradiction
-    have h_temp : paren_string.length > 0 := by linarith
-    assumption
-  }
-
 theorem problem_1
 (paren_string: String) --inps
 (impl: String → List String) --impl
 :
 -- spec
 let spec (c: String) := paren_string.containsSubstr c = true →
-problem_1_aux_1_string_is_balanced c 0 = true;
+string_is_paren_balanced c 0 = true;
 ∃ result, impl paren_string = result → -- Program terminates
 ∀ c, spec c → c ∈ result
 → ∀ str, str ∈ result → spec str
@@ -85,12 +55,16 @@ sorry
 -- fn truncate_number(number: &f32) -> f32{
 theorem problem_2
 (number: Float) --inps
-(impl: Float → Float) --impl
+(impl: Float → Option Float) --impl
 :
 -- spec
-let spec := number - number.floor;
+let precondition := ¬number.isNaN ∧ number.isFinite;
+let number_rational := number.toRat0;
+let spec := number_rational - number_rational.floor;
 ∃ result, impl number = result → --Program termination (not needed when using Lean)
-result = spec
+match result with
+| some result => result.toRat0 = spec
+| none => ¬precondition
 := by
 sorry
 
@@ -106,9 +80,140 @@ theorem problem_3
 (impl: List Int32 → Bool) --impl
 :
 -- spec
-let spec := ∃ i, i < operations.length ∧
-(operations.take i).sum < 0;
+let operations_int := operations.map (fun x => Int32.toInt x);
+-- ^ Important to convert to Int from Int32 to avoid overflow
+-- in the spec itself
+let spec := ∃ i, i < operations_int.length ∧
+(operations_int.take i).sum < 0;
 ∃ result, impl operations = result → --Program termination (not needed when using Lean)
 if result then spec else ¬spec
+:= by
+sorry
+
+
+-- /*
+--  For a given list of input numbers, calculate Mean Absolute Deviation
+--     around the mean of this dataset.
+--     Mean Absolute Deviation is the average absolute difference between each
+--     element and a centerpoint (mean in this case):
+--     MAD = average | x - x_mean |
+
+-- */
+-- fn mean_absolute_deviation(numbers:Vec<f32>) -> f32{
+theorem problem_4
+(numbers: List Float) --inps
+(impl: List Float → Option Float) --impl
+:
+-- spec
+let precondition1 := numbers.length > 0;
+let precondition2 := numbers.all (fun x => ¬x.isNaN ∧ x.isFinite);
+let rational_numbers := numbers.map (fun x => x.toRat0);
+let mean := rational_numbers.sum / rational_numbers.length;
+let spec := (rational_numbers.map (fun x => |x - mean|)).sum / rational_numbers.length;
+∃ result, impl numbers = result → --Program termination (not needed when using Lean)
+match result with
+| some result => result.toRat0 = spec
+| none => ¬precondition1 ∨ ¬precondition2
+:= by
+sorry
+
+
+-- /*
+--  Insert a number 'delimeter' between every two consecutive elements of input list `numbers'
+
+-- */
+-- fn intersperse(numbers:Vec<u32>, delimeter: u32) -> Vec<u32>{
+theorem problem_5
+(numbers: List UInt32) --inps
+(delimeter: UInt32)
+(impl: List UInt32 → UInt32 → List UInt32) --impl
+:
+-- spec
+let spec := numbers.intersperse delimeter;
+∃ result, impl numbers delimeter = result → --Program termination (not needed when using Lean)
+result = spec
+:= by
+sorry
+
+-- /*
+--  Input to this function is a string represented multiple groups for nested parentheses separated by spaces.
+--     For each of the group, output the deepest level of nesting of parentheses.
+--     E.g. (()()) has maximum two levels of nesting while ((())) has three.
+
+-- */
+-- fn parse_nested_parens(paren_string:String) -> Vec<i32>{
+theorem problem_6
+(paren_string: String) --inps
+(impl: String → Option (List UInt32)) --impl
+:
+-- spec
+let groups := paren_string.split (fun x => x = ' ');
+let pre_condition1 :=
+paren_string.all (fun x => x == '(' ∨ x == ')' ∨ x == ' ') ∨ paren_string.isEmpty;
+let pre_condition2 := groups.all (fun x => string_is_paren_balanced x 0);
+let spec := groups.map (fun x => count_paren_depth x);
+let pre_condition3 := spec.all (fun x => x ≤ UInt32Max.toNat);
+∃ result, impl paren_string = result → --Program termination (not needed when using Lean)
+pre_condition1 → pre_condition2 →
+match result with
+| some result => result.map (fun x => x.toNat) = spec
+| none => ¬pre_condition3
+:= by
+sorry
+
+-- /*
+--  Filter an input list of strings only for ones that contain given substring
+
+-- */
+-- fn filter_by_substring(strings: Vec<String>, substring:String) -> Vec<String>{
+theorem problem_7
+(strings: List String) --inps
+(substring: String)
+(impl: List String → String → List String) --impl
+:
+-- spec
+let spec := strings.filter (fun x => x.containsSubstr substring);
+∃ result, impl strings substring = result → --Program termination (not needed when using Lean)
+result = spec
+:= by
+sorry
+
+-- /*
+--  For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.
+--     Empty sum should be equal to 0 and empty product should be equal to 1.
+
+-- */
+-- fn sum_product(numbers:Vec<i32>) -> (i32,i32){
+theorem problem_8
+(numbers: List Int32) --inps
+(impl: List Int32 → Option (Int64 × Int64)) --impl
+:
+-- spec
+let numbers_int := numbers.map (fun x => Int32.toInt x);
+let number_sum := numbers_int.sum;
+let number_product := numbers_int.prod;
+let precondition := number_product ≤ Int64Max.toInt;
+∃ result, impl numbers = result → --Program termination (not needed when using Lean)
+match result with
+| some (sum, product) => sum.toInt = number_sum ∧ product.toInt = number_product
+| none => ¬precondition
+:= by
+sorry
+
+-- /*
+--  From a given list of integers, generate a list of rolling maximum element found until given moment
+--     in the sequence.
+
+-- */
+-- fn rolling_max(numbers:Vec<i32>) -> Vec<i32>{
+theorem problem_9
+(numbers: List Int32) --inps
+(impl: List Int32 → List Int32) --impl
+:
+-- spec
+let numbers_int := numbers.map (fun x => Int32.toInt x);
+let spec (i: Nat) := (numbers_int.take (i+1)).maximum.get!;
+∃ result, impl numbers = result → --Program termination (not needed when using Lean)
+result.map (fun x => x.toInt) = (List.iota numbers_int.length).reverse.map (fun x => spec x)
 := by
 sorry
