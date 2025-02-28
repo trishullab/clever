@@ -52,7 +52,30 @@ def binarySearchLowHi (xs: List Int) (y: Int) (low: Nat) (hi: Nat): Int :=
       apply And.right at h_out_of_bound
       exact h_out_of_bound
     have h_i_lt_n : mid < xs.length := by
-      sorry
+      have h4 : (low + hi) / 2 < xs.length := by
+        have h3 : (low + hi) / 2 ≤ hi := by
+          have div_le : ∀ a b : Nat, a ≤ b → (a + b) / 2 ≤ b := by
+            intro a b h
+            have sum_le : a + b ≤ 2 * b := by
+              simp [Nat.two_mul]
+              exact h
+            exact Nat.div_le_of_le_mul sum_le
+          exact div_le low hi hi_leq_low
+        exact Nat.lt_of_le_of_lt h3 h_hi
+      by_cases sum % 2 == 0
+      rename_i first_case
+      unfold mid
+      simp [first_case]
+      unfold sum
+      exact h4
+      rename_i second_case
+      unfold mid
+      simp [second_case]
+      unfold sum
+      apply lt_of_le_of_lt
+      · exact Nat.div_le_div_right (Nat.sub_le (low + hi) 1)
+      · exact h4
+
     -- ^ NOTE: Prove the above lemma h_i_lt_n
     -- This proof is required to ensure that
     -- list.get can be called with the index `i`
@@ -67,12 +90,24 @@ termination_by hi - low
 decreasing_by
   simp
   have h_sum_mod_2_eq_0_or_1 : sum % 2 = 0 ∨ sum % 2 = 1 := by
-    sorry
+    apply Nat.mod_two_eq_zero_or_one
   cases h_sum_mod_2_eq_0_or_1
   rename_i h_sum_mod_2_eq_0
   rw [h_sum_mod_2_eq_0] at *
   simp -- at this point, prove that hi - ((low + hi) / 2 + 1) < hi - low
+  have h : ((low + hi) / 2 + 1) > low := by
+    have h2 : low ≤ (low + hi) / 2 := by
+      have h1 : 2 * low ≤ low + hi := by
+        linarith
+      simp [Nat.le_div_iff_mul_le]
+      rw [mul_comm]
+      exact h1
+    simp
+    apply Nat.lt_succ_of_le
+    exact h2
   sorry
+
+
   rename_i h_sum_mod_2_eq_1
   rw [h_sum_mod_2_eq_1] at *
   simp -- at this point, prove that hi - ((low + hi - 1) / 2 + 1) < hi - low
