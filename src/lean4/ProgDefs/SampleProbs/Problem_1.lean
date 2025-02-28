@@ -37,12 +37,20 @@ Task 4:
 (Points: 8)
 --/
 def binarySearchLowHi (xs: List Int) (y: Int) (low: Nat) (hi: Nat): Int :=
-  if low > hi then -1
+  if h_out_of_bound: low > hi ∨ hi ≥ xs.length then -1
   else
     let sum := low + hi;
     let mid := if sum % 2 == 0
                then sum / 2
                else (sum - 1) / 2;
+    have hi_leq_low: low ≤ hi := by
+      simp at h_out_of_bound
+      apply And.left at h_out_of_bound
+      exact h_out_of_bound
+    have h_hi: hi < xs.length := by
+      simp at h_out_of_bound
+      apply And.right at h_out_of_bound
+      exact h_out_of_bound
     have h_i_lt_n : mid < xs.length := by
       sorry
     -- ^ NOTE: Prove the above lemma h_i_lt_n
@@ -58,11 +66,6 @@ def binarySearchLowHi (xs: List Int) (y: Int) (low: Nat) (hi: Nat): Int :=
 termination_by hi - low
 decreasing_by
   simp
-  rename_i h_hi_leq_low
-  -- We only have to prove termination for the recursive case when
-  -- `low <= hi`. This is because the base case is already covered by the `if low > hi then -1` line.
-  -- We rename the hypothesis to `h_hi_leq_low` to make it more readable.
-  simp at h_hi_leq_low
   have h_sum_mod_2_eq_0_or_1 : sum % 2 = 0 ∨ sum % 2 = 1 := by
     sorry
   cases h_sum_mod_2_eq_0_or_1
