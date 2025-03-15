@@ -1,11 +1,13 @@
 import Mathlib
 
-
-def Int32Max: Int32 := Int32.ofNat 2147483647
-def Int64Max: Int64 := Int64.ofNat 9223372036854775807
-def UInt32Max: UInt32 := UInt32.ofNat 4294967295
-
--- helper def
+-- start_def string_eq_iff_data_eq
+/--
+{
+  "name": "string_eq_iff_data_eq",
+  "use": "Helper function to prove that two strings are equal if their data is equal.",
+  "problems": [6]
+}
+-/
 def string_eq_iff_data_eq (s1: String) (s2: String)
 : s1.data = s2.data ↔ s1 = s2 := by
   apply Iff.intro
@@ -17,7 +19,16 @@ def string_eq_iff_data_eq (s1: String) (s2: String)
   intro h
   apply String.data_eq_of_eq
   exact h
+-- end_def string_eq_iff_data_eq
 
+-- start_def string_is_paren_balanced
+/--
+{
+  "name": "string_is_paren_balanced",
+  "use": "Helper function to check if a string is balanced with respect to parentheses.",
+  "problems": [1, 6]
+}
+-/
 def string_is_paren_balanced
 (paren_string: String) (num_open: Nat): Bool
 :=
@@ -54,7 +65,15 @@ decreasing_by
     have h_temp : paren_string.length > 0 := by linarith
     assumption
   }
+-- end_def string_is_paren_balanced
 
+-- start_def separate_paren_groups
+/--
+{
+  "use": "Helper function to count the depth of nested parentheses in a string.",
+  "problems": [6]
+}
+-/
 def count_paren_depth
 (paren_string: String): Nat
 :=
@@ -86,3 +105,4 @@ decreasing_by
     have h_temp : paren_string.length > 0 := by linarith
     assumption
   }
+-- end_def separate_paren_groups
