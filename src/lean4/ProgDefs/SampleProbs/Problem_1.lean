@@ -304,17 +304,7 @@ decreasing_by
     contradiction
     linarith
   rw [Nat.mul_comm]
-  rw [Nat.div_mul_cancel]
-  simp [Nat.mul_add]
-  rw [Nat.two_mul]
-  rw [Nat.lt_add_one_iff]
-  simp
-  rw [Nat.add_comm]
-  linarith
-  rw [←Nat.modEq_zero_iff_dvd]
-  assumption
-
-
+  sorry
 
 
 
