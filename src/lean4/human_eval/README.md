@@ -12,20 +12,18 @@ Task 1: Correctness Spec with Ideal Types
 4. Problem specifications must be written between the keywords `-- start_def problem_spec` and `-- end_def problem_spec`. See `src/lean4/human_eval/problem_0.lean` for an example.
 5. The implementation should be specified something like:
 ```lean
--- start_def implementation
+-- start_def implementation_signature
 def implementation (numbers: List Rat) (threshold: Rat) : Bool :=
--- end_def implementation
-sorry
+-- end_def implementation_signature
 ```
 6. The correctness spec should be written as a lemma. It should be written between the keywords `-- start_def correctness_spec` and `-- end_def correctness_spec`. See `src/lean4/human_eval/problem_0.lean` for an example. Something like:
 ```lean
--- start_def correctness
+-- start_def correctness_definition
 theorem correctness
 (numbers: List Rat)
 (threshold: Rat)
 : problem_spec implementation numbers threshold  :=
--- end_def correctness
-sorry
+-- end_def correctness_definition
 ```
 7. We don't check-in any implementation or proofs for the problems. However, encouraged to write some implementation and proofs (or partial proofs) to ensure that the spec is meaningful and can be proved. We will provide some initial implementation and proofs for the first few problems in order to understand the difficulty of the problems and the kind of proofs that are needed. It is encouraged to figure out which problems will have the easiest proof and implementation and which will be the hardest. This will help us in designing the AI solutions for the problems.
 8. For the writing the spec itself, use computable types like `Nat`, `Int`, `Rat`, `List`, `Array`, `String`, `Char`, `Bool`, etc. Do NOT use `Real`, `Complex`, `Set` etc.

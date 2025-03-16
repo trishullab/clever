@@ -52,9 +52,10 @@ forward_spec result_list ∧ backward_spec result_list;
 spec result
 -- end_def problem_spec
 
--- start_def implementation
+-- start_def implementation_signature
 def implementation (paren_string: String) : List String :=
--- end_def implementation
+-- end_def implementation_signature
+-- start_def implementation
 -- remove space or any other characters that are not '(' or ')'
 let filtered := paren_string.toList.filter (fun c => c == '(' ∨  c == ')');
 -- auxiliary recursive function:
@@ -73,21 +74,23 @@ let rec aux (cs : List Char) (cur : List Char) (balance : Int) (acc : List Strin
     else
       aux rest new_cur new_balance acc;
 aux filtered [] 0 []
+-- end_def implementation
 
 -- start_def test_cases
 -- Uncomment the following test cases after implementing the function
 #test implementation "( ) (( )) (( )( ))" = ["()", "(())", "(()())"]
 -- end_def test_cases
 
--- start_def correctness
+-- start_def correctness_definition
 theorem correctness
 (paren_string: String)
 : problem_spec implementation paren_string :=
--- end_def correctness
+-- end_def correctness_definition
+-- start_def correctness_proof
 by
 unfold problem_spec
 let result := implementation paren_string
 use result
 simp [result]
 sorry
--- end_def correctness
+-- end_def correctness_proof

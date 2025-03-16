@@ -33,13 +33,14 @@ spec result
 -- if result then spec else ¬spec
 -- end_def problem_spec
 
--- start_def implementation
+-- start_def implementation_signature
 def implementation (numbers: List Rat) (threshold: Rat) : Bool :=
--- end_def implementation
+-- end_def implementation_signature
+-- start_def implementation
 match numbers with
 | []       => false
 | (x::xs)  => (xs.any (fun y => (|x - y| < threshold))) || implementation xs threshold
-
+-- end_def implementation
 
 -- start_def test_cases
 -- Uncomment the following test cases after implementing the function
@@ -48,12 +49,13 @@ match numbers with
 -- end_def test_cases
 
 
--- start_def correctness
+-- start_def correctness_definition
 theorem correctness
 (numbers: List Rat)
 (threshold: Rat)
 : problem_spec implementation numbers threshold  :=
--- end_def correctness
+-- end_def correctness_definition
+-- start_def correctness_proof
 by
 unfold problem_spec
 let result := implementation numbers threshold
@@ -278,3 +280,4 @@ simp [h_j_lt_tail_len]
 simp [h_i_neq_j]
 simp [h_i_lt_tail_len, h_j_lt_tail_len] at h_j_in_threshold
 assumption
+-- end_def correctness_proof
