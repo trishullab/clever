@@ -2,14 +2,13 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-{
-function_signature: "def has_close_elements(numbers: List[float], threshold: float) -> bool:"
-docstring: "Check if in given list of numbers, are any two numbers closer to each other than given threshold."
-test_cases: [
-  {"input": [[1.0, 2.0, 3.0], 0.5], "expected_output": False},
-  {"input": [[1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3], "expected_output": True}
-]
-}
+function_signature: "def has_close_elements(numbers: List[float], threshold: float) -> bool"
+docstring: Check if in given list of numbers, are any two numbers closer to each other than given threshold.
+test_cases:
+  - input: [[1.0, 2.0, 3.0], 0.5]
+    expected_output: False
+  - input: [[1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3]
+    expected_output: True
 -/
 -- end_def problem_details
 
@@ -21,25 +20,41 @@ def problem_spec
 (numbers: List Rat)
 (threshold: Rat) :=
 -- spec
-let spec :=
+let numbers_within_threshold :=
 numbers.length > 1 ∧
 (∃ i j, i < numbers.length ∧ j < numbers.length ∧
 i ≠ j ∧ |numbers.get! i - numbers.get! j| < threshold);
+let spec (res: Bool) :=
+if res then numbers_within_threshold else ¬numbers_within_threshold;
 -- program terminates
 ∃ result, impl numbers threshold = result →
 -- return value satisfies spec
-if result then spec else ¬spec
+spec result
+-- if result then spec else ¬spec
 -- end_def problem_spec
 
+-- start_def implementation
 def implementation (numbers: List Rat) (threshold: Rat) : Bool :=
+-- end_def implementation
 match numbers with
 | []       => false
 | (x::xs)  => (xs.any (fun y => (|x - y| < threshold))) || implementation xs threshold
 
+
+-- start_def test_cases
+-- Uncomment the following test cases after implementing the function
+#test implementation ([1, 2, 3]: List Rat) 0.5 = false
+#test implementation ([1, 2.8, 3, 4, 5, 2]: List Rat) 0.3 = true
+-- end_def test_cases
+
+
+-- start_def correctness
 theorem correctness
 (numbers: List Rat)
 (threshold: Rat)
-: problem_spec implementation numbers threshold  := by
+: problem_spec implementation numbers threshold  :=
+-- end_def correctness
+by
 unfold problem_spec
 let result := implementation numbers threshold
 use result

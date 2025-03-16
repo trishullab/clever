@@ -1,49 +1,6 @@
 import Imports.AllImports
 
 
-
-theorem problem_0
-(numbers: List Float) --inps
-(threshold: Float)
-(impl: List Float → Float → Option Bool) --impl
-:
--- spec
-let precondition := numbers.all (fun x => ¬x.isNaN ∧ x.isFinite);
-let numbers_rational := numbers.map (fun x => x.toRat0);
-let threshold_rational := threshold.toRat0;
-let spec := ∃ i j,
-i < numbers_rational.length ∧
-j < numbers_rational.length ∧
-i ≠ j ∧
-|numbers_rational.get! i - numbers_rational.get! j| < threshold_rational;
-∃ result, impl numbers threshold = result → --Program termination (not needed when using Lean)
-match result with
-| some result => if result then spec else ¬spec
-| none => ¬precondition
-:= by
-sorry
-
--- /*
---  Input to this function is a string containing multiple groups of nested parentheses. Your goal is to
---     separate those group into separate strings and return the list of those.
---     Separate groups are balanced (each open brace is properly closed) and not nested within each other
---     Ignore any spaces in the input string.
-
--- */
--- fn separate_paren_groups(paren_string: String) -> Vec<String>{
-theorem problem_1
-(paren_string: String) --inps
-(impl: String → List String) --impl
-:
--- spec
-let spec (c: String) := paren_string.containsSubstr c = true →
-string_is_paren_balanced c 0 = true;
-∃ result, impl paren_string = result → -- Program terminates
-∀ c, spec c → c ∈ result
-→ ∀ str, str ∈ result → spec str
-:= by
-sorry
-
 -- /*
 --  Given a positive floating point number, it can be decomposed into
 --     and integer part (largest integer smaller than given number) and decimals
@@ -150,8 +107,8 @@ theorem problem_6
 let groups := paren_string.split (fun x => x = ' ');
 let pre_condition1 :=
 paren_string.all (fun x => x == '(' ∨ x == ')' ∨ x == ' ') ∨ paren_string.isEmpty;
-let pre_condition2 := groups.all (fun x => string_is_paren_balanced x 0);
-let spec := groups.map (fun x => count_paren_depth x);
+let pre_condition2 := groups.all (fun x => string_is_paren_balanced x);
+let spec := groups.map (fun x => x.count '(');
 let pre_condition3 := spec.all (fun x => x ≤ UInt32Max.toNat);
 ∃ result, impl paren_string = result → --Program termination (not needed when using Lean)
 pre_condition1 → pre_condition2 →
