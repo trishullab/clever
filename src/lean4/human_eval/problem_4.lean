@@ -52,15 +52,15 @@ mad
 
 -- start_def correctness_definition
 theorem correctness
-(operations: List Int)
-: problem_spec implementation operations
+(numbers: List Int)
+: problem_spec implementation numbers
 :=
 -- end_def correctness_definition
 -- start_def correctness_proof
 by
 -- sometimes we have to create a temporary variable to use in the proof
 unfold problem_spec
-let result := implementation operations
+let result := implementation numbers
 use result
 simp [result]
 simp [implementation]

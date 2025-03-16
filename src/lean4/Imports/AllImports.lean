@@ -138,6 +138,62 @@ def count_paren_groups
 count_paren_groups_helper paren_string 0 0
 -- end_def helper_definitions
 
+-- start_def helper_definitions
+/--
+  name: count_max_paren_depth_helper
+  use: |
+    Helper to count the maximum depth of parentheses in a string.
+  problems:
+    - 6
+-/
+def count_max_paren_depth_helper
+(paren_string: String) (num_open: Int) (max_depth: Nat): Nat :=
+-- Recursively count the maximum depth of parentheses
+if paren_string.isEmpty then
+  max_depth
+else
+  let c := paren_string.get! 0
+  if c == '(' then
+    let new_num_open := num_open + 1
+    count_max_paren_depth_helper (paren_string.drop 1) (new_num_open) (max_depth.max new_num_open.toNat)
+  else if c == ')' then
+    count_max_paren_depth_helper (paren_string.drop 1) (num_open - 1) max_depth
+  else
+    count_max_paren_depth_helper (paren_string.drop 1) num_open max_depth
+termination_by paren_string.length
+decreasing_by
+  all_goals
+  {
+    rename_i h_non_empty_string
+    rw [String.drop_eq, String.length]
+    simp
+    rw [String.isEmpty_iff] at h_non_empty_string
+    by_cases h_paren_nil : paren_string.length ≤ 0
+    rw [Nat.le_zero_eq] at h_paren_nil
+    rw [←string_eq_iff_data_eq] at h_non_empty_string
+    have h_temp : "".data = [] := by simp
+    rw [h_temp] at h_non_empty_string
+    rw [String.length] at h_paren_nil
+    rw [List.length_eq_zero] at h_paren_nil
+    contradiction
+    have h_temp : paren_string.length > 0 := by linarith
+    assumption
+  }
+-- end_def helper_definitions
+
+-- start_def helper_definitions
+/--
+  name: count_max_paren_depth
+  use: |
+    Function to count the maximum depth of parentheses in a string.
+  problems:
+    - 6
+-/
+def count_max_paren_depth
+(paren_string: String): Nat :=
+count_max_paren_depth_helper paren_string 0 0
+-- end_def helper_definitions
+
 
 -- start_def test_cases
 #test string_is_paren_balanced_helper "()" 0 = true
@@ -154,4 +210,8 @@ count_paren_groups_helper paren_string 0 0
 #test count_paren_groups "(())()(())(())" = 4
 #test count_paren_groups "(())()(())(())(())" = 5
 #test count_paren_groups "((())()(())(())(())(()))" = 1
+#test count_max_paren_depth "()" = 1
+#test count_max_paren_depth "(())" = 2
+#test count_max_paren_depth "(()())" = 2
+#test count_max_paren_depth "(()" = 2
 -- end_def test_cases
