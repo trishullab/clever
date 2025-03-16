@@ -52,6 +52,7 @@ let rec check (ops : List Int) (acc : Int) : Bool :=
 check operations 0
 -- end_def implementation
 
+-- Uncomment the following test cases after implementing the function
 -- start_def test_cases
 #test implementation [1, 2, 3] = false
 #test implementation [1, 2, -4, 5] = true

@@ -46,6 +46,7 @@ let mad := (numbers.map (fun x => |x - mean|)).sum / numbers.length;
 mad
 -- end_def implementation
 
+-- Uncomment the following test cases after implementing the function
 -- start_def test_cases
 #test implementation [1.0, 2.0, 3.0, 4.0] = 1.0
 -- end_def test_cases

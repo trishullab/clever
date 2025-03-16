@@ -1,23 +1,5 @@
 import Imports.AllImports
 
-
--- /*
---  Filter an input list of strings only for ones that contain given substring
-
--- */
--- fn filter_by_substring(strings: Vec<String>, substring:String) -> Vec<String>{
-theorem problem_7
-(strings: List String) --inps
-(substring: String)
-(impl: List String → String → List String) --impl
-:
--- spec
-let spec := strings.filter (fun x => x.containsSubstr substring);
-∃ result, impl strings substring = result → --Program termination (not needed when using Lean)
-result = spec
-:= by
-sorry
-
 -- /*
 --  For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.
 --     Empty sum should be equal to 0 and empty product should be equal to 1.

@@ -42,8 +42,8 @@ match numbers with
 | (x::xs)  => (xs.any (fun y => (|x - y| < threshold))) || implementation xs threshold
 -- end_def implementation
 
--- start_def test_cases
 -- Uncomment the following test cases after implementing the function
+-- start_def test_cases
 #test implementation ([1, 2, 3]: List Rat) 0.5 = false
 #test implementation ([1, 2.8, 3, 4, 5, 2]: List Rat) 0.3 = true
 -- end_def test_cases

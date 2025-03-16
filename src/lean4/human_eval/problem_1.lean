@@ -76,8 +76,8 @@ let rec aux (cs : List Char) (cur : List Char) (balance : Int) (acc : List Strin
 aux filtered [] 0 []
 -- end_def implementation
 
--- start_def test_cases
 -- Uncomment the following test cases after implementing the function
+-- start_def test_cases
 #test implementation "( ) (( )) (( )( ))" = ["()", "(())", "(()())"]
 -- end_def test_cases
 

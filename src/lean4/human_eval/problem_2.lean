@@ -35,6 +35,7 @@ def implementation (number: Rat) : Rat :=
 number - number.floor
 -- end_def implementation
 
+-- Uncomment the following test cases after implementing the function
 -- start_def test_cases
 #test implementation 3.5 = 0.5
 -- end_def test_cases

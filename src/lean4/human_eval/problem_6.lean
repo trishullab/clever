@@ -40,8 +40,8 @@ def implementation (paren_string: String) : List Int :=
 (paren_string.split (fun x => x = ' ')).map (fun x => count_max_paren_depth x)
 -- end_def implementation
 
--- start_def test_cases
 -- Uncomment the following test cases after implementing the function
+-- start_def test_cases
 #test implementation "(()()) ((())) () ((())()())" = [2, 3, 1, 3]
 -- end_def test_cases
 
