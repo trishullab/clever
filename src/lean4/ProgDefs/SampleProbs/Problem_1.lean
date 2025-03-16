@@ -305,6 +305,7 @@ decreasing_by
     linarith
   rw [Nat.mul_comm]
   sorry
+  sorry
 
 
 
