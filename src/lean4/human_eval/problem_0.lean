@@ -21,10 +21,10 @@ def problem_spec
 (threshold: Rat) :=
 -- spec
 let numbers_within_threshold :=
-numbers.length > 1 ∧
 (∃ i j, i < numbers.length ∧ j < numbers.length ∧
 i ≠ j ∧ |numbers.get! i - numbers.get! j| < threshold);
 let spec (res: Bool) :=
+numbers.length > 1 →
 if res then numbers_within_threshold else ¬numbers_within_threshold;
 -- program terminates
 ∃ result, impl numbers threshold = result →
@@ -257,27 +257,28 @@ simp [h_j_lt_tail_len]
 simp [h_i_neq_j]
 simp [h_i_lt_tail_len, h_j_lt_tail_len] at h_j_in_threshold
 assumption
-simp [h_1_lt_tail] at ih
-simp at h_0_lt_tail_len
-cases h_result_true
-rename_i h_head_in_threshold
-obtain ⟨ x, h_x_in_tail, _⟩ := h_head_in_threshold
-rw [h_0_lt_tail_len] at h_x_in_tail
-contradiction
-rename_i h_tail_has_close_elements
-simp [h_tail_has_close_elements] at ih
-have h_1_lt_tail' : 1 < tail.length := by linarith
-have h_0_lt_tail_len : 0 < tail.length := by linarith
+use 0
+simp
+use 1
+simp
+unfold implementation at h_tail_has_close_elements
+by_cases h_1_tail: tail.length = 0
+have h_tail_empty := List.eq_nil_of_length_eq_zero h_1_tail
+simp [h_tail_empty] at h_tail_has_close_elements
+simp at h_1_lt_tail
+have h_0_lt_tail_len : tail.length = 1 := by linarith
+have h_tail_singleton: ∃ x, tail = [x] := by
+  rw [List.length_eq_one] at h_0_lt_tail_len
+  assumption
+obtain ⟨ x, h_tail_singleton ⟩ := h_tail_singleton
 simp [h_0_lt_tail_len]
-simp [h_1_lt_tail'] at ih
-obtain ⟨ i, h_i_lt_tail_len, h_i_in_threshold ⟩ := ih
-use i + 1
-have h_i_lt_tail_len' : i + 1 < tail.length + 1 := by linarith
-simp [h_i_lt_tail_len']
-obtain ⟨ j, h_j_lt_tail_len, h_i_neq_j, h_j_in_threshold ⟩ := h_i_in_threshold
-use j + 1
-simp [h_j_lt_tail_len]
-simp [h_i_neq_j]
-simp [h_i_lt_tail_len, h_j_lt_tail_len] at h_j_in_threshold
-assumption
+simp [h_tail_singleton]
+try (simp [h_tail_singleton] at h_tail_has_close_elements)
+unfold implementation at h_tail_has_close_elements
+simp at h_tail_has_close_elements
+simp at h_0_lt_tail_len
+have h_tail_ln_eq_0 : tail.length = 0 := by
+  rw [h_0_lt_tail_len]
+  simp
+simp [h_tail_ln_eq_0]
 -- end_def correctness_proof
