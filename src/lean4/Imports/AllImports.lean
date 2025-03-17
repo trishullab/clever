@@ -194,6 +194,19 @@ def count_max_paren_depth
 count_max_paren_depth_helper paren_string 0 0
 -- end_def helper_definitions
 
+-- start_def helper_definitions
+/--
+  name: is_palindrome
+  use: |
+    Helper to check if a string is a palindrome.
+  problems:
+    - 10
+-/
+def is_palindrome
+(s: String): Bool :=
+s = s.toList.reverse.asString
+-- end_def helper_definitions
+
 
 -- start_def test_cases
 #test string_is_paren_balanced_helper "()" 0 = true
@@ -214,4 +227,16 @@ count_max_paren_depth_helper paren_string 0 0
 #test count_max_paren_depth "(())" = 2
 #test count_max_paren_depth "(()())" = 2
 #test count_max_paren_depth "(()" = 2
+#test count_max_paren_depth "())" = 1
+#test is_palindrome "" = true
+#test is_palindrome "a" = true
+#test is_palindrome "aa" = true
+#test is_palindrome "aba" = true
+#test is_palindrome "abba" = true
+#test is_palindrome "abc" = false
+#test is_palindrome "abcba" = true
+#test is_palindrome "abccba" = true
+#test is_palindrome "abcdba" = false
+#test is_palindrome "abcddcbac" = false
+#test is_palindrome "abcddcba" = true
 -- end_def test_cases
