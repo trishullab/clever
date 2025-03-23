@@ -30,7 +30,7 @@ let spec (result: String) :=
   (∀ i, i < a.length →
   let i_pos := String.Pos.mk i;
   (a.get i_pos = b.get i_pos → result.get i_pos = '0') ∧
-  (a.get i_pos ≠ b.get i_pos → result.get i_pos = '1'))
+  (a.get i_pos ≠ b.get i_pos → result.get i_pos = '1'));
 -- program termination
 ∃ result, implementation a b = result →
 spec result

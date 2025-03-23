@@ -22,7 +22,7 @@ def problem_spec
 -- spec
 let spec (res):=
 0 ≤ res ∧ res < 1 ∧
-number = number.floor + res
+number = number.floor + res;
 -- program terminates
 ∃ result, impl number = result →
 -- return value satisfies spec

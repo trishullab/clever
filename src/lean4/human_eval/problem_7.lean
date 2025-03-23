@@ -31,7 +31,7 @@ let spec (result: List String) :=
 ∃ j, j < strings.length ∧ i ≤ j ∧ strings[j]! = result[i]!)
 ∧
 (∀ i, i < strings.length → strings[i]!.containsSubstr substring →
-∃ j, j < result.length ∧ j ≤ i ∧ result[j]! = strings[i]!)
+∃ j, j < result.length ∧ j ≤ i ∧ result[j]! = strings[i]!);
 -- program termination
 ∃ result, implementation strings substring = result →
 spec result

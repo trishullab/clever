@@ -2,14 +2,14 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def count_distinct_characters(string: str) -> int"
+function_signature: "def strlen(string: str) -> int"
 docstring: |
-    Given a string, find out how many distinct characters (regardless of case) does it consist of
+    Return length of given string
 test_cases:
-  - input: "xyzXYZ"
+  - input: ""
+    expected_output: 0
+  - input: "abc"
     expected_output: 3
-  - input: "Jerry"
-    expected_output: 4
 -/
 -- end_def problem_details
 
@@ -21,27 +21,25 @@ def problem_spec
 (string: String) :=
 -- spec
 let spec (result: Nat) :=
-let string_idx := {i: Nat | i < string.length}.toFinset
-let characters := string_idx.image (fun i => string.toList.get! i)
-let lowercase_characters := characters.image (fun c => c.toLower)
-result = lowercase_characters.card;
+let characters := string.toList;
+-- every character in the string is counted once
+(characters.map (fun _ => 1)).sum = result;
 -- program termination
 ∃ result, implementation string = result →
 spec result
 -- end_def problem_spec
 
 -- start_def implementation_signature
-def implementation (string: String) : Nat :=
+def implementation (string: String): Nat :=
 -- end_def implementation_signature
 -- start_def implementation
-let char_set := string.toLower.toList.toFinset
-char_set.card
+string.length
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
-#test implementation "xyzXYZ" = 3
-#test implementation "Jerry" = 4
+#test implementation "" = 0
+#test implementation "abc" = 3
 -- end_def test_cases
 
 -- start_def correctness_definition
@@ -57,21 +55,4 @@ let result := implementation string
 use result
 simp [result]
 simp [implementation]
-rcases string with ⟨data⟩
-induction data
-simp
-have h1: "".toLower = "" := by
-  unfold String.toLower
-  unfold Char.toLower
-  unfold String.map
-  unfold String.mapAux
-  simp
-  intros
-  contradiction
-simp [h1]
-rename_i head tail ih
-unfold String.toLower
-rw [String.map_eq]
-simp
-sorry
 -- end_def correctness_proof

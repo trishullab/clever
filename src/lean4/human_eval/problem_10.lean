@@ -33,7 +33,7 @@ string.isPrefixOf result ∧
 (∀ (possible_palindrome: String),
 string.isPrefixOf possible_palindrome →
 is_palindrome possible_palindrome →
-result.length ≤ possible_palindrome.length)
+result.length ≤ possible_palindrome.length);
 -- program termination
 ∃ result, implementation string = result →
 spec result
