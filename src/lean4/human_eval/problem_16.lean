@@ -21,7 +21,10 @@ def problem_spec
 (string: String) :=
 -- spec
 let spec (result: Nat) :=
-string.toLower.toList.toFinset.card = result
+let string_idx := {i: Nat | i < string.length}.toFinset
+let characters := string_idx.image (fun i => string.toList.get! i)
+let lowercase_characters := characters.image (fun c => c.toLower)
+result = lowercase_characters.card
 -- program termination
 ∃ result, implementation string = result →
 spec result
@@ -54,4 +57,21 @@ let result := implementation string
 use result
 simp [result]
 simp [implementation]
+rcases string with ⟨data⟩
+induction data
+simp
+have h1: "".toLower = "" := by
+  unfold String.toLower
+  unfold Char.toLower
+  unfold String.map
+  unfold String.mapAux
+  simp
+  intros
+  contradiction
+simp [h1]
+rename_i head tail ih
+unfold String.toLower
+rw [String.map_eq]
+simp
+sorry
 -- end_def correctness_proof
