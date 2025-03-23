@@ -21,7 +21,8 @@ def problem_spec
 (number: Rat) :=
 -- spec
 let spec (res):=
-res = number - number.floor;
+0 ≤ res ∧ res < 1 ∧
+number = number.floor + res
 -- program terminates
 ∃ result, impl number = result →
 -- return value satisfies spec
@@ -52,4 +53,11 @@ let result := implementation number
 use result
 simp [result]
 simp [implementation]
+have h1: ∀ x: Rat, x.floor ≤ x := by
+  intro x
+  rw [←Rat.le_floor]
+apply And.intro
+apply h1
+have h2 := h1 number
+sorry
 -- end_def correctness_proof
