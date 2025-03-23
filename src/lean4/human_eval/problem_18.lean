@@ -38,7 +38,7 @@ let spec (result: Nat) :=
 (substring.length < string.length  →
 let subtring_start_idx := {i: Nat | i ≤ string.length - substring.length};
 let substring_occurrences := {i ∈ subtring_start_idx | (string.take (i + substring.length)).drop i = substring };
-result = substring_occurrences.toFinset.card)
+result = substring_occurrences.toFinset.card);
 -- program termination
 ∃ result, implementation string substring = result →
 spec result
@@ -72,5 +72,6 @@ by
 unfold problem_spec
 let result := implementation string substring
 use result
+simp [result]
 sorry
 -- end_def correctness_proof

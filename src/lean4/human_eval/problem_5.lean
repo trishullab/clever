@@ -30,7 +30,7 @@ let spec (result: List Int) :=
 (result.length = 2 * numbers.length - 1 ∧
 ∀ i, i < numbers.length →
 result[2 * i]! = numbers[i]! ∧
-(2*i - 1 > 0 → result[2 * i - 1]! = delimeter))
+(2*i - 1 > 0 → result[2 * i - 1]! = delimeter));
 -- program termination
 ∃ result, implementation numbers delimeter = result →
 spec result

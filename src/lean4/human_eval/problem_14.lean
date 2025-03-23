@@ -24,7 +24,7 @@ def problem_spec
 let spec (result: List String) :=
 result.length = string.length ∧
 ∀ i, i < result.length →
-result[i]! = string.take (i + 1)
+result[i]! = string.take (i + 1);
 -- program termination
 ∃ result, implementation string = result →
 spec result

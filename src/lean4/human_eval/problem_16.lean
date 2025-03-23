@@ -24,7 +24,7 @@ let spec (result: Nat) :=
 let string_idx := {i: Nat | i < string.length}.toFinset
 let characters := string_idx.image (fun i => string.toList.get! i)
 let lowercase_characters := characters.image (fun c => c.toLower)
-result = lowercase_characters.card
+result = lowercase_characters.card;
 -- program termination
 ∃ result, implementation string = result →
 spec result

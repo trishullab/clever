@@ -66,7 +66,7 @@ Lean Tutorial
     - [All Tactics](https://leanprover-community.github.io/mathlib-manual/html-multi/)
 
 #### Sample Challenge:
-- Need to prove theorems/ state definitions in Lean 4 in different `*.lean` files, in the `src/lean4/ProbDefs` and `src/lean4/ProbVer` directory.
+- Need to prove theorems/ state definitions in Lean 4 in different `*.lean` files, in the `src/lean4/ProgDefs` and `src/lean4/ProgVer` directory.
 - Theorems/definitions are mostly related to programs written in Lean 4 and verification conditions of those programs.
 - Each problem has corresponding points and the points are awarded based on the correctness of the solution.
 - You just have to submit a PR by removing the comments in each of these files and adding your solution.

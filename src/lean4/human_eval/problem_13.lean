@@ -29,7 +29,7 @@ let spec (result: Int) :=
 (result ∣ b) ∧
 (∀ (d': Int),
 (d' > 0) → (d' ∣ a) → (d' ∣ b) →
-d' ≤ result)
+d' ≤ result);
 -- program termination
 ∃ result, implementation a b = result →
 spec result
