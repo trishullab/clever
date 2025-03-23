@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "largest_divisor(n: int) -> int"
+function_signature: "def largest_divisor(n: int) -> int"
 docstring: |
     For a given number n, find the largest number that divides n evenly, smaller than n
 test_cases:
