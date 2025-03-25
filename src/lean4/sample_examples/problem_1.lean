@@ -316,8 +316,8 @@ implementation.loop score_changes threshold score coins =
   simp [h_simple_increment]
   simp [←h_sum_perm]
   -- Case 2: where head + score < threshold
-  have h_simple_increment := (implementation_loop_simple_increment head tail threshold score coins).left h_head_ge_threshold
-  simp [h_simple_increment] at h_within_threshold
+  have h_simple_increment := (implementation_loop_simple_increment head tail threshold score coins).left
+  simp [h_simple_increment (by linarith)] at h_within_threshold
   by_cases h_tail_len_0: tail.length ≤ 0
   -- Case 2.1: where tail.length ≤ 0
   rw [Nat.le_zero] at h_tail_len_0
@@ -332,7 +332,7 @@ implementation.loop score_changes threshold score coins =
   obtain ⟨i', h_1_le_i', h_i'_le_len, h_to_prove⟩ := ih
   use i' + 1
   simp [h_i'_le_len]
-  simp [h_simple_increment]
+  simp [h_simple_increment (by linarith)]
   have h_perm_sum': score + (head + (List.take i' tail).sum) = head + score + (List.take i' tail).sum := by
     linarith
   simp [h_perm_sum']
