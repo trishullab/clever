@@ -26,7 +26,7 @@ let paren_space_split := paren_string.split (fun x => x = ' ');
 result.length = paren_space_split.length ∧
 ∀ i, i < result.length →
 let group := paren_space_split[i]!;
-string_is_paren_balanced group →
+balanced_paren_non_computable group →
 result[i]! > 0 ∧ count_max_paren_depth group = result[i]!.toNat;
 -- program termination
 ∃ result, implementation paren_string = result →
