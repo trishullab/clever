@@ -58,7 +58,7 @@ theorem correctness
 -- start_def correctness_proof
 by
 unfold problem_spec
-let result := implementation l
+let result := implementation s
 use result
 simp [result]
 sorry
