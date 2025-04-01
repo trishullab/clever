@@ -31,6 +31,8 @@ by
   problems:
     - 1
     - 6
+  sample_problems:
+    - 0
 -/
 def string_is_paren_balanced_helper
 (paren_string: String) (num_open: Int): Bool
@@ -75,12 +77,31 @@ decreasing_by
   problems:
     - 1
     - 6
+  sample_problems:
+    - 0
 -/
 def string_is_paren_balanced
 (paren_string: String): Bool
 :=
 string_is_paren_balanced_helper paren_string 0
 -- end_def helper_definitions
+
+/--
+  name: balanced_paren_non_computable
+  use: |
+    Non-computable definition to check if a string is balanced with respect to parentheses.
+  problems:
+    - 1
+    - 6
+  sample_problems:
+    - 0
+-/
+def balanced_paren_non_computable
+(paren_string: String): Prop
+:=
+let chars := paren_string.toList;
+(∀ (i : ℕ), i ≤ chars.length → ((chars.take i).count ')') ≤ ((chars.take i).count '(')) ∧
+(chars.count '(' = chars.count ')')
 
 -- start_def helper_definitions
 /--
