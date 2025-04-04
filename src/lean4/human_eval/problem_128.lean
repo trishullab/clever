@@ -25,13 +25,18 @@ def problem_spec
 -- inputs
 (arr: List Int) :=
 -- spec
-let magnitude_sum := (arr.map (fun x => Int.ofNat x.natAbs)).sum;
-let sign_product := (arr.map (fun x => if x > 0 then 1 else if x < 0 then -1 else 0)).prod;
 let spec (result: Option Int) :=
-  arr = [] → result = none ∧
-  arr ≠ [] → match result with
-             | some result => magnitude_sum * sign_product = result
-             | none => false
+  match result with
+  | none => arr = []
+  | some result =>
+  let magnitude_sum := (arr.map (fun x => Int.ofNat x.natAbs)).sum;
+    let neg_count_odd := (arr.filter (fun x => x < 0)).length % 2 = 1;
+    let has_zero := ∃ i, i ∈ arr → i = 0;
+    (result < 0 → (neg_count_odd ∧ ¬has_zero)
+      ∧ result = magnitude_sum * -1) ∧
+    (result > 0 → (¬neg_count_odd ∧ ¬has_zero)
+      ∧ result = magnitude_sum) ∧
+    (result = 0 → has_zero)
 -- program termination
 ∃ result, impl arr = result →
 spec result

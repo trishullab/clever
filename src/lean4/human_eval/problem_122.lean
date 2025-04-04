@@ -19,15 +19,18 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(impl: List Int → Int → Int)
+(impl: List Int → Nat → Int)
 -- inputs
 (arr: List Int)
-(k: Int) :=
+(k: Nat) :=
 -- spec
-let two_digit_arr := (arr.take k.natAbs).filter (fun x => x ≤ 99 ∨ x ≥ -99)
 let spec (result: Int) :=
-  let preconditions := arr.length ≥ 1 ∧ arr.length ≤ 100 ∧ k ≥ 1 ∧ k ≤ arr.length;
-  preconditions → two_digit_arr.sum = result;
+  1 ≤ arr.length → arr.length ≤ 100 → 1 ≤ k → k ≤ arr.length → 
+  ∃ i, 0 ≤ i ∧ i < k ∧ arr[i]! ≤ 99 ∧ -99 ≤ arr[i]! →
+    result = arr[i]! + impl arr i →
+  ∀ i', i < i' ∧ i' < k → ¬(arr[i']! ≤ 99 ∧ -99 ≤ arr[i']!)
+
+  ∧ ¬(∃ i, 0 ≤ i ∧ i < k ∧ arr[i]! ≤ 99 ∧ -99 ≤ arr[i]!) → result = 0;
 -- program termination
 ∃ result, impl arr k = result →
 spec result
@@ -35,7 +38,7 @@ spec result
 
 
 -- start_def implementation_signature
-def implementation (arr: List Int) (k: Int) : Int :=
+def implementation (arr: List Int) (k: Nat) : Int :=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
@@ -50,7 +53,7 @@ sorry
 -- start_def correctness_definition
 theorem correctness
 (arr: List Int)
-(k: Int)
+(k: Nat)
 : problem_spec implementation arr k :=
 -- end_def correctness_definition
 -- start_def correctness_proof

@@ -24,22 +24,23 @@ test_examples:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(impl: List Float → Int)
+(impl: List Rat → Int)
 -- inputs
-(lst: List Float) :=
+(lst: List Rat) :=
 -- spec
-lst.filter (fun x => x.ceil.toInt);
-
-can't convert float to int ideal type, should result be float instead of int?
-
+let int_lst := lst.map (fun x => x.ceil);
+let spec (list: List Int) (result: Int) :=
+    match list with
+    | [] => result = 0
+    | head::tail => 0 ≤ result - head^2 ∧ (impl (list.drop 1) = (result - head^2));
 -- program termination
-∃ result, impl arr k = result →
-spec result
+∃ result, impl lst = result →
+spec int_lst result
 -- end_def problem_spec
 
 
 -- start_def implementation_signature
-def implementation (lst: List Float) : Int :=
+def implementation (lst: List Rat) : Int :=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
@@ -53,8 +54,8 @@ sorry
 
 -- start_def correctness_definition
 theorem correctness
-(lst: List Float)
-: problem_spec implementation :=
+(lst: List Rat)
+: problem_spec implementation lst :=
 -- end_def correctness_definition
 -- start_def correctness_proof
 sorry

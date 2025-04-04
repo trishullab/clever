@@ -22,9 +22,16 @@ def problem_spec
 -- inputs
 (lst: List Int) :=
 -- spec
-let odd_in_even_pos := (lst.enum.filter (fun (i, x) => i % 2 = 0 ∧ x % 2 = 1)).map Prod.snd
 let spec (result : Int) :=
-  lst ≠ [] →  odd_in_even_pos.sum = result;
+  lst ≠ [] →
+  ∃ i, 0 ≤ i ∧ i < lst.length ∧ i % 2 = 0 ∧ lst[i]! % 2 = 1 →
+    (let lst' := lst.take i;
+    result = lst[i]! + impl lst') →
+  ∀ i', i < i' ∧ i' < lst.length ∧ i' % 2 = 0 → ¬lst[i']! % 2 = 1 -- i must be last odd element in even pos
+  -- case where lst contains no odd elements in even positions
+  ∧ ¬(∃ i, 0 ≤ i ∧ i < lst.length ∧ i % 2 = 0 ∧ lst[i]! % 2 = 1) →
+    result = 0
+
 -- program termination
 ∃ result, impl lst = result →
 spec result

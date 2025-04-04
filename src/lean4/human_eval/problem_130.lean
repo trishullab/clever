@@ -31,10 +31,15 @@ def problem_spec
 (n: Int) :=
 -- spec
 let spec (result: List Int) :=
-  n > 0 → result.length = n + 1 ∧ result[0]! = 1 ∧ result[1]! = 3 ∧
-  ∀ (i: Nat), i > 1 ∧ i < n → if i % 2 = 0 then result[i]! = 1 + i / 2 else i = result[i-1]! + result[i - 2]! + result[i + 1]! ∧
-  let last_element := result[n.natAbs]!;
-  if last_element % 2 = 0 then last_element = 1 + n / 2 else last_element = result[n.natAbs-1]! + result[n.natAbs-2]! + (1 + (n+1) / 2);
+  n ≥ 0 →
+  result.length > 0 ∧
+  let i := result.length-1;
+  if i = 0 then result[0]! = 1 -- base case
+  else
+    (if i = 1 then result[1]! = 3
+    else if i % 2 = 0 then result[i]! = 1 + i / 2
+    else result[i]! = result[i-2]! + result[i-1]! + (1 + (i+1) / 2))
+    ∧ result.take i = impl (i-1)
 -- program termination
 ∃ result, impl n = result →
 spec result

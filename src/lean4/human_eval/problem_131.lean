@@ -25,8 +25,14 @@ def problem_spec
 -- spec
 let spec (result: Int) :=
   n > 0 →
-  let odd_digits := (Nat.digits 10 n.natAbs).filter (fun x => x % 2 == 1)
-  if odd_digits = [] then result = 0 else result = odd_digits.prod;
+  if n < 10 then
+    (n % 2 = 1 → result = n) ∧
+    (n % 2 = 0 → result = 0)
+  else
+    let digit := n % 10;
+    let rest := n / 10;
+    (digit % 2 = 1 → if impl rest = 0 then result = digit else result = impl rest * digit) ∧
+    (digit % 2 = 0 → result = impl rest)
 -- program termination
 ∃ result, impl n = result →
 spec result

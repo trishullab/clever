@@ -21,10 +21,24 @@ def problem_spec
 (k: Int) :=
 -- spec
 let spec (result: List Int) :=
-    let preconditions := arr.length ≥ 1 ∧ arr.length ≤ 1000 ∧
-        arr.all (fun x => x ≥ -1000 ∧ x ≤ 1000) ∧ k ≥ 0 ∧ k ≤ arr.length;
-    let max_k := arr.take k.natAbs;
-    preconditions → Multiset.ofList max_k = Multiset.ofList result ∧ result.Sorted (· ≤ ·);
+    1 ≤ arr.length → arr.length ≤ 1000 → arr.all (fun x => -1000 ≤ x ∧ x ≤ 1000) ∧ 0 ≤ k ∧ k ≤ arr.length →
+    result.length = k ∧
+    result.Sorted (· ≤ ·) ∧
+    ∀ x ∈ result, x ∈ arr ∧
+
+    let rec checkMaxElements : List Int → List Int → Int → Nat → Prop
+      | _, _, _, 0 => True
+      | _, [], k', _ => k' = 0
+      | arr', result', k', depth+1 =>
+        match result'.reverse with
+          | [] => k' = 0
+          | max :: remaining_reversed =>
+              arr'.max? = some max ∧
+              let arr'' := arr'.erase max
+              checkMaxElements arr'' (remaining_reversed.reverse) (k'-1) depth;
+
+    checkMaxElements arr result k k.natAbs
+
 -- program termination
 ∃ result, impl arr k = result →
 spec result
