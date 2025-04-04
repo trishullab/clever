@@ -24,7 +24,7 @@ def problem_spec
 (n: Int) :=
 -- spec
 let spec (result: Int) :=
-  n > 0 →
+  0 < n →
   if n < 10 then
     (n % 2 = 1 → result = n) ∧
     (n % 2 = 0 → result = 0)

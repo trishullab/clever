@@ -34,7 +34,7 @@ let spec (result: Option Int) :=
     let has_zero := ∃ i, i ∈ arr → i = 0;
     (result < 0 → (neg_count_odd ∧ ¬has_zero)
       ∧ result = magnitude_sum * -1) ∧
-    (result > 0 → (¬neg_count_odd ∧ ¬has_zero)
+    (0 < result → (¬neg_count_odd ∧ ¬has_zero)
       ∧ result = magnitude_sum) ∧
     (result = 0 → has_zero)
 -- program termination

@@ -36,7 +36,7 @@ def problem_spec
 -- spec
 let sorted_ascending := lst.Sorted (· ≤ ·);
 let ms := Multiset.ofList lst;
-let multiple_duplicates := ¬(∃ i, i ∈ lst → ms.count i > 2 )
+let multiple_duplicates := ¬(∃ i, i ∈ lst → 2 < ms.count i )
 let spec (res: Bool) :=
   if res then sorted_ascending ∧ ¬multiple_duplicates else ¬(sorted_ascending ∧ ¬multiple_duplicates);
 -- program termination
