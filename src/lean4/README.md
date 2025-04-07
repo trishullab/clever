@@ -1,6 +1,22 @@
 Guidelines for writing human eval specifications for Lean 4.
 
-Task 1: Correctness Spec with Ideal Types
+Overview
+===
+- The goal  is to perform end-to-end code generation and verification of the human eval problems in Lean 4.
+![ProofWala Framework](overview.png)
+ - Our main focus is on writing a high quality benchmark suite for the human eval problems in Lean 4. The benchmark suite will be used to evaluate the performance of the code generation and verification process for multiple tasks:
+    
+     - **Task 1**: Correctness Spec generation from Natural Language problem descriptions.
+        - *Measure of correctness*: Certificate of correctness in Lean 4. The certificate must state isomorphism between the human written problem spec and the generated spec.
+     - **Task 2**: Implementation generation given a correctness spec.
+        - **Task 2.a**: Implementation generation in Lean 4.
+        - **Task 2.b**: Implementation generation in Rust and subsequent translation to Lean 4 using [Aeneas](https://github.com/AeneasVerif/aeneas). One challenge here will be the use of machine types in Rust and how to translate them to Lean 4. The generated implementation must be a valid Lean 4 program.
+        - *Measure of correctness*: Certificate of correctness in Lean 4. The certificate is a proof that the generated implementation satisfies the correctness spec.
+    - **Task 3**: Generating proof of correctness in Lean given a specification and implementation in Lean 4.
+        - *Measure of correctness*: The proof must compile in Lean 4.
+
+
+Contribution Guidelines
 ===
 0. Use case:
     - We want these spec to test the functionality of the Lean 4 code.
@@ -40,14 +56,6 @@ theorem correctness
 11. Sometimes we can use implementations which are loop like. For example, see problem 24. The only caveat is the proofs can be tricky.
 
 
-Task 2: Correctness Spec with Machine Types
-===
-
-
-Task 3: Correctness Spec with Rust translated to Lean 4
-===
-
-
 Build Instructions
 ===
 - Install Lean 4: https://leanprover.github.io/lean4/doc/quickstart.html
@@ -73,12 +81,3 @@ Lean Tutorial
     - [Logic](https://leanprover-community.github.io/mathlib-manual/html-multi/Tactics/Logic/#Mathlib-Manual--Tactics--Logic)
     - [Equality of Definitions](https://leanprover-community.github.io/mathlib-manual/html-multi/Tactics/Definitional-equality/#Mathlib-Manual--Tactics--Definitional-equality)
     - [All Tactics](https://leanprover-community.github.io/mathlib-manual/html-multi/)
-
-#### Sample Challenge:
-- Need to prove theorems/ state definitions in Lean 4 in different `*.lean` files, in the `src/lean4/ProgDefs` and `src/lean4/ProgVer` directory.
-- Theorems/definitions are mostly related to programs written in Lean 4 and verification conditions of those programs.
-- Each problem has corresponding points and the points are awarded based on the correctness of the solution.
-- You just have to submit a PR by removing the comments in each of these files and adding your solution.
-- The PR will be automatically graded and the points will be awarded based on the correctness of the solution.
-- The winner will be decided based on the total points scored in the PRs.
-- In case of a tie, the time of submission will be considered to decide the winner.
