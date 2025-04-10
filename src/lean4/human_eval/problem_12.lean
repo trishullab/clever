@@ -24,10 +24,12 @@ def problem_spec
 (strings: List String) :=
 -- spec
 let spec (result: Option String) :=
-  result = none ∨
-  (∃ longest, result = some longest ∧
-  longest ∈ strings ∧
-  ∀ s, s ∈ strings → s.length ≤ longest.length);
+  (result = none ↔ strings.length = 0) ∨
+  (∃ longest, result = some longest →
+  longest ∈ strings →
+  ∀ s, s ∈ strings → s.length ≤ longest.length →
+  (∃ i, i < strings.length →
+  strings[i]! = longest → ∀ j < i, strings[j]!.length < longest.length));
 -- program termination
 ∃ result, implementation strings = result →
 spec result
@@ -62,14 +64,5 @@ unfold problem_spec
 let result := implementation strings
 use result
 simp [result]
-simp [implementation]
-cases strings
-apply Or.inl
-rfl
-rename_i head tail
-apply Or.inr
-let longest_tail := (tail.map (λ s => s.length)).maximum.get!
-let length_head := head.length
-let max_length := length_head.max longest_tail
 sorry
 -- end_def correctness_proof
