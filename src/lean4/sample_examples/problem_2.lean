@@ -44,6 +44,7 @@ def generated_spec
 (impl: Int → Int)
 -- inputs
 (x: Int) : Prop :=
+-- end_def generated_spec
 --start_def generated_spec_body
 impl x = if x < 0 then -x else x
 --end_def generated_spec_body

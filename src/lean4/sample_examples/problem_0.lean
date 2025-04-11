@@ -42,6 +42,7 @@ def generated_spec
 (impl: String → Bool)
 -- inputs
 (paren_string: String) : Prop :=
+-- end_def generated_spec
 --start_def generated_spec_body
 sorry
 --end_def generated_spec_body
