@@ -51,10 +51,32 @@ else
   ∀ i', 1 ≤ i' ∧ i' < i → (score_changes'.take i').sum < threshold
   );
 -- program terminates
-∃ result, impl score_changes threshold = result →
+∃ result, impl score_changes threshold = result ∧
 -- return value satisfies spec
 spec score_changes threshold result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: List Int → Int → Nat)
+-- inputs
+(score_changes: List Int)
+(threshold: Int) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ score_changes threshold, problem_spec impl score_changes threshold) ↔
+(∀ score_changes threshold, generated_spec impl score_changes threshold) := by
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (score_changes: List Int) (threshold: Int) : Nat :=

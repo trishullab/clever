@@ -31,10 +31,30 @@ let spec (result: Bool) :=
 paren_string.length > 0 →
 (result ↔ balanced_paren_non_computable paren_string);
 -- program terminates
-∃ result, impl paren_string = result →
+∃ result, impl paren_string = result ∧
 -- return value satisfies spec
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: String → Bool)
+-- inputs
+(paren_string: String) : Prop :=
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ paren_string, problem_spec impl paren_string) ↔
+(∀ paren_string, generated_spec impl paren_string) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (paren_string: String) : Bool :=
