@@ -22,7 +22,7 @@ def problem_spec
 (numbers: List Int) :=
 -- spec
 let spec (result: List Int) :=
-  (result.length = numbers.length) →
+  (result.length = numbers.length) ∧
   ∀ i, i < numbers.length →
   result[i]! = numbers[i]! + 1
 -- -- program termination

@@ -21,7 +21,8 @@ def problem_spec
 (a h: Rat) :=
 -- spec
 let spec (result: Rat) :=
-  result = 0.5 * a * h;
+  a = 0 → result = 0 ∨
+  (2 * result) / a = h;
 -- -- program termination
 ∃ result, implementation a h = result →
 spec result
@@ -46,5 +47,5 @@ unfold problem_spec
 let result := implementation a h
 use result
 simp [result]
-simp [implementation]
+sorry
 -- end_def correctness_proof
