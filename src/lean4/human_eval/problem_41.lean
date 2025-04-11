@@ -28,7 +28,8 @@ def problem_spec
 (x : Nat) :=
 -- spec
 let spec (result: Nat) :=
-  result = x * x;
+  ∃ x_list : List Nat, x_list.length = x ∧ x_list.all (fun i => i = x)
+  ∧ x_list.sum = result
 -- -- program termination
 ∃ result, implementation x = result →
 spec result
