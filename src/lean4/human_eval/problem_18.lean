@@ -40,9 +40,31 @@ let subtring_start_idx := {i: Nat | i ≤ string.length - substring.length};
 let substring_occurrences := {i ∈ subtring_start_idx | (string.take (i + substring.length)).drop i = substring };
 result = substring_occurrences.toFinset.card);
 -- program termination
-∃ result, implementation string substring = result →
+∃ result, implementation string substring = result ∧
 spec result
 -- end_def problem_spec
+
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: String → String → Nat)
+-- inputs
+(string substring: String) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ string substring, problem_spec implementation string substring) ↔
+(∀ string substring, generated_spec implementation string substring) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (string: String) (substring: String) : Nat :=

@@ -25,9 +25,30 @@ result.all (λ x => x > 0) ∧
 result.all (λ x => x ∈ numbers) ∧
 numbers.all (λ x => x > 0 → x ∈ result);
 -- program termination
-∃ result, implementation numbers = result →
+∃ result, implementation numbers = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List Int → List Int)
+-- inputs
+(numbers: List Int) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ numbers, problem_spec implementation numbers) ↔
+(∀ numbers, generated_spec implementation numbers) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (numbers: List Int): List Int :=

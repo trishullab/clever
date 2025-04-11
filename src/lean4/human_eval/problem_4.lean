@@ -27,16 +27,36 @@ def problem_spec
 (numbers: List Rat) :=
 -- spec
 let spec (result: Rat):=
-let average (nums: List Rat) := nums.sum / nums.length;
 numbers.length > 0 →
-let mean := average numbers;
-let mad := average (numbers.map (fun x => |x - mean|));
-mad = result;
+0 ≤ result ∧
+result * numbers.length =
+(numbers.map (fun x => |x * numbers.length - numbers.sum|)).sum;
 -- program terminates
-∃ result, implementation numbers = result →
+∃ result, implementation numbers = result ∧
 -- return value satisfies spec
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List Rat → Rat)
+-- inputs
+(numbers: List Rat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ numbers, problem_spec implementation numbers) ↔
+(∀ numbers, generated_spec implementation numbers) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (numbers: List Rat) : Rat :=
@@ -44,15 +64,14 @@ def implementation (numbers: List Rat) : Rat :=
 -- start_def implementation
 if numbers.length = 0 then 1.0
 else
-(let mean := numbers.sum / numbers.length;
-let mad := (numbers.map (fun x => |x - mean|)).sum / numbers.length;
-mad)
+  let mean := numbers.sum / numbers.length;
+  let abs_diffs := numbers.map (fun x => |x - mean|);
+  abs_diffs.sum / abs_diffs.length
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
 #test implementation [1.0, 2.0, 3.0, 4.0] = 1.0
-#test implementation [] = 1.0
 -- end_def test_cases
 
 -- start_def correctness_definition
@@ -81,4 +100,5 @@ have h1: 0 < numbers.length := by
   contradiction
 simp [h1]
 simp [h]
+sorry
 -- end_def correctness_proof

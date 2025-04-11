@@ -29,9 +29,20 @@ let group := paren_space_split[i]!;
 balanced_paren_non_computable group →
 result[i]! > 0 ∧ count_max_paren_depth group = result[i]!.toNat;
 -- program termination
-∃ result, implementation paren_string = result →
+∃ result, implementation paren_string = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: String → List Int)
+-- inputs
+(paren_string: String) : Prop :=
+--end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
 
 -- start_def implementation_signature
 def implementation (paren_string: String) : List Int :=

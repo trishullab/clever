@@ -25,9 +25,30 @@ let result_nums := result.splitOn " ";
 result_nums.length = n + 1 ∧
 ∀ i, i < n + 1 → result_nums[i]! = i.repr;
 -- program termination
-∃ result, implementation n = result →
+∃ result, implementation n = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: Nat → String)
+-- inputs
+(n: Nat) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ n, problem_spec implementation n) ↔
+(∀ n, generated_spec implementation n) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (n: Nat) : String :=

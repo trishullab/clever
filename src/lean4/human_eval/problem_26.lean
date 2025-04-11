@@ -23,9 +23,30 @@ let spec (result: List Int) :=
 (∀ i: Int, i ∈ result → numbers.count i = 1) ∧
 (∀ i: Int, i ∈ numbers → numbers.count i = 1 → i ∈ result);
 -- program termination
-∃ result, implementation numbers = result →
+∃ result, implementation numbers = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List Int → List Int)
+-- inputs
+(numbers: List Int) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ numbers, problem_spec implementation numbers) ↔
+(∀ numbers, generated_spec implementation numbers) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (numbers: List Int) : List Int :=

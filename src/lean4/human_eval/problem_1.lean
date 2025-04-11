@@ -47,10 +47,31 @@ count_paren_groups str = 1;
 let spec (result_list: List String) :=
 forward_spec result_list ∧ backward_spec result_list;
 -- program terminates
-∃ result, impl paren_string = result →
+∃ result, impl paren_string = result ∧
 -- return value satisfies spec
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: String → List String)
+-- inputs
+(paren_string: String) : Prop :=
+-- end_def generated_spec
+--start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ paren_string, problem_spec impl paren_string) ↔
+(∀ paren_string, generated_spec impl paren_string) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (paren_string: String) : List String :=

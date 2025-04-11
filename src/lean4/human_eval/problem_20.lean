@@ -30,9 +30,30 @@ smaller ∈ numbers ∧
 larger ∈ numbers ∧
 (∀ x y, x ∈ numbers → y ∈ numbers →  abs_diff ≤ |x - y|));
 -- program termination
-∃ result, implementation numbers = result →
+∃ result, implementation numbers = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List Rat → (Rat × Rat))
+-- inputs
+(numbers: List Rat) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ numbers, problem_spec implementation numbers) ↔
+(∀ numbers, generated_spec implementation numbers) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (numbers: List Rat): (Rat × Rat) :=

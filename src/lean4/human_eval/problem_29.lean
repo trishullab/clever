@@ -30,9 +30,31 @@ result.all (λ s => s.startsWith pref) ∧
 result.all (λ s => s ∈ strings) ∧
 strings.all (λ s => s.startsWith pref → s ∈ result);
 -- program termination
-∃ result, implementation strings pref = result →
+∃ result, implementation strings pref = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List String → String → List String)
+-- inputs
+(strings: List String)
+(pref: String) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ strings pref, problem_spec implementation strings pref) ↔
+(∀ strings pref, generated_spec implementation strings pref) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (strings: List String) (pref: String) : List String :=
