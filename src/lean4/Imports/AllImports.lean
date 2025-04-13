@@ -1,13 +1,32 @@
 import Mathlib
 import Mathlib.Algebra.Polynomial.Basic
 
+
+-- start_def helper_definitions
+/--
+  name: fibonacci_non_computable
+  use: |
+    Non-computable definition to check if a number is a Fibonacci number.
+  problems: []
+  sample_problems:
+    - 3
+-/
+inductive fibonacci_non_computable : ℕ → ℕ → Prop
+| base0 : fibonacci_non_computable 0 1
+| base1 : fibonacci_non_computable 1 1
+| step  : ∀ n f₁ f₂, fibonacci_non_computable n f₁ →
+fibonacci_non_computable (n + 1) f₂ →
+fibonacci_non_computable (n + 2) (f₁ + f₂)
+-- end_def helper_definitions
+
 -- start_def helper_definitions
 /--
   name: string_eq_iff_data_eq
   use: |
     Helper function to prove that two strings are equal if their data is equal.
-  problems:
-    - 6
+  problems: []
+  sample_problems:
+    - 0
 -/
 def string_eq_iff_data_eq (s1: String) (s2: String)
 : s1.data = s2.data ↔ s1 = s2 :=
