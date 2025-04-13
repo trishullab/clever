@@ -264,6 +264,43 @@ match n with
 #test implementation 7 = 21
 -- end_def test_cases
 
+-- start_def correctness_helper_lemmas
+theorem fib_comp_to_non_comp (n : ℕ)
+(f : Nat → Nat)
+(h_f_0: f 0 = 1)
+(h_f_1: f 1 = 1)
+(h_f_step: ∀ n, f (n + 2) = f n + f (n + 1))
+: fibonacci_non_computable n (f n) :=
+-- end_def correctness_helper_lemmas
+-- start_def correctness_helper_lemmas_proof
+by
+induction' n using Nat.strong_induction_on with n' ih
+by_cases h_n'_lt_1: n' < 2
+-- if n' < 1 then
+have h_n'_eq_0: n' = 0 ∨ n' = 1:= by
+  interval_cases n'
+  all_goals simp
+cases h_n'_eq_0
+rename_i h_n'_eq_0
+simp [h_n'_eq_0, h_f_0, fibonacci_non_computable.base0]
+rename_i h_n'_eq_1
+simp [h_n'_eq_1, h_f_1, fibonacci_non_computable.base1]
+set n'' := n' - 2
+have h_n''_eq_n_plus_2: n' = n'' + 2 := by
+  rw [Nat.sub_add_cancel]
+  linarith
+have h_n''_lt_n': n'' < n' := by
+  linarith
+have h_fib_n'':= h_f_step n''
+have h_fib_n''_non_computable := ih n'' h_n''_lt_n'
+have h_fib_n''_plus_1_non_computable := ih (n'' + 1) (by linarith)
+have h_fib_n''_plus_2_non_computable :=
+  fibonacci_non_computable.step _ _ _ h_fib_n''_non_computable h_fib_n''_plus_1_non_computable
+rw [←h_fib_n''] at h_fib_n''_plus_2_non_computable
+rw [←h_n''_eq_n_plus_2] at h_fib_n''_plus_2_non_computable
+assumption
+-- end_def correctness_helper_lemmas_proof
+
 -- start_def correctness_definition
 theorem correctness
 (n: Nat)
@@ -272,5 +309,18 @@ theorem correctness
 -- end_def correctness_definition
 -- start_def correctness_proof
 by
-sorry
+unfold problem_spec
+let result := implementation n
+use result
+simp [result]
+have h_impl_n : ∀ n', implementation (n' + 2) = implementation n' + implementation (n' + 1) :=
+by
+  intro n'
+  rw [implementation]
+have h_impl_0 : implementation 0 = 1 := by
+  rw [implementation]
+have h_impl_1 : implementation 1 = 1 := by
+  rw [implementation]
+apply fib_comp_to_non_comp
+all_goals assumption
 -- end_def correctness_proof
