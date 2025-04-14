@@ -93,9 +93,7 @@ class TestLeanSpecParser(unittest.TestCase):
         log_path = f".logs/test/{time_str}"
         abs_path = os.path.abspath(log_path)
         print(f"Processing benchmark in {abs_path}...")
-        benchmark = Benchmark("src/lean4/human_eval",
-                              helper_definition_file="src/lean4/Imports/AllImports.lean",
-                              is_sample=False)
+        benchmark = Benchmark(is_sample=False)
         benchmark.load_all()
         json_output = benchmark.to_json()
         self.assertIsInstance(json_output, str)

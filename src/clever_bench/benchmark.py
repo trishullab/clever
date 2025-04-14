@@ -6,13 +6,43 @@ from pathlib import Path
 from clever_bench.lean_problem import LeanProblem
 from clever_bench.lean_parser_spec import LeanSpecParser
 
-# Assuming these are already imported/defined
-# from lean_problem_classes import LeanSpecParser, LeanProblem
+def get_clever_lean_project_path() -> str:
+    """
+    Returns the path to the Clever Lean project directory.
+    This function assumes that the script is run from the root directory of the project.
+    """
+    in_pkg_path = os.path.join(os.path.dirname(__file__), "lean4")
+    if os.path.exists(in_pkg_path):
+        return in_pkg_path
+    else:
+        return os.path.join(os.path.dirname(os.path.dirname(__file__)), "lean4")
+
+def get_clever_lean_human_eval_directory() -> str:
+    """
+    Returns the path to the Clever Lean test directory.
+    This function assumes that the script is run from the root directory of the project.
+    """
+    return os.path.join(get_clever_lean_project_path(), "human_eval")
+
+def get_clever_lean_sample_examples_directory() -> str:
+    """
+    Returns the path to the Clever Lean sample problems directory.
+    This function assumes that the script is run from the root directory of the project.
+    """
+    return os.path.join(get_clever_lean_project_path(), "sample_examples")
+
+def get_helper_definition_file_path() -> str:
+    """
+    Returns the path to the Clever Lean helper definition file.
+    This function assumes that the script is run from the root directory of the project.
+    """
+    return os.path.join(get_clever_lean_project_path(), "Imports", "AllImports.lean")
 
 class Benchmark:
-    def __init__(self, directory: str, helper_definition_file: str = None, is_sample: bool = False):
-        self.directory = directory
-        self.helper_definition_file = helper_definition_file
+    def __init__(self, directory: str = None, helper_definition_file: str = None, is_sample: bool = False):
+        self.project_path = get_clever_lean_project_path()
+        self.directory = directory if directory else (get_clever_lean_human_eval_directory() if not is_sample else get_clever_lean_sample_examples_directory())
+        self.helper_definition_file = helper_definition_file if helper_definition_file else get_helper_definition_file_path()
         self.is_sample = is_sample
         self.problems: List[LeanProblem] = []
 

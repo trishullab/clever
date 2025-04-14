@@ -3,7 +3,7 @@ import uuid
 import os
 import time
 from clever_bench.lean_problem import LeanProblemView, TaskComponent, format_problem_as_lean_with_line_ranges
-from clever_bench.benchmark import Benchmark
+from clever_bench.benchmark import Benchmark, get_clever_lean_project_path
 from pathlib import Path
 from collections import namedtuple
 
@@ -11,11 +11,11 @@ ValidationResult = namedtuple("ValidationResult", ["problem_id", "isomorphism_ok
 
 
 class ProblemViewTask:
-    def __init__(self, benchmark: Benchmark, component: TaskComponent, lean_folder: str, report_dir: str = ".logs/reports"):
+    def __init__(self, benchmark: Benchmark, component: TaskComponent, lean_folder: str = None, report_dir: str = ".logs/reports"):
         self.benchmark = benchmark
         self.component = component
-        self.lean_folder_str = lean_folder
-        self.lean_folder_path = Path(lean_folder)
+        self.lean_folder_str = lean_folder if lean_folder else get_clever_lean_project_path()
+        self.lean_folder_path = Path(self.lean_folder_str)
         time_str = time.strftime("%Y-%m-%d_%H-%M-%S")
         self.report_dir = Path(report_dir) / time_str
         self.report_dir.mkdir(parents=True, exist_ok=True)

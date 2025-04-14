@@ -5,12 +5,12 @@ from clever_bench.task import ProblemViewTask, TaskComponent, ValidationResult
 
 class TestTask(unittest.TestCase):
     def test_task_components(self):
-        benchmark = Benchmark("src/lean4/human_eval", helper_definition_file="src/lean4/Imports/AllImports.lean")
+        benchmark = Benchmark()
         benchmark.load_all()
 
-        task1 = ProblemViewTask(benchmark, TaskComponent.SPEC_GENERATION, "src/lean4")
-        task2 = ProblemViewTask(benchmark, TaskComponent.IMPL_GENERATION, "src/lean4")
-        task3 = ProblemViewTask(benchmark, TaskComponent.PROOF_GENERATION, "src/lean4")
+        task1 = ProblemViewTask(benchmark, TaskComponent.SPEC_GENERATION)
+        task2 = ProblemViewTask(benchmark, TaskComponent.IMPL_GENERATION)
+        task3 = ProblemViewTask(benchmark, TaskComponent.PROOF_GENERATION)
 
         visible1 = task1.get_visible_problems()
         visible2 = task2.get_visible_problems()
@@ -68,9 +68,9 @@ class TestTask(unittest.TestCase):
             self.assertTrue(p3.helper_definitions is not None)
 
     def test_submission(self):
-        benchmark = Benchmark("src/lean4/human_eval", helper_definition_file="src/lean4/Imports/AllImports.lean")
+        benchmark = Benchmark()
         benchmark.load_all()
-        task = ProblemViewTask(benchmark, TaskComponent.PROOF_GENERATION, "src/lean4")
+        task = ProblemViewTask(benchmark, TaskComponent.PROOF_GENERATION)
         problem = task.get_visible_problems()[0]
 
         result = asyncio.run(task.submit_async(problem, timeout_in_ms=30000))
@@ -78,9 +78,9 @@ class TestTask(unittest.TestCase):
         self.assertFalse(result.isomorphism_ok)
         self.assertFalse(result.correctness_ok)
 
-        benchmark = Benchmark("src/lean4/sample_examples", helper_definition_file="src/lean4/Imports/AllImports.lean", is_sample=True)
+        benchmark = Benchmark(is_sample=True)
         benchmark.load_all()
-        task = ProblemViewTask(benchmark, TaskComponent.IMPL_GENERATION, "src/lean4")
+        task = ProblemViewTask(benchmark, TaskComponent.IMPL_GENERATION)
         problem = task.get_visible_problems()[3]
         problem.implementation = benchmark.problems[3].implementation
         problem.correctness_helper_lemmas = benchmark.problems[3].correctness_helper_lemmas
