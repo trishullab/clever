@@ -1,10 +1,17 @@
 import unittest
 import json
 import os
+import time
 from clever_bench.lean_parser_spec import LeanSpecParser
+from clever_bench.benchmark import Benchmark
 
 
 class TestLeanSpecParser(unittest.TestCase):
+    def setUp(self):
+        self.time_str = time.strftime("%Y%m%d-%H%M%S")
+        os.makedirs(".logs", exist_ok=True)
+        os.makedirs(f".logs/test/{self.time_str}", exist_ok=True)
+
     def test1(self):
         problems = os.listdir("src/lean4/human_eval")
         problems = [p for p in problems if p.endswith(".lean")]
@@ -40,10 +47,18 @@ class TestLeanSpecParser(unittest.TestCase):
                                     lean_problem_from_json["problem_spec_metadata"]["docstring"])
                 self.assertEqual(lean_problem.problem_spec_nl,
                                     lean_problem_from_json["problem_spec_nl"])
+                self.assertIsNotNone(lean_problem.problem_spec_formal_ground_truth,
+                                    f"{problem} formal ground truth is None")
                 self.assertEqual(lean_problem.problem_spec_formal_ground_truth,
                                     lean_problem_from_json["problem_spec_formal_ground_truth"])
+                self.assertIsNotNone(lean_problem.problem_spec_formal_generated,
+                                    f"{problem} formal ground truth is None")
+                self.assertIsNotNone(lean_problem.problem_spec_formal_generated, f"{problem} formal generated spec is None")
                 self.assertEqual(lean_problem.problem_spec_formal_generated,
                                     lean_problem_from_json["problem_spec_formal_generated"])
+                self.assertIsNotNone(lean_problem.isomorphism_theorem, f"{problem} isomorphism theorem is None")
+                if lean_problem.isomorphism_theorem.strip().endswith("by"):
+                    raise ValueError(f"Isomorphism theorem in {problem} ends with 'by'")
                 self.assertEqual(lean_problem.isomorphism_theorem,
                                     lean_problem_from_json["isomorphism_theorem"])
                 self.assertEqual(lean_problem.isomorphism_proof,
@@ -52,8 +67,11 @@ class TestLeanSpecParser(unittest.TestCase):
                                     lean_problem_from_json["implementation_signature"])
                 self.assertEqual(lean_problem.test_cases_lean,
                                     lean_problem_from_json["test_cases_lean"])
+                self.assertIsNotNone(lean_problem.correctness_theorem, f"{problem} correctness theorem is None")
                 self.assertEqual(lean_problem.correctness_theorem,
                                     lean_problem_from_json["correctness_theorem"])
+                if lean_problem.correctness_theorem.strip().endswith("by"):
+                    raise ValueError(f"Correctness theorem in {problem} ends with 'by'")
                 self.assertEqual(lean_problem.correctness_proof,
                                     lean_problem_from_json["correctness_proof"])
                 self.assertEqual(lean_problem.helper_definitions,
@@ -63,7 +81,28 @@ class TestLeanSpecParser(unittest.TestCase):
                 self.assertEqual(lean_problem.correctness_helper_lemmas,
                                     lean_problem_from_json["correctness_helper_lemmas"])
 
-
+    def test_benchmark(self):
+        time_str = self.time_str
+        log_path = f".logs/test/{time_str}"
+        abs_path = os.path.abspath(log_path)
+        print(f"Processing benchmark in {abs_path}...")
+        benchmark = Benchmark("src/lean4/human_eval")
+        benchmark.load_all()
+        json_output = benchmark.to_json()
+        self.assertIsInstance(json_output, str)
+        self.assertTrue(json_output.startswith("["))
+        self.assertTrue(json_output.endswith("]"))
+        # Test CSV output
+        headers, rows = benchmark.to_csv()
+        self.assertIsInstance(headers, list)
+        self.assertIsInstance(rows, list)
+        self.assertTrue(len(rows) > 0)
+        self.assertEqual(len(headers), len(rows[0]))
+        # Test saving JSON
+        benchmark.save_json(f"{log_path}/benchmark.json")
+        # Test saving CSV
+        benchmark.save_csv(f"{log_path}/benchmark.csv")
+        pass
 
 if __name__ == "__main__":
     unittest.main()

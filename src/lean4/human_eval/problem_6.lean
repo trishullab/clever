@@ -44,6 +44,16 @@ def generated_spec
 sorry
 -- end_def generated_spec_body
 
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ paren_string, problem_spec implementation paren_string) ↔
+(∀ paren_string, generated_spec implementation paren_string) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
+
 -- start_def implementation_signature
 def implementation (paren_string: String) : List Int :=
 -- end_def implementation_signature
