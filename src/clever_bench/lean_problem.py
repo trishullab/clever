@@ -1,9 +1,18 @@
 from dataclasses import dataclass, field, asdict
 from typing import List, Optional, Dict, Any
+from enum import Enum, auto
 import json
-import csv
-import io
 
+class TaskComponent(Enum):
+    SPEC_GENERATION = auto()     # Task 1
+    IMPL_GENERATION = auto()     # Task 2
+    PROOF_GENERATION = auto()    # Task 3
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return f"TaskComponent.{self.name}"
 
 @dataclass
 class Lemma:
@@ -33,6 +42,7 @@ class LeanProblem:
     isomorphism_theorem: Optional[str]
     isomorphism_proof: Optional[str]
     implementation_signature: Optional[str]
+    implementation: Optional[str]
     test_cases_lean: Optional[str]
     correctness_theorem: Optional[str]
     correctness_proof: Optional[str]
@@ -49,6 +59,7 @@ class LeanProblem:
             "isomorphism_theorem": self.isomorphism_theorem,
             "isomorphism_proof": self.isomorphism_proof,
             "implementation_signature": self.implementation_signature,
+            "implementation": self.implementation,
             "test_cases_lean": self.test_cases_lean,
             "correctness_theorem": self.correctness_theorem,
             "correctness_proof": self.correctness_proof,
@@ -80,6 +91,7 @@ class LeanProblem:
             "isomorphism_theorem": d["isomorphism_theorem"],
             "isomorphism_proof": d["isomorphism_proof"],
             "implementation_signature": d["implementation_signature"],
+            "implementation": d["implementation"],
             "test_cases_lean": d["test_cases_lean"],
             "correctness_theorem": d["correctness_theorem"],
             "correctness_proof": d["correctness_proof"],
@@ -91,3 +103,87 @@ class LeanProblem:
         headers = list(row.keys())
         values = list(row.values())
         return headers, values
+
+@dataclass
+class LeanProblemView:
+    task_component: TaskComponent
+    function_signature: Optional[str] = None
+    problem_spec_nl: Optional[str] = None
+    problem_spec_formal_ground_truth: Optional[str] = None
+    isomorphism_theorem: Optional[str] = None
+    implementation_signature: Optional[str] = None
+    test_cases_lean: Optional[str] = None
+    correctness_theorem: Optional[str] = None
+    problem_spec_formal_generated: Optional[str] = None
+    implementation: Optional[str] = None
+    correctness_proof: Optional[str] = None
+    isomorphism_proof: Optional[str] = None
+    helper_definitions: List[str] = field(default_factory=list)
+    isomorphism_helper_lemmas: List[Lemma] = field(default_factory=list)
+    correctness_helper_lemmas: List[Lemma] = field(default_factory=list)
+
+    def hide_params(self, *args):
+        """
+        Hide the parameters specified in args.
+        """
+        for arg in args:
+            if hasattr(self, arg):
+                if isinstance(getattr(self, arg), list):
+                    setattr(self, arg, [])
+                else:
+                    setattr(self, arg, None)
+
+def format_problem_as_lean_with_line_ranges(problem: LeanProblemView) -> tuple[str, dict]:
+    parts = ["import Imports.AllImports"]
+    line_counter = 1  # account for import line
+    ranges = {}
+
+    def append_block(label: str, content: Optional[str], key: Optional[str] = None, is_proof=False):
+        nonlocal line_counter
+        if is_proof and content is None:
+            content = "by sorry"
+        if content is None:
+            if key:
+                ranges[key] = (float("inf"), float("-inf"))
+            return
+
+        header = f"-- {label}"
+        body = content.strip()
+        start = line_counter + 1
+        parts.append(header)
+        parts.append(body)
+        line_counter += 2 + body.count("\n")
+        if key:
+            ranges[key] = (start + 1, start + body.count("\n") + 1)
+
+    # Do NOT dump function_signature (it's Python)
+
+    if problem.problem_spec_nl:
+        append_block("NL Spec", f"/--\n{problem.problem_spec_nl.strip()}\n-/")
+
+    append_block("Generated Spec", problem.problem_spec_formal_generated)
+    append_block("Ground Truth Spec", problem.problem_spec_formal_ground_truth)
+
+    # Isomorphism helper lemmas FIRST
+    for lemma in problem.isomorphism_helper_lemmas:
+        append_block("Isomorphism Lemma", f"{lemma.statement.strip()}\n{lemma.proof.strip()}")
+
+    append_block("Isomorphism Theorem", problem.isomorphism_theorem)
+    if problem.isomorphism_theorem:
+        append_block("Isomorphism Proof", problem.isomorphism_proof, key="isomorphism", is_proof=True)
+
+    # Implementation
+    append_block("Implementation Signature", problem.implementation_signature)
+    append_block("Implementation", problem.implementation)
+
+    append_block("Test Cases", problem.test_cases_lean)
+
+    # Correctness helper lemmas FIRST
+    for lemma in problem.correctness_helper_lemmas:
+        append_block("Correctness Lemma", f"{lemma.statement.strip()}\n{lemma.proof.strip()}")
+
+    append_block("Correctness Theorem", problem.correctness_theorem)
+    if problem.correctness_theorem:
+        append_block("Correctness Proof", problem.correctness_proof, key="correctness", is_proof=True)
+
+    return "\n\n".join(parts), ranges

@@ -13,10 +13,15 @@ class LeanSpecParser:
             r"--\s*start_def\s+(\w+)\s*[\r\n]+(.*?)--\s*end_def\s+\1",
             re.DOTALL | re.IGNORECASE,
         )
-        return {
-            match.group(1).strip(): match.group(2).strip()
-            for match in pattern.finditer(self.lean_code)
-        }
+
+        sections = {}
+        for match in pattern.finditer(self.lean_code):
+            key = match.group(1).strip()
+            value = match.group(2).strip()
+            if key not in sections:
+                sections[key] = []
+            sections[key].append(value)
+        return sections
 
     def _parse_yaml_block(self, raw: str) -> Optional[ProblemSpecMetadata]:
         match = re.search(r"/--(.*?)-/", raw, re.DOTALL)
@@ -33,20 +38,28 @@ class LeanSpecParser:
             return None
 
     def _get_lemmas(self, prefix: str) -> List[Lemma]:
-        statements = sorted(
-            k for k in self.sections if k.startswith(prefix + "_") and not k.endswith("_proof")
-        )
-        return [
-            Lemma(
-                statement=self.sections[k],
-                proof=self.sections.get(k + "_proof", "")
-            )
-            for k in statements
-        ]
+        statements = self.sections.get(prefix, [])
+        proofs = self.sections.get(f"{prefix}_proof", [])
+        max_len = max(len(statements), len(proofs))
+
+        lemmas = []
+        for i in range(max_len):
+            stmt = statements[i] if i < len(statements) else ""
+            proof = proofs[i] if i < len(proofs) else ""
+            lemmas.append(Lemma(statement=stmt, proof=proof))
+        return lemmas
+
+    def _get_first(self, key: str) -> Optional[str]:
+        value = self.sections.get(key)
+        if isinstance(value, list):
+            return value[0] if value else None
+        return value
 
     def parse(self) -> LeanProblem:
-        metadata_raw = self.sections.get("problem_details")
+        raw_metadata_block = self.sections.get("problem_details", [])
+        metadata_raw = raw_metadata_block[0] if isinstance(raw_metadata_block, list) and raw_metadata_block else None
         metadata = self._parse_yaml_block(metadata_raw) if metadata_raw else None
+
         nl_spec = None
         if metadata:
             nl_spec = f"{metadata.function_signature}\n\"\"\"{metadata.docstring}\"\"\""
@@ -54,14 +67,16 @@ class LeanSpecParser:
         return LeanProblem(
             problem_spec_metadata=metadata,
             problem_spec_nl=nl_spec,
-            problem_spec_formal_ground_truth=self.sections.get("problem_spec"),
-            problem_spec_formal_generated=self.sections.get("generated_spec"),
-            isomorphism_theorem=self.sections.get("spec_isomorphism"),
-            isomorphism_proof=self.sections.get("spec_isomorphism_proof"),
-            implementation_signature=self.sections.get("implementation_signature"),
-            test_cases_lean=self.sections.get("test_cases"),
-            correctness_theorem=self.sections.get("correctness_definition"),
-            correctness_proof=self.sections.get("correctness_proof"),
+            problem_spec_formal_ground_truth=self._get_first("problem_spec"),
+            problem_spec_formal_generated=self._get_first("generated_spec"),
+            isomorphism_theorem=self._get_first("spec_isomorphism"),
+            isomorphism_proof=self._get_first("spec_isomorphism_proof"),
+            implementation_signature=self._get_first("implementation_signature"),
+            implementation=self._get_first("implementation"),
+            test_cases_lean=self._get_first("test_cases"),
+            correctness_theorem=self._get_first("correctness_definition"),
+            correctness_proof=self._get_first("correctness_proof"),
             isomorphism_helper_lemmas=self._get_lemmas("iso_helper_lemmas"),
-            correctness_helper_lemmas=self._get_lemmas("correctness_helper_lemmas")
+            correctness_helper_lemmas=self._get_lemmas("correctness_helper_lemmas"),
+            helper_definitions=self.sections.get("helper_definitions", [])
         )
