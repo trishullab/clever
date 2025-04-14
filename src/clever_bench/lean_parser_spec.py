@@ -59,6 +59,7 @@ class LeanSpecParser:
             isomorphism_theorem=self.sections.get("spec_isomorphism"),
             isomorphism_proof=self.sections.get("spec_isomorphism_proof"),
             implementation_signature=self.sections.get("implementation_signature"),
+            implementation=self.sections.get("implementation"),
             test_cases_lean=self.sections.get("test_cases"),
             correctness_theorem=self.sections.get("correctness_definition"),
             correctness_proof=self.sections.get("correctness_proof"),

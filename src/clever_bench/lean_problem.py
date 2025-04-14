@@ -33,6 +33,7 @@ class LeanProblem:
     isomorphism_theorem: Optional[str]
     isomorphism_proof: Optional[str]
     implementation_signature: Optional[str]
+    implementation: Optional[str]
     test_cases_lean: Optional[str]
     correctness_theorem: Optional[str]
     correctness_proof: Optional[str]
@@ -49,6 +50,7 @@ class LeanProblem:
             "isomorphism_theorem": self.isomorphism_theorem,
             "isomorphism_proof": self.isomorphism_proof,
             "implementation_signature": self.implementation_signature,
+            "implementation": self.implementation,
             "test_cases_lean": self.test_cases_lean,
             "correctness_theorem": self.correctness_theorem,
             "correctness_proof": self.correctness_proof,
@@ -80,6 +82,7 @@ class LeanProblem:
             "isomorphism_theorem": d["isomorphism_theorem"],
             "isomorphism_proof": d["isomorphism_proof"],
             "implementation_signature": d["implementation_signature"],
+            "implementation": d["implementation"],
             "test_cases_lean": d["test_cases_lean"],
             "correctness_theorem": d["correctness_theorem"],
             "correctness_proof": d["correctness_proof"],
@@ -91,3 +94,31 @@ class LeanProblem:
         headers = list(row.keys())
         values = list(row.values())
         return headers, values
+
+@dataclass
+class LeanProblemView:
+    function_signature: Optional[str] = None
+    problem_spec_nl: Optional[str] = None
+    problem_spec_formal_ground_truth: Optional[str] = None
+    isomorphism_theorem: Optional[str] = None
+    implementation_signature: Optional[str] = None
+    test_cases_lean: Optional[str] = None
+    correctness_theorem: Optional[str] = None
+    problem_spec_formal_generated: Optional[str] = None
+    implementation: Optional[str] = None
+    correctness_proof: Optional[str] = None
+    isomorphism_proof: Optional[str] = None
+    helper_definitions: List[str] = field(default_factory=list)
+    isomorphism_helper_lemmas: List[Lemma] = field(default_factory=list)
+    correctness_helper_lemmas: List[Lemma] = field(default_factory=list)
+
+    def hide_params(self, *args):
+        """
+        Hide the parameters specified in args.
+        """
+        for arg in args:
+            if hasattr(self, arg):
+                if isinstance(getattr(self, arg), list):
+                    setattr(self, arg, [])
+                else:
+                    setattr(self, arg, None)
