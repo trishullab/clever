@@ -1,15 +1,16 @@
+import asyncio
 import unittest
 from clever_bench.benchmark import Benchmark
-from clever_bench.task import ProblemViewTask, TaskComponent
+from clever_bench.task import ProblemViewTask, TaskComponent, ValidationResult
 
 class TestTask(unittest.TestCase):
     def test_task_components(self):
         benchmark = Benchmark("src/lean4/human_eval")
         benchmark.load_all()
 
-        task1 = ProblemViewTask(benchmark, TaskComponent.SPEC_GENERATION)
-        task2 = ProblemViewTask(benchmark, TaskComponent.IMPL_GENERATION)
-        task3 = ProblemViewTask(benchmark, TaskComponent.PROOF_GENERATION)
+        task1 = ProblemViewTask(benchmark, TaskComponent.SPEC_GENERATION, "src/lean4")
+        task2 = ProblemViewTask(benchmark, TaskComponent.IMPL_GENERATION, "src/lean4")
+        task3 = ProblemViewTask(benchmark, TaskComponent.PROOF_GENERATION, "src/lean4")
 
         visible1 = task1.get_visible_problems()
         visible2 = task2.get_visible_problems()
@@ -65,6 +66,32 @@ class TestTask(unittest.TestCase):
             self.assertIsNotNone(p3.correctness_theorem)
             self.assertIsNotNone(p3.correctness_proof)
             self.assertTrue(p3.helper_definitions is not None)
+
+    def test_submission(self):
+        benchmark = Benchmark("src/lean4/human_eval")
+        benchmark.load_all()
+        task = ProblemViewTask(benchmark, TaskComponent.PROOF_GENERATION, "src/lean4")
+        problem = task.get_visible_problems()[0]
+
+        result = asyncio.run(task.submit_async(problem, timeout_in_ms=30000))
+        self.assertIsInstance(result, ValidationResult)
+        self.assertFalse(result.isomorphism_ok)
+        self.assertFalse(result.correctness_ok)
+
+        benchmark = Benchmark("src/lean4/sample_examples")
+        benchmark.load_all()
+        task = ProblemViewTask(benchmark, TaskComponent.IMPL_GENERATION, "src/lean4")
+        problem = task.get_visible_problems()[3]
+        problem.implementation = benchmark.problems[3].implementation
+        problem.correctness_helper_lemmas = benchmark.problems[3].correctness_helper_lemmas
+        problem.correctness_proof = benchmark.problems[3].correctness_proof
+        problem.isomorphism_helper_lemmas = benchmark.problems[3].isomorphism_helper_lemmas
+        problem.isomorphism_proof = benchmark.problems[3].isomorphism_proof
+
+        result = asyncio.run(task.submit_async(problem, timeout_in_ms=30000))
+        self.assertIsInstance(result, ValidationResult)
+        self.assertTrue(result.isomorphism_ok)
+        self.assertTrue(result.correctness_ok)
 
 if __name__ == "__main__":
     unittest.main()
