@@ -14,7 +14,7 @@ test_cases:
     expected_output: "bcaed"
   - input: "ab"
     expected_output: "ab"
---/
+-/
 -- end_def problem_details
 
 -- start_def problem_spec

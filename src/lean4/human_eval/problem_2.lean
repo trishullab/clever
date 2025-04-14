@@ -10,7 +10,7 @@ docstring: |
 test_cases:
   - input: 3.5
     expected_output: 0.5
---/
+-/
 -- end_def problem_details
 
 -- start_def problem_spec
