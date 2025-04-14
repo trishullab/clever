@@ -57,4 +57,4 @@ jobs:
       
       - name: Run Python Tests
         run: |
-          python src/lean4/tests/test_lean_parser.py
+          python src/tests/test_lean_parser.py
