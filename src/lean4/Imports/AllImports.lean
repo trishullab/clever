@@ -124,11 +124,11 @@ let chars := paren_string.toList;
 
 -- start_def helper_definitions
 /--
-  name: count_paren_groups_helper
-  use: |
-    Helper to count the number of groups of parentheses in a string.
-  problems:
-    - 1
+name: count_paren_groups_helper
+use: |
+  Helper to count the number of groups of parentheses in a string.
+problems:
+  - 1
 -/
 def count_paren_groups_helper
 (paren_string: String) (num_open: Int) (num_groups: Nat): Nat :=
@@ -181,11 +181,11 @@ count_paren_groups_helper paren_string 0 0
 
 -- start_def helper_definitions
 /--
-  name: count_max_paren_depth_helper
-  use: |
-    Helper to count the maximum depth of parentheses in a string.
-  problems:
-    - 6
+name: count_max_paren_depth_helper
+use: |
+  Helper to count the maximum depth of parentheses in a string.
+problems:
+  - 6
 -/
 def count_max_paren_depth_helper
 (paren_string: String) (num_open: Int) (max_depth: Nat): Nat :=

@@ -10,16 +10,24 @@ from clever_bench.lean_parser_spec import LeanSpecParser
 # from lean_problem_classes import LeanSpecParser, LeanProblem
 
 class Benchmark:
-    def __init__(self, directory: str):
+    def __init__(self, directory: str, helper_definition_file: str = None, is_sample: bool = False):
         self.directory = directory
+        self.helper_definition_file = helper_definition_file
+        self.is_sample = is_sample
         self.problems: List[LeanProblem] = []
 
     def load_all(self):
         lean_files = Path(self.directory).glob("*.lean")
+        if self.helper_definition_file:
+            with open(self.helper_definition_file, "r", encoding="utf-8") as f:
+                helper_definitions = f.read()
+        else:
+            helper_definitions = None
         for lean_file in lean_files:
+            problem_id = int(lean_file.stem.split("_")[1])  # Assuming the file name format is like "problem_{idx}.lean"
             with open(lean_file, "r", encoding="utf-8") as f:
                 content = f.read()
-                parser = LeanSpecParser(content)
+                parser = LeanSpecParser(content, helper_definitions=helper_definitions, problem_id=problem_id, is_sample=self.is_sample)
                 problem = parser.parse()
                 self.problems.append(problem)
 

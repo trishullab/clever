@@ -125,7 +125,7 @@ class ProblemViewTask:
             output = stdout.decode()
             sorry_lines = self._extract_sorry_lines(output, filename)
 
-            return self._check_sorries_against_ranges(sorry_lines, proof_ranges, lean_code)
+            return self._check_sorries_against_ranges(sorry_lines, proof_ranges, lean_code, problem.problem_id)
 
         finally:
             if file_path.exists():
