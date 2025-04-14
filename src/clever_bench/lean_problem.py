@@ -106,6 +106,7 @@ class LeanProblem:
 
 @dataclass
 class LeanProblemView:
+    problem_id: str
     task_component: TaskComponent
     function_signature: Optional[str] = None
     problem_spec_nl: Optional[str] = None

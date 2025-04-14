@@ -5,7 +5,7 @@ from clever_bench.task import ProblemViewTask, TaskComponent, ValidationResult
 
 class TestTask(unittest.TestCase):
     def test_task_components(self):
-        benchmark = Benchmark("src/lean4/human_eval")
+        benchmark = Benchmark("src/lean4/human_eval", helper_definition_file="src/lean4/Imports/AllImports.lean")
         benchmark.load_all()
 
         task1 = ProblemViewTask(benchmark, TaskComponent.SPEC_GENERATION, "src/lean4")
@@ -68,7 +68,7 @@ class TestTask(unittest.TestCase):
             self.assertTrue(p3.helper_definitions is not None)
 
     def test_submission(self):
-        benchmark = Benchmark("src/lean4/human_eval")
+        benchmark = Benchmark("src/lean4/human_eval", helper_definition_file="src/lean4/Imports/AllImports.lean")
         benchmark.load_all()
         task = ProblemViewTask(benchmark, TaskComponent.PROOF_GENERATION, "src/lean4")
         problem = task.get_visible_problems()[0]
@@ -78,7 +78,7 @@ class TestTask(unittest.TestCase):
         self.assertFalse(result.isomorphism_ok)
         self.assertFalse(result.correctness_ok)
 
-        benchmark = Benchmark("src/lean4/sample_examples")
+        benchmark = Benchmark("src/lean4/sample_examples", helper_definition_file="src/lean4/Imports/AllImports.lean", is_sample=True)
         benchmark.load_all()
         task = ProblemViewTask(benchmark, TaskComponent.IMPL_GENERATION, "src/lean4")
         problem = task.get_visible_problems()[3]
