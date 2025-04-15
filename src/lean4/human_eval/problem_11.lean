@@ -32,9 +32,30 @@ let spec (result: String) :=
   (a.get i_pos = b.get i_pos → result.get i_pos = '0') ∧
   (a.get i_pos ≠ b.get i_pos → result.get i_pos = '1'));
 -- program termination
-∃ result, implementation a b = result →
+∃ result, implementation a b = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: String → String → String)
+-- inputs
+(a b: String) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ a b, problem_spec implementation a b) ↔
+(∀ a b, generated_spec implementation a b) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (a b: String) : String :=

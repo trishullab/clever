@@ -27,6 +27,19 @@ sorry
 -- involves Any type which is not supported in Lean 4.
 -- end_def problem_spec
 
+-- start_def generated_spec
+def generated_spec : Prop :=
+-- function signature
+sorry
+-- end_def generated_spec
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism :
+problem_spec ↔
+generated_spec :=
+--end_def spec_isomorphism
+sorry
+-- start_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation : Prop :=

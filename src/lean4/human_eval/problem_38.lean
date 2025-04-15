@@ -14,7 +14,7 @@ test_cases:
     expected_output: "bcaed"
   - input: "ab"
     expected_output: "ab"
---/
+-/
 -- end_def problem_details
 
 -- start_def problem_spec
@@ -34,8 +34,30 @@ let spec (encoded: String) :=
   (n % 3 ≠ 0 → extract encoded_chars (n - n % 3) (n - 1) =
     extract original_chars (n - n % 3) (n - 1));
 -- program termination
-∃ result, impl s = result ∧ spec result
+∃ result, impl s = result ∧
+spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: String → String)
+-- inputs
+(s: String) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ s, problem_spec impl s) ↔
+(∀ s, generated_spec impl s) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (s: String) : String :=

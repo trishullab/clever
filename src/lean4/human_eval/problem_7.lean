@@ -33,9 +33,32 @@ let spec (result: List String) :=
 (∀ i, i < strings.length → strings[i]!.containsSubstr substring →
 ∃ j, j < result.length ∧ j ≤ i ∧ result[j]! = strings[i]!);
 -- program termination
-∃ result, implementation strings substring = result →
+∃ result, implementation strings substring = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List String → String → List String)
+-- inputs
+(strings: List String)
+(substring: String) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ strings substring, problem_spec implementation strings substring) ↔
+(∀ strings substring, generated_spec implementation strings substring) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
+
 
 -- start_def implementation_signature
 def implementation (strings: List String) (substring: String): List String :=

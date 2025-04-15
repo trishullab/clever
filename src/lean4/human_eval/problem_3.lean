@@ -34,10 +34,31 @@ let below_zero_condition := ∃ i, i ≤ operations.length ∧
 let spec (result: Bool) :=
 if result then below_zero_condition else ¬below_zero_condition;
 -- program terminates
-∃ result, impl operations = result →
+∃ result, impl operations = result ∧
 -- return value satisfies spec
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: List Int → Bool)
+-- inputs
+(operations: List Int) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ operations, problem_spec impl operations) ↔
+(∀ operations, generated_spec impl operations) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (operations: List Int) : Bool :=

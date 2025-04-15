@@ -2,7 +2,6 @@ import os
 import json
 import argparse
 import re
-
 # This script reads the build logs and scores the solutions.
 
 def main():
