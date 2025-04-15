@@ -24,9 +24,31 @@ let spec (result: Rat) :=
   a = 0 → result = 0 ∨
   (2 * result) / a = h;
 -- -- program termination
-∃ result, implementation a h = result →
+∃ result, implementation a h = result ∧
 spec result
 -- -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: Rat → Rat → Rat)
+-- inputs
+(a h: Rat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ x y, problem_spec impl x y) ↔
+(∀ x y, generated_spec impl x y) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+--end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (a h: Rat) : Rat :=

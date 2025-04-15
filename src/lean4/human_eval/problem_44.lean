@@ -28,14 +28,36 @@ let spec (result: String) :=
 let result_array := result.toList.map (fun c => c.toNat - '0'.toNat);
 let pow_array := (List.range result_array.length).map (fun i => base^(result_array.length - i - 1) * result_array[i]!);
 let pow_sum := pow_array.sum;
-(0 < base ∧ base ≤ 10) →
+(0 < base ∧ base ≤ 10) ∧
 (∀ i, i < result_array.length →
 result_array[i]! < base ∧ 0 ≤ result_array[i]! →
 pow_sum = x);
 -- -- program termination
-∃ result, implementation x base = result →
+∃ result, implementation x base = result ∧
 spec result
 -- -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: Nat → Nat → String)
+-- inputs
+(x base: Nat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ x y, problem_spec impl x y) ↔
+(∀ x y, generated_spec impl x y) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+--end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (x base: Nat) : String :=

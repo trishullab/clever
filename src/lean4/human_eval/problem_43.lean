@@ -25,16 +25,38 @@ def problem_spec
 (numbers: List Int) :=
 let sum_i_j (i j: Nat) : Bool :=
   numbers[i]! + numbers[j]! = 0;
-let exists_zero := 2 ≤ numbers.length ∧ (∃ i j, i ≠ j →
- i < numbers.length → j < numbers.length →
+let exists_zero := 2 ≤ numbers.length ∧ (∃ i j, i ≠ j ∧
+ i < numbers.length ∧ j < numbers.length ∧
  sum_i_j i j)
 -- spec
 let spec (result: Bool) :=
 result ↔ exists_zero
 -- -- program termination
-∃ result, implementation numbers = result →
+∃ result, implementation numbers = result ∧
 spec result
 -- -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: List Int → Bool)
+-- inputs
+(x: List Int) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ x, problem_spec impl x) ↔
+(∀ x, generated_spec impl x) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+--end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (numbers: List Int) : Bool :=

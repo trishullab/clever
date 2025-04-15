@@ -31,9 +31,31 @@ let spec (result: Nat) :=
   ∃ x_list : List Nat, x_list.length = x ∧ x_list.all (fun i => i = x)
   ∧ x_list.sum = result
 -- -- program termination
-∃ result, implementation x = result →
+∃ result, implementation x = result ∧
 spec result
 -- -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: Nat → Nat)
+-- inputs
+(x: Nat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ x, problem_spec impl x) ↔
+(∀ x, generated_spec impl x) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+--end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (x : Nat) : Nat :=

@@ -21,31 +21,53 @@ test_cases:
 -/
 -- end_def problem_details
 
--- start_def problem_spec
+inductive fibonacci_non_computable_4 : ℕ → ℕ → Prop
+| base0 : fibonacci_non_computable_4 0 0
+| base1 : fibonacci_non_computable_4 1 0
+| base2 : fibonacci_non_computable_4 2 2
+| base3 : fibonacci_non_computable_4 3 0
+| step : ∀ n f₁ f₂ f₃ f₄, fibonacci_non_computable_4 n f₁ →
+fibonacci_non_computable_4 (n + 1) f₂ →
+fibonacci_non_computable_4 (n + 2) f₃ →
+fibonacci_non_computable_4 (n + 3) f₄ →
+fibonacci_non_computable_4 (n + 4) (f₁ + f₂ + f₃ + f₄)
+
+--- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: Nat → Nat)
+(impl: Nat → Nat)
 -- inputs
 (n: Nat) :=
 -- spec
 let spec (result: Nat) :=
- (n = 0 → result = 0) ∨
- (n = 1 → result = 0) ∨
- (n = 2 → result = 2) ∨
- (n = 3 → result = 0) ∨
- (5 ≤ n → ∃ fib_array : List Nat, fib_array.length = n + 1 ∧
-   fib_array[0]! = 0 ∧
-   fib_array[1]! = 0 ∧
-   fib_array[2]! = 2 ∧
-   fib_array[3]! = 0 ∧
-   (∀ i, 3 < i → i < n + 1 →
-   fib_array[i]! = fib_array[i - 1]! + fib_array[i - 2]! +
-   fib_array[i - 3]! + fib_array[i - 4]!) ∧
-   result = fib_array[n]!)
--- program termination
-∃ result, implementation n = result →
+fibonacci_non_computable_4 n result
+-- program terminates
+∃ result, impl n = result ∧
+-- return value satisfies spec
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: Nat → Nat)
+-- inputs
+(x: Nat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ x, problem_spec impl x) ↔
+(∀ x, generated_spec impl x) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+--end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (n: Nat) : Nat :=
