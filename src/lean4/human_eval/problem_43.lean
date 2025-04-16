@@ -11,9 +11,11 @@ test_cases:
   - input: [1, 3, 5, 0]
     expected_output: False
   - input: [1, 3, -2, 1]
-    expected_output: True
+    expected_output: False
   - input: [1]
     expected_output: False
+  - input: [2, 4, -5, 3, 5, 7]
+    expected_output: True
 -/
 -- end_def problem_details
 
