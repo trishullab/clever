@@ -74,12 +74,12 @@ theorem correctness
 by
 unfold problem_spec
 let result := implementation number
-use result
 simp [result]
 simp [implementation]
 have h1: ∀ x: Rat, x.floor ≤ x := by
   intro x
   rw [←Rat.le_floor]
+intro npos
 apply And.intro
 apply h1
 have h2 := h1 number
