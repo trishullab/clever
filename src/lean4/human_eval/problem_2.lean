@@ -20,16 +20,15 @@ def problem_spec
 -- inputs
 (number: Rat) :=
 -- spec
-let spec (res):=
+let spec (res) :=
 0 ≤ res ∧
 res < 1 ∧
-impl (number - number.floor) = res ∧
-impl (number.floor) = number.floor ∧
-impl (number.floor) + impl (number - number.floor) = number;
+number.floor + res = number;
+number > 0 →
 -- program terminates
-∃ result, impl number = result ∧
+(∃ result, impl number = result ∧
 -- return value satisfies spec
-spec result
+spec result)
 -- end_def problem_spec
 
 -- start_def generated_spec
