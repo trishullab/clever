@@ -276,8 +276,8 @@ theorem fib_comp_to_non_comp (n : ℕ)
 by
 induction' n using Nat.strong_induction_on with n' ih
 by_cases h_n'_lt_1: n' < 2
--- if n' < 1 then
-have h_n'_eq_0: n' = 0 ∨ n' = 1:= by
+-- if n' < 2 then
+have h_n'_eq_0: n' = 0 ∨ n' = 1 := by
   interval_cases n'
   all_goals simp
 cases h_n'_eq_0
