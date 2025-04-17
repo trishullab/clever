@@ -178,3 +178,5 @@ cython_debug/
 *.olean.lock.json
 
 temp/*
+.log/*
+.logs/*

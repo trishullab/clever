@@ -1,6 +1,6 @@
 import ProgDefs.SampleProbs.Problem_0
 
-def maxList : List Int → Int := maxListV1
+def maxList : List Int → Int := maxListV2
 
 #eval maxList [2, -1, 2, 3, 4, 5]
 #test maxList [2, -1, 2, 3, 4, 5] = 5
@@ -36,21 +36,20 @@ lemma maxList_spec_v1
   rename_i h_list'_empty
   rw [h_list'_empty] at h_x_in_list
   simp [h_list'_empty]
-  simp [maxList, maxListV1]
+  simp [maxList, maxListV2]
   simp at h_x_in_list
   rw [h_x_in_list]
-  simp
   rename_i list'_nonempty
   simp [list'_nonempty] at inductive_hypothesis
   simp at h_x_in_list
   cases h_x_in_list
   rename_i h_eq_list_hd
-  simp [maxList, maxListV1]
+  simp [maxList, maxListV2]
   rw [h_eq_list_hd]
   simp
   rename_i h_x_in_list'
   simp [h_x_in_list'] at inductive_hypothesis
-  simp [maxList, maxListV1]
+  simp [maxList, maxListV2]
   simp [maxList] at inductive_hypothesis
   simp [inductive_hypothesis]
 
@@ -81,58 +80,48 @@ def maxList2 : List Int → Int := maxListV2
 lemma maxList_spec_v2
 (list : List Int)
 (h_list_nonempty : list ≠ [])
-: maxListV2 list ∈ list ∧
-  ∀ x ∈ list,
-  x ≤ maxList2 list := by
-  constructor
-  -- maxList list ∈ list
-  induction list
-  contradiction
-
-  rename_i list_head list_tail inductive_hypothesis
-  by_cases list_tail = []
-  rename_i list_tail_empty
-  simp [list_tail_empty]
-  simp [maxList2, maxListV2]
-
-  rename_i list_tail_nonempty
-  simp [list_tail_nonempty] at inductive_hypothesis
-  simp [maxList2, maxListV2]
-  by_cases maxList2 (list_head :: list_tail) = list_head
-  rename_i x
-  simp [maxList2, maxListV2] at x
-  left
-  exact x
-
-  rename_i x
-  simp [maxList2, maxListV2] at x
-  right
-  rw [max_eq_right_of_lt]
-  exact inductive_hypothesis
-  exact x
-
-  -- x ≤ maxList2 list
-  intro x h_x_in_list
+-- Change 0 = 0 to the correct specification
+: (∀ x ∈ list, x ≤ maxList list) ∧  (∃ s ∈ list, s = maxList list) := by
+  apply And.intro
+  exact maxList_spec_v1 list h_list_nonempty
+  set s := maxList list
+  use s
+  apply And.intro
+  simp [s]
   induction list
   contradiction
   rename_i list_hd list' inductive_hypothesis
+  by_cases list_hd = s
+  rename_i h_list_hd_le_s
+  simp [h_list_hd_le_s]
   by_cases list' = []
   rename_i h_list'_empty
-  rw [h_list'_empty] at h_x_in_list
   simp [h_list'_empty]
-  simp [maxList2, maxListV2]
-  simp at h_x_in_list
-  rw [h_x_in_list]
-  rename_i list'_nonempty
-  simp [list'_nonempty] at inductive_hypothesis
-  simp at h_x_in_list
-  cases h_x_in_list
-  rename_i h_eq_list_hd
-  simp [maxList2, maxListV2]
-  rw [h_eq_list_hd]
-  simp
-  rename_i h_x_in_list'
-  simp [h_x_in_list'] at inductive_hypothesis
-  simp [maxList2, maxListV2]
-  simp [maxList2] at inductive_hypothesis
-  simp [inductive_hypothesis]
+  simp [maxList, maxListV2]
+  rename_i h_list'_nonempty
+  simp [h_list'_nonempty] at inductive_hypothesis
+  simp [s] at h_list_hd_le_s
+  simp [maxList, maxListV2]
+  simp [s]
+  left
+  simp [maxList, maxListV2]
+  rename_i h_hd_new_s
+  by_cases list' = []
+  rename_i h_list'_empty
+  simp [s] at h_hd_new_s
+  simp [h_list'_empty] at *
+  simp [maxList, maxListV2] at *
+  rename_i h_list'_nonempty
+  simp [h_list'_nonempty] at inductive_hypothesis
+  simp [s] at h_hd_new_s
+  simp [maxList, maxListV2]
+  right
+  set s' := list_hd ⊔ maxListV2 list'
+  simp [maxList, maxListV2] at h_hd_new_s
+  have h_s_gt_list'_max : maxListV2 list' = list_hd ⊔ maxListV2 list' := by
+    simp
+    linarith
+  simp [s']
+  rw [←h_s_gt_list'_max]
+  exact inductive_hypothesis
+  rfl

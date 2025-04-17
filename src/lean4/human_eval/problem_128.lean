@@ -38,10 +38,31 @@ let spec (result: Option Int) :=
       ∧ result = magnitude_sum) ∧
     (result = 0 → has_zero)
 -- program termination
-∃ result, impl arr = result →
+∃ result, impl arr = result ∧
+-- return value satisfies spec
 spec result
 -- end_def problem_spec
 
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: List Int → Option Int)
+-- inputs
+(arr: List Int) : Prop :=
+-- end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ arr, problem_spec impl arr) ↔
+(∀ arr, generated_spec impl arr) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (arr: List Int) : Option Int :=

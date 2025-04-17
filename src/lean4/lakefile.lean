@@ -10,7 +10,4 @@ require mathlib from git "https://github.com/leanprover-community/mathlib4" @ "v
 
 @[default_target]
 lean_lib «clever» where
-  globs := #[.submodules `Imports, .submodules `ProgDefs, .submodules `ProgVer]
-
-lean_lib «clever_with_solutions» where
-  globs := #[.submodules `ProgDefs]
+  globs := #[.submodules `Imports, .submodules `human_eval, .submodules `sample_examples]

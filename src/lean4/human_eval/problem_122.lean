@@ -25,17 +25,39 @@ def problem_spec
 (k: Nat) :=
 -- spec
 let spec (result: Int) :=
-  1 ≤ arr.length → arr.length ≤ 100 → 1 ≤ k → k ≤ arr.length → 
+  1 ≤ arr.length → arr.length ≤ 100 → 1 ≤ k → k ≤ arr.length →
   ∃ i, 0 ≤ i ∧ i < k ∧ arr[i]! ≤ 99 ∧ -99 ≤ arr[i]! →
     result = arr[i]! + impl arr i →
   ∀ i', i < i' ∧ i' < k → ¬(arr[i']! ≤ 99 ∧ -99 ≤ arr[i']!)
 
   ∧ ¬(∃ i, 0 ≤ i ∧ i < k ∧ arr[i]! ≤ 99 ∧ -99 ≤ arr[i]!) → result = 0;
 -- program termination
-∃ result, impl arr k = result →
+∃ result, impl arr k = result ∧
+-- return value satisfies spec
 spec result
 -- end_def problem_spec
 
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: List Int → Nat → Int)
+-- inputs
+(arr: List Int)
+(k: Nat) : Prop :=
+-- end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ arr k, problem_spec impl arr k) ↔
+(∀ arr k, generated_spec impl arr k) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (arr: List Int) (k: Nat) : Int :=
@@ -48,7 +70,6 @@ sorry
 -- start_def test_cases
 -- #test implementation ([111, 21, 3, 4000, 5, 6, 7, 8, 9]: List Int) 4 = 24
 -- end_def test_cases
-
 
 -- start_def correctness_definition
 theorem correctness

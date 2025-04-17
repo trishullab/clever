@@ -33,10 +33,31 @@ let spec (result : Int) :=
     result = 0
 
 -- program termination
-∃ result, impl lst = result →
+∃ result, impl lst = result ∧
+-- return value satisfies spec
 spec result
 -- end_def problem_spec
 
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: List Int → Int)
+-- inputs
+(lst: List Int) : Prop :=
+-- end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ lst, problem_spec impl lst) ↔
+(∀ lst, generated_spec impl lst) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (lst: List Int) : Int :=
@@ -51,7 +72,6 @@ sorry
 -- #test implementation ([3, 3, 3, 3, 3]: List Int) = 9
 -- #test implementation ([30, 13, 24, 321]: List Int) = 0
 -- end_def test_cases
-
 
 -- start_def correctness_definition
 theorem correctness
