@@ -55,7 +55,7 @@ def generated_spec
 -- spec
 let spec (result: Nat) :=
 match n with
-| 0 => result = 1
+| 0 => result = 0
 | 1 => result = 1
 | n' + 2 => result = impl n' + impl (n' + 1)
 -- return value satisfies spec
@@ -64,7 +64,7 @@ spec result
 -- end_def generated_spec
 
 -- start_def iso_helper_lemmas
-theorem fib0_unique (n : ℕ) (h : fibonacci_non_computable 0 n) : n = 1 :=
+theorem fib0_unique (n : ℕ) (h : fibonacci_non_computable 0 n) : n = 0 :=
 -- end_def iso_helper_lemmas
 -- start_def iso_helper_lemmas_proof
 by
@@ -149,7 +149,7 @@ linarith
 -- start_def iso_helper_lemmas
 theorem fib_rec_unique_seq (n : ℕ)
 (f : Nat → Nat)
-(h_f_0: f 0 = 1)
+(h_f_0: f 0 = 0)
 (h_f_1: f 1 = 1)
 (h_f_step: ∀ n, f (n + 2) = f n + f (n + 1))
 : fibonacci_non_computable n (f n) :=
@@ -247,27 +247,27 @@ def implementation (n: Nat) : Nat :=
 -- end_def implementation_signature
 -- start_def implementation
 match n with
-| 0 => 1
+| 0 => 0
 | 1 => 1
 | n' + 2 => implementation n' + implementation (n' + 1)
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
-#test implementation 0 = 1
+#test implementation 0 = 0
 #test implementation 1 = 1
-#test implementation 2 = 2
-#test implementation 3 = 3
-#test implementation 4 = 5
-#test implementation 5 = 8
-#test implementation 6 = 13
-#test implementation 7 = 21
+#test implementation 2 = 1
+#test implementation 3 = 2
+#test implementation 4 = 3
+#test implementation 5 = 5
+#test implementation 6 = 8
+#test implementation 7 = 13
 -- end_def test_cases
 
 -- start_def correctness_helper_lemmas
 theorem fib_comp_to_non_comp (n : ℕ)
 (f : Nat → Nat)
-(h_f_0: f 0 = 1)
+(h_f_0: f 0 = 0)
 (h_f_1: f 1 = 1)
 (h_f_step: ∀ n, f (n + 2) = f n + f (n + 1))
 : fibonacci_non_computable n (f n) :=
@@ -317,7 +317,7 @@ have h_impl_n : ∀ n', implementation (n' + 2) = implementation n' + implementa
 by
   intro n'
   rw [implementation]
-have h_impl_0 : implementation 0 = 1 := by
+have h_impl_0 : implementation 0 = 0 := by
   rw [implementation]
 have h_impl_1 : implementation 1 = 1 := by
   rw [implementation]
