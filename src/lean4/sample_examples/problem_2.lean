@@ -160,7 +160,7 @@ if x < 0 then -x else x
 -- start_def correctness_definition
 theorem correctness
 (x: Int)
-: problem_spec implementation x  :=
+: problem_spec implementation x :=
 -- end_def correctness_definition
 -- start_def correctness_proof
 by
@@ -173,7 +173,7 @@ by_cases h_0_eq_x: x = 0
 -- if x = 0 then
 simp [h_0_eq_x]
 by_cases h_x_lt_0: x < 0
--- if 0 < x then
+-- if x < 0 then
 simp [h_x_lt_0]
 apply And.intro
 linarith
