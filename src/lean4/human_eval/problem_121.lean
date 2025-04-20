@@ -12,7 +12,7 @@ test_cases:
     expected_output: 9
   - input: [30, 13, 24, 321]
     expected_output: 0
---/
+-/
 -- end_def problem_details
 
 -- start_def problem_spec
@@ -23,15 +23,14 @@ def problem_spec
 (lst: List Int) :=
 -- spec
 let spec (result : Int) :=
-  lst ≠ [] →
-  ∃ i, 0 ≤ i ∧ i < lst.length ∧ i % 2 = 0 ∧ lst[i]! % 2 = 1 →
-    (let lst' := lst.take i;
-    result = lst[i]! + impl lst') →
-  ∀ i', i < i' ∧ i' < lst.length ∧ i' % 2 = 0 → ¬lst[i']! % 2 = 1 -- i must be last odd element in even pos
-  -- case where lst contains no odd elements in even positions
-  ∧ ¬(∃ i, 0 ≤ i ∧ i < lst.length ∧ i % 2 = 0 ∧ lst[i]! % 2 = 1) →
-    result = 0
-
+lst ≠ [] → ∀ i,  i < lst.length ∧ i % 2 = 0 →
+  (lst.length = 1 → impl lst = 0) ∧
+  (i + 1 < lst.length →
+    (lst[i + 1]! % 2 = 1 →
+    impl (lst.drop i) = lst[i + 1]! + (if i + 2 < lst.length then impl (lst.drop (i+2)) else 0)) ∧
+    (lst[i + 1]! % 2 = 0 →
+    impl (lst.drop i) = if i + 2 < lst.length then impl (lst.drop (i+2)) else 0)
+  )
 -- program termination
 ∃ result, impl lst = result ∧
 -- return value satisfies spec

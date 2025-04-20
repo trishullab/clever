@@ -13,7 +13,7 @@ docstring: |
 test_cases:
   - input: [[111, 21, 3, 4000, 5, 6, 7, 8, 9], 4]
     expected_output: 24
---/
+-/
 -- end_def problem_details
 
 -- start_def problem_spec
@@ -26,11 +26,10 @@ def problem_spec
 -- spec
 let spec (result: Int) :=
   1 ≤ arr.length → arr.length ≤ 100 → 1 ≤ k → k ≤ arr.length →
-  ∃ i, 0 ≤ i ∧ i < k ∧ arr[i]! ≤ 99 ∧ -99 ≤ arr[i]! →
-    result = arr[i]! + impl arr i →
+  ((∀ i, 0 ≤ i ∧ i < k → ¬(arr[i]! ≤ 99 ∧ -99 ≤ arr[i]!)) → result = 0) ∧
+  ∃ i, i < k ∧ arr[i]! ≤ 99 ∧ -99 ≤ arr[i]! →
+    result = arr[i]! + (if i = 0 then 0 else impl arr i) →
   ∀ i', i < i' ∧ i' < k → ¬(arr[i']! ≤ 99 ∧ -99 ≤ arr[i']!)
-
-  ∧ ¬(∃ i, 0 ≤ i ∧ i < k ∧ arr[i]! ≤ 99 ∧ -99 ≤ arr[i]!) → result = 0;
 -- program termination
 ∃ result, impl arr k = result ∧
 -- return value satisfies spec

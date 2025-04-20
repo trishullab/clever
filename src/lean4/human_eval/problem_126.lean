@@ -24,7 +24,7 @@ test_cases:
     expected_output: True
   - input: [1, 2, 2, 2, 3, 4]
     expected_output: False
---/
+-/
 -- end_def problem_details
 
 -- start_def problem_spec
@@ -36,9 +36,9 @@ def problem_spec
 -- spec
 let sorted_ascending := lst.Sorted (· ≤ ·);
 let ms := Multiset.ofList lst;
-let multiple_duplicates := ¬(∃ i, i ∈ lst → 2 < ms.count i )
+let multiple_duplicates := ∃ i, i ∈ lst ∧ 2 < ms.count i;
 let spec (res: Bool) :=
-  if res then sorted_ascending ∧ ¬multiple_duplicates else ¬(sorted_ascending ∧ ¬multiple_duplicates);
+  res = true ↔ sorted_ascending ∧ ¬multiple_duplicates
 -- program termination
 ∃ result, impl lst = result ∧
 -- return value satisfies spec

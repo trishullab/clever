@@ -15,7 +15,7 @@ test_cases:
     expected_output: 0
   - input: []
     expected_output: None
---/
+-/
 -- end_def problem_details
 
 -- start_def problem_spec
@@ -31,12 +31,12 @@ let spec (result: Option Int) :=
   | some result =>
   let magnitude_sum := (arr.map (fun x => Int.ofNat x.natAbs)).sum;
     let neg_count_odd := (arr.filter (fun x => x < 0)).length % 2 = 1;
-    let has_zero := ∃ i, i ∈ arr → i = 0;
-    (result < 0 → (neg_count_odd ∧ ¬has_zero)
+    let has_zero := 0 ∈ arr;
+    (result < 0 ↔ (neg_count_odd ∧ ¬has_zero)
       ∧ result = magnitude_sum * -1) ∧
-    (0 < result → (¬neg_count_odd ∧ ¬has_zero)
+    (0 < result ↔ (¬neg_count_odd ∧ ¬has_zero)
       ∧ result = magnitude_sum) ∧
-    (result = 0 → has_zero)
+    (result = 0 ↔ has_zero)
 -- program termination
 ∃ result, impl arr = result ∧
 -- return value satisfies spec

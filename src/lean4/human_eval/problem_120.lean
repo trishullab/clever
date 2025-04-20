@@ -16,7 +16,7 @@ test_cases:
   - input: [[2, 4, 3, 1], 0]
     expected_output: []
 
---/
+-/
 -- end_def problem_details
 
 -- start_def problem_spec
