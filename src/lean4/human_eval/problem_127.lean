@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def intersection(interval1: Tuple[int, int], interval2: Tuple[int, int]) -> String"
+function_signature: "def intersection(interval1: Tuple[Int, Int], interval2: Tuple[Int, Int]) -> String"
 docstring: |
     You are given two intervals,
     where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).
@@ -42,9 +42,9 @@ let intersectionStart := max s1 s2;
 let intersectionEnd := min e1 e2;
 let hasIntersection := intersectionStart ≤ intersectionEnd;
 let isPrime := Nat.Prime (intersectionEnd - intersectionStart).toNat;
-(result = "YES" → hasIntersection ∧ isPrime) ∧
-(result = "NO" → ¬hasIntersection ∨ ¬isPrime) ∧
-(result ≠ "NO" ∧ result ≠ "YES" → false)
+(result = "YES" ↔ hasIntersection ∧ isPrime) ∧
+(result = "NO" ↔ ¬hasIntersection ∨ ¬isPrime) ∧
+(result = "YES" ∨ result = "NO")
 -- program terminates
 ∃ result, impl interval1 interval2 = result ∧
 -- return value satisfies spec
