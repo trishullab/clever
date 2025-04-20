@@ -31,7 +31,7 @@ lst ≠ [] → ∀ i,  i < lst.length ∧ i % 2 = 0 →
     (lst[i + 1]! % 2 = 0 →
     impl (lst.drop i) = if i + 2 < lst.length then impl (lst.drop (i+2)) else 0)
   )
--- program termination
+-- program terminates
 ∃ result, impl lst = result ∧
 -- return value satisfies spec
 spec result

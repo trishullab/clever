@@ -39,7 +39,7 @@ let ms := Multiset.ofList lst;
 let multiple_duplicates := ∃ i, i ∈ lst ∧ 2 < ms.count i;
 let spec (res: Bool) :=
   res = true ↔ sorted_ascending ∧ ¬multiple_duplicates
--- program termination
+-- program terminates
 ∃ result, impl lst = result ∧
 -- return value satisfies spec
 spec result

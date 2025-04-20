@@ -39,6 +39,7 @@ let spec (result: List Int) :=
     | max :: remaining_reversed =>
       arr.max? = some max ∧
       impl (arr.erase max) (k-1) = (remaining_reversed.reverse)
+-- program terminates
 ∃ result, impl arr k = result ∧
 -- return value satisfies spec
 spec result

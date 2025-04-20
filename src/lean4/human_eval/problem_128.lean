@@ -37,7 +37,7 @@ let spec (result: Option Int) :=
     (0 < result ↔ (¬neg_count_odd ∧ ¬has_zero)
       ∧ result = magnitude_sum) ∧
     (result = 0 ↔ has_zero)
--- program termination
+-- program terminates
 ∃ result, impl arr = result ∧
 -- return value satisfies spec
 spec result
