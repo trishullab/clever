@@ -24,14 +24,38 @@ def problem_spec
 (strings: List String) :=
 -- spec
 let spec (result: Option String) :=
-  result = none ∨
-  (∃ longest, result = some longest ∧
-  longest ∈ strings ∧
-  ∀ s, s ∈ strings → s.length ≤ longest.length);
+  (result = none ↔ strings.length = 0) ∨
+  (∃ longest, result = some longest →
+  longest ∈ strings →
+  ∀ s, s ∈ strings → s.length ≤ longest.length →
+  (∃ i, i < strings.length →
+  strings[i]! = longest → ∀ j < i, strings[j]!.length < longest.length));
 -- program termination
-∃ result, implementation strings = result →
+∃ result, implementation strings = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List String → Option String)
+-- inputs
+(strings: List String) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ strings, problem_spec implementation strings) ↔
+(∀ strings, generated_spec implementation strings) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
+
 
 -- start_def implementation_signature
 def implementation (strings: List String) : Option String :=
@@ -62,14 +86,5 @@ unfold problem_spec
 let result := implementation strings
 use result
 simp [result]
-simp [implementation]
-cases strings
-apply Or.inl
-rfl
-rename_i head tail
-apply Or.inr
-let longest_tail := (tail.map (λ s => s.length)).maximum.get!
-let length_head := head.length
-let max_length := length_head.max longest_tail
 sorry
 -- end_def correctness_proof

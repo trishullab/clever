@@ -53,9 +53,30 @@ result_split.length = numbers_split.length ∧
 ∃ m, m ∈ numbers_as_str_mapped_to_numbers) ∧
 is_sorted_asc result_mapped_to_numbers = true;
 -- program termination
-∃ result, implementation numbers = result →
+∃ result, implementation numbers = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: String → String)
+-- inputs
+(numbers: String) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ numbers, problem_spec implementation numbers) ↔
+(∀ numbers, generated_spec implementation numbers) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (numbers: String) : String :=

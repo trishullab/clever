@@ -1,0 +1,43 @@
+[build-system]
+requires = [
+    "hatchling"
+]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/clever_bench"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/lean4/Imports" = "clever_bench/lean4/Imports"
+"src/lean4/human_eval" = "clever_bench/lean4/human_eval"
+"src/lean4/sample_examples" = "clever_bench/lean4/sample_examples"
+"src/lean4/.gitignore"= "clever_bench/lean4/gitignore"
+"src/lean4/lake-manifest.json"= "clever_bench/lean4/lake-manifest.json"
+"src/lean4/lean-toolchain"= "clever_bench/lean4/lean-toolchain"
+"src/lean4/lakefile.lean"= "clever_bench/lean4/lakefile.lean"
+
+[project]
+name = "clever_bench"
+version = "1.0.0"
+authors = [
+  { name="Amitayush Thakur", email="amitayush@utexas.edu" },
+]
+description = "Python library for running the CLEVER Benchmark"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+]
+
+dependencies = [
+    "PyYAML==6.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/trishullab/clever-bench"
+Issues = "https://github.com/trishullab/clever/issues"
+
+[project.scripts]
+clever-bench-install = "clever_bench.setup:install_clever"

@@ -27,11 +27,35 @@ let spec (res: Bool) :=
 numbers.length > 1 →
 if res then numbers_within_threshold else ¬numbers_within_threshold;
 -- program terminates
-∃ result, impl numbers threshold = result →
+∃ result, impl numbers threshold = result ∧
 -- return value satisfies spec
 spec result
 -- if result then spec else ¬spec
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: List Rat → Rat → Bool)
+-- inputs
+(numbers: List Rat)
+(threshold: Rat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ numbers threshold, problem_spec impl numbers threshold) ↔
+(∀ numbers threshold, generated_spec impl numbers threshold) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
+
 
 -- start_def implementation_signature
 def implementation (numbers: List Rat) (threshold: Rat) : Bool :=

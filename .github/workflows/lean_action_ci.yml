@@ -31,18 +31,30 @@ jobs:
         run: |
           source $HOME/.elan/env
           lake exe cache get
+
+      - name: Build the lean project
+        run: |
+          source $HOME/.elan/env
+          pushd src/lean4 && (lake build > lean4_build.log) && popd
         
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Build the lean project
+      - name: Upgrade pip and install Hatch
         run: |
-          source $HOME/.elan/env
-          pushd src/lean4 && (lake build > lean4_build.log) && popd
+          python -m pip install --upgrade pip
+          pip install build
+
+      - name: Build the package using Hatch
+        run: |
+          python -m build
+
+      - name: Install the built package
+        run: |
+          pip install dist/*.whl
       
-      - name: Run Score Summarization Script
+      - name: Run Python Tests
         run: |
-          source $HOME/.elan/env
-          python src/scripts/score_solutions.py
+          python src/tests/test_lean_parser.py

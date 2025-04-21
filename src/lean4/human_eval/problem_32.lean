@@ -33,9 +33,30 @@ poly.degree = some (xs.length - 1) →
 (∀ i, i ≤ xs.length - 1 → poly.coeff i = xs.get! i) →
 |poly.eval result| ≤ eps;
 -- program termination
-∃ result, implementation xs = result →
+∃ result, implementation xs = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List Rat → Rat)
+-- inputs
+(xs: List Rat) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ xs, problem_spec implementation xs) ↔
+(∀ xs, generated_spec implementation xs) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (xs: List Rat) : Rat :=

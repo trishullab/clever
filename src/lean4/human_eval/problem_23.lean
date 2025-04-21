@@ -25,9 +25,30 @@ let characters := string.toList;
 -- every character in the string is counted once
 (characters.map (fun _ => 1)).sum = result;
 -- program termination
-∃ result, implementation string = result →
+∃ result, implementation string = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: String → Nat)
+-- inputs
+(string: String) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ string, problem_spec implementation string) ↔
+(∀ string, generated_spec implementation string) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (string: String): Nat :=

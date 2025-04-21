@@ -1,13 +1,53 @@
 import Mathlib
 import Mathlib.Algebra.Polynomial.Basic
 
+
 -- start_def helper_definitions
 /--
-  name: string_eq_iff_data_eq
-  use: |
-    Helper function to prove that two strings are equal if their data is equal.
-  problems:
-    - 6
+name: fibonacci_non_computable
+use: |
+  Non-computable definition to check if a number is a Fibonacci number.
+problems: []
+sample_problems:
+  - 3
+-/
+inductive fibonacci_non_computable : ℕ → ℕ → Prop
+| base0 : fibonacci_non_computable 0 0
+| base1 : fibonacci_non_computable 1 1
+| step  : ∀ n f₁ f₂, fibonacci_non_computable n f₁ →
+fibonacci_non_computable (n + 1) f₂ →
+fibonacci_non_computable (n + 2) (f₁ + f₂)
+-- end_def helper_definitions
+
+-- start_def helper_definitions
+/--
+name: fibonacci_non_computable_4
+use: |
+  Non-computable definition to check if a number is a Fibonacci number such that
+  fib(n) = fib(n - 1) + fib(n - 2) + fib(n - 3) + fib(n - 4).
+problems:
+  - 46
+-/
+inductive fibonacci_non_computable_4 : ℕ → ℕ → Prop
+| base0 : fibonacci_non_computable_4 0 0
+| base1 : fibonacci_non_computable_4 1 0
+| base2 : fibonacci_non_computable_4 2 2
+| base3 : fibonacci_non_computable_4 3 0
+| step : ∀ n f₁ f₂ f₃ f₄, fibonacci_non_computable_4 n f₁ →
+fibonacci_non_computable_4 (n + 1) f₂ →
+fibonacci_non_computable_4 (n + 2) f₃ →
+fibonacci_non_computable_4 (n + 3) f₄ →
+fibonacci_non_computable_4 (n + 4) (f₁ + f₂ + f₃ + f₄)
+-- end_def helper_definitions
+
+-- start_def helper_definitions
+/--
+name: string_eq_iff_data_eq
+use: |
+  Helper function to prove that two strings are equal if their data is equal.
+problems: []
+sample_problems:
+  - 0
 -/
 def string_eq_iff_data_eq (s1: String) (s2: String)
 : s1.data = s2.data ↔ s1 = s2 :=
@@ -25,14 +65,14 @@ by
 
 -- start_def helper_definitions
 /--
-  name: string_is_paren_balanced_helper
-  use: |
-    Helper function to check if a string is balanced with respect to parentheses.
-  problems:
-    - 1
-    - 6
-  sample_problems:
-    - 0
+name: string_is_paren_balanced_helper
+use: |
+  Helper function to check if a string is balanced with respect to parentheses.
+problems:
+  - 1
+  - 6
+sample_problems:
+  - 0
 -/
 def string_is_paren_balanced_helper
 (paren_string: String) (num_open: Int): Bool
@@ -71,14 +111,14 @@ decreasing_by
 
 -- start_def helper_definitions
 /--
-  name: string_is_paren_balanced
-  use: |
-    Function to check if a string is balanced with respect to parentheses.
-  problems:
-    - 1
-    - 6
-  sample_problems:
-    - 0
+name: string_is_paren_balanced
+use: |
+  Function to check if a string is balanced with respect to parentheses.
+problems:
+  - 1
+  - 6
+sample_problems:
+  - 0
 -/
 def string_is_paren_balanced
 (paren_string: String): Bool
@@ -87,14 +127,14 @@ string_is_paren_balanced_helper paren_string 0
 -- end_def helper_definitions
 
 /--
-  name: balanced_paren_non_computable
-  use: |
-    Non-computable definition to check if a string is balanced with respect to parentheses.
-  problems:
-    - 1
-    - 6
-  sample_problems:
-    - 0
+name: balanced_paren_non_computable
+use: |
+  Non-computable definition to check if a string is balanced with respect to parentheses.
+problems:
+  - 1
+  - 6
+sample_problems:
+  - 0
 -/
 def balanced_paren_non_computable
 (paren_string: String): Prop
@@ -105,11 +145,11 @@ let chars := paren_string.toList;
 
 -- start_def helper_definitions
 /--
-  name: count_paren_groups_helper
-  use: |
-    Helper to count the number of groups of parentheses in a string.
-  problems:
-    - 1
+name: count_paren_groups_helper
+use: |
+  Helper to count the number of groups of parentheses in a string.
+problems:
+  - 1
 -/
 def count_paren_groups_helper
 (paren_string: String) (num_open: Int) (num_groups: Nat): Nat :=
@@ -149,11 +189,11 @@ decreasing_by
 
 -- start_def helper_definitions
 /--
-  name: count_paren_groups
-  use: |
-    Function to count the number of groups of parentheses in a string.
-  problems:
-    - 1
+name: count_paren_groups
+use: |
+  Function to count the number of groups of parentheses in a string.
+problems:
+  - 1
 -/
 def count_paren_groups
 (paren_string: String): Nat :=
@@ -162,11 +202,11 @@ count_paren_groups_helper paren_string 0 0
 
 -- start_def helper_definitions
 /--
-  name: count_max_paren_depth_helper
-  use: |
-    Helper to count the maximum depth of parentheses in a string.
-  problems:
-    - 6
+name: count_max_paren_depth_helper
+use: |
+  Helper to count the maximum depth of parentheses in a string.
+problems:
+  - 6
 -/
 def count_max_paren_depth_helper
 (paren_string: String) (num_open: Int) (max_depth: Nat): Nat :=
@@ -205,11 +245,11 @@ decreasing_by
 
 -- start_def helper_definitions
 /--
-  name: count_max_paren_depth
-  use: |
-    Function to count the maximum depth of parentheses in a string.
-  problems:
-    - 6
+name: count_max_paren_depth
+use: |
+  Function to count the maximum depth of parentheses in a string.
+problems:
+  - 6
 -/
 def count_max_paren_depth
 (paren_string: String): Nat :=
@@ -218,11 +258,11 @@ count_max_paren_depth_helper paren_string 0 0
 
 -- start_def helper_definitions
 /--
-  name: is_palindrome
-  use: |
-    Helper to check if a string is a palindrome.
-  problems:
-    - 10
+name: is_palindrome
+use: |
+  Helper to check if a string is a palindrome.
+problems:
+  - 10
 -/
 def is_palindrome
 (s: String): Bool :=

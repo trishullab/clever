@@ -32,9 +32,31 @@ let spec (result: List Int) :=
 result[2 * i]! = numbers[i]! ∧
 (2*i - 1 > 0 → result[2 * i - 1]! = delimeter));
 -- program termination
-∃ result, implementation numbers delimeter = result →
+∃ result, implementation numbers delimeter = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List Int → Int → List Int)
+-- inputs
+(numbers: List Int)
+(delimeter: Int) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ numbers delimeter, problem_spec implementation numbers delimeter) ↔
+(∀ numbers delimeter, generated_spec implementation numbers delimeter) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (numbers: List Int) (delimeter: Int) : List Int :=

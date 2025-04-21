@@ -30,9 +30,31 @@ let start_idx := end_idx - string_in_result.length;
 let corresponding_string_in_result := ((result_chars.take end_idx).drop start_idx).asString;
 corresponding_string_in_result = string_in_result);
 -- program termination
-∃ result, implementation strings = result →
+∃ result, implementation strings = result ∧
 spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(implementation: List String → String)
+-- inputs
+(strings: List String) : Prop :=
+-- end_def generated_spec
+-- start_def generated_spec_body
+sorry
+-- end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ implementation,
+(∀ strings, problem_spec implementation strings) ↔
+(∀ strings, generated_spec implementation strings) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
+
 
 -- start_def implementation_signature
 def implementation (strings: List String) : String :=
