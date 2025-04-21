@@ -32,10 +32,10 @@ let pow_sum := pow_array.sum;
 (∀ i, i < result_array.length →
 result_array[i]! < base ∧ 0 ≤ result_array[i]! →
 pow_sum = x);
--- -- program termination
+-- program termination
 ∃ result, implementation x base = result ∧
 spec result
--- -- end_def problem_spec
+-- end_def problem_spec
 
 -- start_def generated_spec
 def generated_spec
