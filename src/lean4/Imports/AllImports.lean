@@ -263,6 +263,7 @@ use: |
   Helper to check if a string is a palindrome.
 problems:
   - 10
+  - 48
 -/
 def is_palindrome
 (s: String): Bool :=

@@ -21,8 +21,12 @@ def problem_spec
 (implementation: String → String)
 -- inputs
 (s : String) :=
+let isAlphabetic (c: Char) : Bool :=
+('a'.toNat ≤ c.toNat ∧ c.toNat ≤ 'z'.toNat) ∨
+('A'.toNat ≤ c.toNat ∧ c.toNat ≤ 'Z'.toNat)
 -- spec
 let spec (result: String) :=
+isAlphabetic result ∧ isAlphabetic s ∧
 result.length = s.length ∧
 ∃ k : Nat, k < 26 ∧
 ∀ i : Nat, i < s.length →

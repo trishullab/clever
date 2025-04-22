@@ -21,17 +21,14 @@ def problem_spec
 (numbers: List Rat) :=
 -- spec
 let spec (result: Rat) :=
-  numbers.length ≥ 1 →
-  (numbers.length % 2 = 1 → result ∈ numbers →
+  0 < numbers.length →
   let less_count := (numbers.filter (fun x => x < result)).length;
   let more_count := (numbers.filter (fun x => x > result)).length;
   let eq_count := (numbers.filter (fun x => x = result)).length;
+  (numbers.length % 2 = 1 → result ∈ numbers →
   less_count = numbers.length - (eq_count - 1)/2 →
   more_count = numbers.length - (eq_count - 1)/2) ∧
   (numbers.length % 2 = 0 →
-  let less_count := (numbers.filter (fun x => x < result)).length;
-  let more_count := (numbers.filter (fun x => x > result)).length;
-  let eq_count := (numbers.filter (fun x => x = result)).length;
   less_count = numbers.length - eq_count/2 →
   more_count = numbers.length - eq_count/2);
 -- program termination
