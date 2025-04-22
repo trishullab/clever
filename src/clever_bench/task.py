@@ -7,7 +7,13 @@ from clever_bench.benchmark import Benchmark, get_clever_lean_project_path
 from pathlib import Path
 from collections import namedtuple
 
-ValidationResult = namedtuple("ValidationResult", ["problem_id", "isomorphism_ok", "correctness_ok", "lean_code"])
+ValidationResult = namedtuple("ValidationResult", 
+    ["problem_id", 
+    "isomorphism_ok", 
+    "correctness_ok",
+    "compilation_ok",
+    "error_message",
+    "lean_code"])
 
 
 class ProblemViewTask:
@@ -46,6 +52,18 @@ class ProblemViewTask:
         if self.component == TaskComponent.SPEC_GENERATION:
             view.hide_params(
                 "problem_spec_formal_ground_truth",
+                "implementation_signature",
+                "test_cases_lean",
+                "correctness_theorem",
+                "correctness_proof",
+                "implementation",
+                "isomorphism_proof",
+                "isomorphism_helper_lemmas",
+                "correctness_helper_lemmas"
+            )
+        
+        elif self.component == TaskComponent.SPEC_ISOMORPHISM:
+            view.hide_params(
                 "implementation_signature",
                 "test_cases_lean",
                 "correctness_theorem",
@@ -115,12 +133,26 @@ class ProblemViewTask:
             except asyncio.TimeoutError:
                 proc.kill()
                 await proc.wait()
-                return ValidationResult(isomorphism_ok=False, correctness_ok=False)
+                return ValidationResult(
+                    problem_id=problem.problem_id,
+                    isomorphism_ok=False,
+                    correctness_ok=False,
+                    compilation_ok=False,
+                    error_message="Timeout",
+                    lean_code=lean_code
+                )
 
             output = stdout.decode()
 
             if proc.returncode != 0:
-                return ValidationResult(isomorphism_ok=False, correctness_ok=False)
+                return ValidationResult(
+                    problem_id=problem.problem_id,
+                    isomorphism_ok=False,
+                    correctness_ok=False,
+                    compilation_ok=False,
+                    error_message=output,
+                    lean_code=lean_code
+                )
 
             output = stdout.decode()
             sorry_lines = self._extract_sorry_lines(output, filename)
@@ -159,6 +191,8 @@ class ProblemViewTask:
             problem_id=problem_id,
             isomorphism_ok=iso_ok and not any(ln for ln in sorry_lines if ln < iso_start or ln > iso_end),
             correctness_ok=cor_ok and not any(ln for ln in sorry_lines if ln < cor_start or ln > cor_end),
+            compilation_ok=True,
+            error_message=f"Sorry lines: {sorry_lines}, Other sorries: {other_sorries}",
             lean_code=lean_code
         )
     
