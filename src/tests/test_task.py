@@ -90,6 +90,8 @@ class TestTask(unittest.TestCase):
 
         result = asyncio.run(task.submit_async(problem, timeout_in_ms=30000))
         self.assertIsInstance(result, ValidationResult)
+        if not result.correctness_ok or not result.isomorphism_ok:
+            print(result.error_message)
         self.assertTrue(result.isomorphism_ok)
         self.assertTrue(result.correctness_ok)
 
