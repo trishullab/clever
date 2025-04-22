@@ -60,10 +60,10 @@ sorry
 -- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (s: String) : Nat := sorry
+def implementation (s: String) : Nat :=
 -- end_def implementation_signature
-
 -- start_def implementation
+sorry
 -- end_def implementation
 
 -- start_def test_cases

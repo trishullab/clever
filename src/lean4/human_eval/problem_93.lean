@@ -65,10 +65,10 @@ sorry
 
 
 -- start_def implementation_signature
-def implementation (s: String) : String := sorry
+def implementation (s: String) : String :=
 -- end_def implementation_signature
-
 -- start_def implementation
+sorry
 -- end_def implementation
 
 -- start_def test_cases

@@ -71,10 +71,10 @@ sorry
 
 
 -- start_def implementation_signature
-def implementation (s: String) : Option Int := sorry
+def implementation (s: String) : Option Int :=
 -- end_def implementation_signature
-
 -- start_def implementation
+sorry
 -- end_def implementation
 
 -- start_def test_cases

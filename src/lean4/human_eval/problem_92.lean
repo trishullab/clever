@@ -56,10 +56,10 @@ sorry
 -- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (a: Rat) (b: Rat) (c: Rat) : Bool := sorry
+def implementation (a: Rat) (b: Rat) (c: Rat) : Bool :=
 -- end_def implementation_signature
-
 -- start_def implementation
+sorry
 -- end_def implementation
 
 -- start_def test_cases

@@ -64,10 +64,10 @@ sorry
 
 
 -- start_def implementation_signature
-def implementation (lst: List Nat) : Nat := sorry
+def implementation (lst: List Nat) : Nat :=
 -- end_def implementation_signature
-
 -- start_def implementation
+sorry
 -- end_def implementation
 
 -- start_def test_cases
