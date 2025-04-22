@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def count_up_to(n : Int) -> List Int"
+function_signature: "def count_up_to(n : int) -> list[int]"
 docstring: |
     Implement a function that takes an non-negative integer and returns an array of the first n
     integers that are prime numbers and less than n.
@@ -25,15 +25,15 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: Int → List Int)
+(implementation: Nat → List Nat)
 -- inputs
-(n: Int) :=
+(n: Nat) :=
 -- spec
-let spec (result : List Int) :=
+let spec (result : List Nat) :=
   match n with
   | 0 => result = []
-  | n => n > 0 → (∀ i, i < result.length → (Nat.Prime (result.get! i).toNat) ∧ (result.get! i) < n) ∧
-         (∀ i : Nat, i < n → Nat.Prime i → (i : ℤ) ∈ result)
+  | n => n > 0 → (∀ i, i < result.length → (Nat.Prime (result.get! i)) ∧ (result.get! i) < n) ∧
+         (∀ i : Nat, i < n → Nat.Prime i → i ∈ result)
 -- program termination
 ∃ result,
   implementation n = result ∧
@@ -42,9 +42,9 @@ let spec (result : List Int) :=
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: Int → List Int)
+(impl: Nat → List Nat)
 -- inputs
-(n: Int) : Prop :=
+(n: Nat) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -62,7 +62,7 @@ sorry
 
 
 -- start_def implementation_signature
-def implementation (n: Int) : List Int := sorry
+def implementation (n: Nat) : List Nat := sorry
 -- end_def implementation_signature
 
 -- start_def implementation
@@ -80,7 +80,7 @@ def implementation (n: Int) : List Int := sorry
 
 -- start_def correctness_definition
 theorem correctness
-(n: Int)
+(n: Nat)
 : problem_spec implementation n
 :=
 -- end_def correctness_definition
