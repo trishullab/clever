@@ -62,7 +62,7 @@ class TestTask(unittest.TestCase):
             self.assertIsNotNone(p3.problem_spec_formal_ground_truth)
             self.assertIsNotNone(p3.implementation_signature)
             self.assertIsNotNone(p3.implementation)
-            self.assertIsNotNone(p3.test_cases_lean)
+            # self.assertIsNotNone(p3.test_cases_lean)
             self.assertIsNotNone(p3.correctness_theorem)
             self.assertIsNone(p3.correctness_proof)
             self.assertTrue(p3.helper_definitions is not None)

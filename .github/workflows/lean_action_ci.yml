@@ -57,5 +57,6 @@ jobs:
       
       - name: Run Python Tests
         run: |
+          source $HOME/.elan/env        
           python src/tests/test_lean_parser.py
           python src/tests/test_task.py
