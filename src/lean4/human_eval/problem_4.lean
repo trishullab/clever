@@ -29,7 +29,7 @@ def problem_spec
 let spec (result: Rat):=
 numbers.length > 0 →
 0 ≤ result ∧
-result * numbers.length =
+result * numbers.length * numbers.length =
 (numbers.map (fun x => |x * numbers.length - numbers.sum|)).sum;
 -- program terminates
 ∃ result, implementation numbers = result ∧
