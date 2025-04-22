@@ -35,7 +35,7 @@ let spec (result : Bool) :=
     let keys := D.keys
     let all_lower := keys.all (fun s => s.toLower = s)
     let all_upper := keys.all (fun s => s.toUpper = s)
-    if all_lower || all_upper then result = true else result = false
+    result = true ↔ all_lower || all_upper
 -- program termination
 ∃ result,
   implementation D = result ∧
@@ -44,9 +44,9 @@ let spec (result : Bool) :=
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: String → String)
+(impl: Std.HashMap String String → Bool)
 -- inputs
-(s: String) : Prop :=
+(D: Std.HashMap String String) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
