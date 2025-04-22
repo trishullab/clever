@@ -7,6 +7,7 @@ class TaskComponent(Enum):
     SPEC_GENERATION = auto()     # Task 1
     IMPL_GENERATION = auto()     # Task 2
     PROOF_GENERATION = auto()    # Task 3
+    SPEC_ISOMORPHISM = auto()    # Task 4
 
     def __str__(self):
         return self.name
