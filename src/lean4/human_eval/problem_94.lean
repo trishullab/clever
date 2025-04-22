@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def skjkasdkd(lst : list[int]) -> int"
+function_signature: "def sum_largest_prime(lst : list[int]) -> int"
 docstring: |
     You are given a list of integers.
     You need to find the largest prime value and return the sum of its digits.
