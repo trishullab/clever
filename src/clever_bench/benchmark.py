@@ -53,13 +53,17 @@ class Benchmark:
                 helper_definitions = f.read()
         else:
             helper_definitions = None
+        problems = []
         for lean_file in lean_files:
             problem_id = int(lean_file.stem.split("_")[1])  # Assuming the file name format is like "problem_{idx}.lean"
             with open(lean_file, "r", encoding="utf-8") as f:
                 content = f.read()
                 parser = LeanSpecParser(content, helper_definitions=helper_definitions, problem_id=problem_id, is_sample=self.is_sample)
                 problem = parser.parse()
-                self.problems.append(problem)
+                problems.append((problem_id, problem))
+        problems.sort(key=lambda x: x[0])
+        for _, problem in problems:
+            self.problems.append(problem)
 
     def to_json(self) -> str:
         return json.dumps([problem.to_dict() for problem in self.problems], indent=2)
