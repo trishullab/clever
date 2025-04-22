@@ -6,6 +6,7 @@ function_signature: "def sum_largest_prime(lst : list[int]) -> int"
 docstring: |
     You are given a list of integers.
     You need to find the largest prime value and return the sum of its digits.
+    Note(George): Modified to use List of nats because all examples are nats.
 test_cases:
   - input: [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3]
     expected_output: 10
@@ -25,16 +26,15 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: List Int → Int)
+(implementation: List Nat → Nat)
 -- inputs
-(lst: List Int) :=
+(lst: List Nat) :=
 -- spec
-let spec (result : Int) :=
-  match result with
-  | 0 => ¬ (∃ i, i < lst.length ∧ Prime (lst.get! i))
-  | _ => result > 0 ∧ ∃ i, i < lst.length ∧ Prime (lst.get! i) ∧
+let spec (result : Nat) :=
+  lst.any (fun num => Nat.Prime num) →
+    result > 0 ∧ ∃ i, i < lst.length ∧ Prime (lst.get! i) ∧
     (∀ j, j < lst.length ∧ Prime (lst.get! j) → lst.get! i ≤ lst.get! j) ∧
-    result = (Nat.digits 10 (lst.get! i).toNat).sum
+    result = (Nat.digits 10 (lst.get! i)).sum
 -- program termination
 ∃ result,
   implementation lst = result ∧
@@ -43,9 +43,9 @@ let spec (result : Int) :=
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: List Int → Int)
+(impl: List Nat → Nat)
 -- inputs
-(lst: List Int) : Prop :=
+(lst: List Nat) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -63,7 +63,7 @@ sorry
 
 
 -- start_def implementation_signature
-def implementation (lst: List Int) : Int := sorry
+def implementation (lst: List Nat) : Nat := sorry
 -- end_def implementation_signature
 
 -- start_def implementation
@@ -81,7 +81,7 @@ def implementation (lst: List Int) : Int := sorry
 
 -- start_def correctness_definition
 theorem correctness
-(lst: List Int)
+(lst: List Nat)
 : problem_spec implementation lst
 :=
 -- end_def correctness_definition
