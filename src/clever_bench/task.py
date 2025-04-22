@@ -79,9 +79,9 @@ class ProblemViewTask:
                 "problem_spec_formal_generated",
                 "isomorphism_theorem",
                 "isomorphism_proof",
-                "correctness_proof",
                 "isomorphism_helper_lemmas",
-                "correctness_helper_lemmas"
+                "correctness_helper_lemmas",
+                "correctness_proof",
             )
 
         elif self.component == TaskComponent.PROOF_GENERATION:
@@ -89,7 +89,9 @@ class ProblemViewTask:
                 "problem_spec_formal_generated",
                 "isomorphism_theorem",
                 "isomorphism_proof",
-                "isomorphism_helper_lemmas"
+                "isomorphism_helper_lemmas",
+                "correctness_helper_lemmas",
+                "correctness_proof"
             )
         return view
 
