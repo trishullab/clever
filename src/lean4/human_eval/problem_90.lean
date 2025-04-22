@@ -7,6 +7,12 @@ docstring: |
     You are given a list of integers.
     Write a function next_smallest() that returns the 2nd smallest element of the list.
     Return None if there is no such element.
+    TODO(George): Remove this when being reviewed
+    The spec is defined as: if result is none there is no second smallest element, which
+    exists in a finite list iff there are at least two distinct elements in the list.
+    If result is some x, then x is the second smallest element of the list, the spec
+    obtains the sublist of elements smaller than the result, and checks that this
+    sublist does not contain two distinct elements (they are all the same).
 test_cases:
   - input: [1, 2, 3, 4, 5]
     output: 2
@@ -28,15 +34,37 @@ def problem_spec
 -- spec
 let spec (result : Option Int) :=
   match result with
-  | none => ¬ (∃ i j, i < j ∧ lst.get! i < lst.get! j)
+  | none => ¬ (∃ i j, i < lst.length ∧ j < lst.length ∧ i ≠ j ∧ lst.get! i < lst.get! j)
   | some result =>
     let smaller_els := lst.filter (· < result);
     0 < smaller_els.length ∧
     smaller_els.all (λ x => x = smaller_els.get! 0);
 -- program termination
-∃ result, implementation lst = result →
-spec result
+∃ result,
+  implementation lst = result ∧
+  spec result
 -- end_def problem_spec
+
+-- start_def generated_spec
+def generated_spec
+-- function signature
+(impl: List Int → Option Int)
+-- inputs
+(lst: List Int) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
+sorry
+--end_def generated_spec_body
+
+-- start_def spec_isomorphism
+theorem spec_isomorphism:
+∀ impl,
+(∀ lst, problem_spec impl lst) ↔
+(∀ lst, generated_spec impl lst) :=
+-- end_def spec_isomorphism
+-- start_def spec_isomorphism_proof
+sorry
+-- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (lst: List Int) : Option Int := sorry
