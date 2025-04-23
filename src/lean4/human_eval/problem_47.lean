@@ -21,19 +21,22 @@ def problem_spec
 (numbers: List Rat) :=
 -- spec
 let spec (result: Rat) :=
-  numbers.length ≥ 1 →
-  (numbers.length % 2 = 1 → result ∈ numbers →
-  let less_count := (numbers.filter (fun x => x < result)).length;
-  let more_count := (numbers.filter (fun x => x > result)).length;
+  0 < numbers.length →
+  let less_eq := (numbers.filter (fun x => x ≤ result));
+  let more_eq := (numbers.filter (fun x => result ≤ x));
+  let max_more_eq := more_eq.max?;
+  let min_less_eq := less_eq.min?;
+  let less_eq_count := less_eq.length;
+  let more_eq_count := more_eq.length;
   let eq_count := (numbers.filter (fun x => x = result)).length;
-  less_count = numbers.length - (eq_count - 1)/2 →
-  more_count = numbers.length - (eq_count - 1)/2) ∧
-  (numbers.length % 2 = 0 →
-  let less_count := (numbers.filter (fun x => x < result)).length;
-  let more_count := (numbers.filter (fun x => x > result)).length;
-  let eq_count := (numbers.filter (fun x => x = result)).length;
-  less_count = numbers.length - eq_count/2 →
-  more_count = numbers.length - eq_count/2);
+  (less_eq_count + more_eq_count - eq_count = numbers.length →
+  numbers.length ≤ 2 * less_eq_count →
+  numbers.length ≤ 2 * more_eq_count) ∧
+  ((numbers.length % 2 = 1 →
+    result ∈ numbers) ∧
+    (numbers.length % 2 = 0 → max_more_eq.isSome ∧
+    min_less_eq.isSome ∧
+    2 * result = max_more_eq.get! + min_less_eq.get!));
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result
