@@ -8,8 +8,8 @@ docstring: |
     find_zero find x such that poly(x) = 0.
     find_zero returns only only zero point, even if there are many.
     Moreover, find_zero only takes list xs having even number of coefficients
-    and largest non zero coefficient as it guarantees
-    a solution.
+    and largest non zero coefficient as it guarantees a solution.
+    Note(George): This problem has been modified from the original HumanEval spec because of Real is not a computable type, but a zero does not necessarily exist over the rationals.
 test_cases:
   - input: [1, 2]
     output: -0.5
@@ -26,15 +26,16 @@ def problem_spec
 (xs: List Rat) :=
 -- spec
 let spec (result: Rat) :=
-let eps := (1: Rat) / 1000000;
-xs.length ≥ 1 → xs.length % 2 = 0 →
-∀ poly : Polynomial Rat,
-poly.degree = some (xs.length - 1) →
-(∀ i, i ≤ xs.length - 1 → poly.coeff i = xs.get! i) →
-|poly.eval result| ≤ eps;
+  let eps := (1: Rat) / 1000000;
+  xs.length ≥ 1 → xs.length % 2 = 0 →
+  ∀ poly : Polynomial Rat,
+    poly.degree = some (xs.length - 1) →
+    (∀ i, i ≤ xs.length - 1 → poly.coeff i = xs.get! i) →
+    |poly.eval result| ≤ eps;
 -- program termination
-∃ result, implementation xs = result ∧
-spec result
+∃ result,
+  implementation xs = result ∧
+  spec result
 -- end_def problem_spec
 
 -- start_def generated_spec
