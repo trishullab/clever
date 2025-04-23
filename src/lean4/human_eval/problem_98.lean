@@ -23,11 +23,14 @@ def problem_spec
 -- inputs
 (s: String) :=
 -- spec
-let uppercase_vowels := ["A", "E", "I", "O", "U"]
-let spec (result : Int) := match s.data with
-| [] => result = 0
-| _ :: [] => result = 0
-| c :: _ :: cs => result = (if uppercase_vowels.contains (String.mk [c]) then 1 else 0) + implementation (String.mk cs)
+let uppercase_vowels := ['A', 'E', 'I', 'O', 'U']
+let spec (result : Int) :=
+  let chars := s.toList
+  (result = 0 ↔ ∀ i, i < chars.length → chars[i]! ∉ uppercase_vowels) ∧
+  (1 < chars.length →
+    (result - 1 = implementation (chars.drop 2).toString ↔ chars[0]! ∈ uppercase_vowels) ∨
+    (result = implementation (chars.drop 2).toString ↔ chars[0]! ∉ uppercase_vowels)
+  )
 -- program termination
 ∃ result,
   implementation s = result ∧
