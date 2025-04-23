@@ -33,7 +33,7 @@ let spec (result: Rat) :=
   numbers.length ≤ 2 * less_eq_count →
   numbers.length ≤ 2 * more_eq_count) ∧
   ((numbers.length % 2 = 1 →
-    result ∈ numbers) ∨
+    result ∈ numbers) ∧
     (numbers.length % 2 = 0 → max_more_eq.isSome ∧
     min_less_eq.isSome ∧
     2 * result = max_more_eq.get! + min_less_eq.get!));
