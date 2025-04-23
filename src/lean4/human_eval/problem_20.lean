@@ -29,7 +29,7 @@ smaller ≤ larger ∧
 smaller ∈ numbers ∧
 larger ∈ numbers ∧
 (∀ x y, x ∈ numbers → y ∈ numbers →  abs_diff ≤ |x - y|) ∧
-(smaller = larger → numbers.filter (fun z => z = smaller).length > 1));
+(smaller = larger → 1 ≤ (numbers.filter (fun z => z = smaller)).length));
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result

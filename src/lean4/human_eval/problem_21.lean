@@ -21,9 +21,9 @@ def problem_spec
 -- spec
 let spec (result: List Rat) :=
 2 ≤ numbers.length →
-let min_elem = numbers.min?.get!;
-let max_elem = numbers.max?.get!;
-let range = max_elem - min_elem;
+let min_elem := numbers.min?.get!;
+let max_elem := numbers.max?.get!;
+let range := max_elem - min_elem;
 result.length = numbers.length ∧
 ∀ i, i < numbers.length →
 (min_elem ≠ max_elem →
