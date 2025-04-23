@@ -38,6 +38,7 @@ let spec (result : List Nat) :=
 ∃ result,
   implementation n = result ∧
   spec result
+-- end_def problem_spec
 
 -- start_def generated_spec
 def generated_spec
