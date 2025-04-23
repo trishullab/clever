@@ -109,6 +109,11 @@ class TestLeanSpecParser(unittest.TestCase):
         benchmark.save_json(f"{log_path}/benchmark.json")
         # Test saving CSV
         benchmark.save_csv(f"{log_path}/benchmark.csv")
+        # Dump the sample benchmark
+        benchmark_sample = Benchmark(is_sample=True)
+        benchmark_sample.load_all()
+        benchmark_sample.save_json(f"{log_path}/benchmark_sample.json")
+        benchmark_sample.save_csv(f"{log_path}/benchmark_sample.csv")
         pass
 
 if __name__ == "__main__":

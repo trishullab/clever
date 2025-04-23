@@ -1,6 +1,6 @@
 import Mathlib
 import Mathlib.Algebra.Polynomial.Basic
-
+import Std.Data.HashMap
 
 -- start_def helper_definitions
 /--
@@ -282,6 +282,7 @@ use: |
   Helper to check if a string is a palindrome.
 problems:
   - 10
+  - 48
 -/
 def is_palindrome
 (s: String): Bool :=

@@ -4,7 +4,8 @@ import Imports.AllImports
 /--
 function_signature: "def prime_fib(n: int)"
 docstring: |
-    prime_fib returns n-th number that is a Fibonacci number and it's also prime.
+    prime_fib returns n-th prime Fibonacci number.
+    Note(George): A proof of this problem requires the resolution of the open conjecture: there are infinitely many prime Fibonacci numbers.
 test_cases:
   - input: 1
     output: 2
@@ -27,11 +28,11 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Nat) :=
-n > 0 →
-(∃ i, ∀ j, n ≤ j ∧ j ≤ i →
-(result = Nat.fib i ∧
-Nat.Prime (Nat.fib i) ∧
-(i ≠ j → ¬ Nat.Prime (Nat.fib j))));
+  n > 0 →
+    (∃ i, Nat.fib i = result ∧ Nat.Prime result ∧
+      (∃! S : Finset Nat, S.card = n - 1 ∧
+      (∀ y ∈ S, (∃ k, y = Nat.fib k) ∧ y < result ∧ Nat.Prime y))
+    )
 -- program termination
 ∃ result, implementation n = result ∧
 spec result
