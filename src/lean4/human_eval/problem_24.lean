@@ -19,7 +19,7 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Nat) :=
-n > 0 → ∀ x, x ∣ n → x ≠ n → x ≤ result;
+0 < n → 0 < result → result | n → ∀ x, x ∣ n → x ≠ n → x ≤ result;
 -- program termination
 ∃ result, implementation n = result ∧
 spec result

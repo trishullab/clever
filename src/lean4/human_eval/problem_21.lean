@@ -15,18 +15,21 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: List Rat → (Rat × Rat))
+(implementation: List Rat → List Rat)
 -- inputs
 (numbers: List Rat) :=
 -- spec
-let spec (result: (Rat × Rat)) :=
-numbers.length ≥ 2 →
-(let (smaller, larger) := result;
-let abs_diff := |larger - smaller|;
-smaller ≤ larger ∧
-smaller ∈ numbers ∧
-larger ∈ numbers ∧
-(∀ x y, x ∈ numbers → y ∈ numbers →  abs_diff ≤ |x - y|));
+let spec (result: List Rat) :=
+2 ≤ numbers.length →
+let min_elem = numbers.min?.get!;
+let max_elem = numbers.max?.get!;
+let range = max_elem - min_elem;
+result.length = numbers.length ∧
+∀ i, i < numbers.length →
+(min_elem ≠ max_elem →
+result[i]! = (numbers[i]! - min_elem) / range) ∧
+(min_elem = max_elem →
+result[i]! = 0);
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result
@@ -35,7 +38,7 @@ spec result
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(implementation: List Rat → (Rat × Rat))
+(implementation: List Rat → List Rat)
 -- inputs
 (numbers: List Rat) : Prop :=
 -- end_def generated_spec
@@ -54,29 +57,16 @@ sorry
 -- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (numbers: List Rat): (Rat × Rat) :=
+def implementation (numbers: List Rat): List Rat :=
 -- end_def implementation_signature
 -- start_def implementation
-let n := numbers.length;
-let sorted_numbers := numbers.mergeSort;
-let min_diff := sorted_numbers.get! 1 - sorted_numbers.get! 0;
-let min_pair := (sorted_numbers.get! 0, sorted_numbers.get! 1);
-let rec loop (i: Nat) (min_diff: Rat) (min_pair: (Rat × Rat)): (Rat × Rat) :=
-  if i < n - 1 then
-    let diff := sorted_numbers.get! (i + 1) - sorted_numbers.get! i;
-    if diff < min_diff then
-      loop (i + 1) diff (sorted_numbers.get! i, sorted_numbers.get! (i + 1))
-    else
-      loop (i + 1) min_diff min_pair
-  else
-    min_pair;
-loop 1 min_diff min_pair
+sorry
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
-#test implementation [1.0, 2.0, 3.0, 4.0, 5.0, 2.2] = (2.0, 2.2)
-#test implementation [1.0, 2.0, 3.0, 4.0, 5.0, 2.0] = (2.0, 2.0)
+-- #test implementation [1.0, 2.0, 3.0, 4.0, 5.0, 2.2] = (2.0, 2.2)
+-- #test implementation [1.0, 2.0, 3.0, 4.0, 5.0, 2.0] = (2.0, 2.0)
 -- end_def test_cases
 
 -- start_def correctness_definition

@@ -19,11 +19,12 @@ def problem_spec
 (string: String) :=
 -- spec
 let spec (result: String) :=
-let chars := result.toList;
-chars.length = string.length ∧
-(∀ i, i < chars.length →
-  let c := chars.get! i;
-  let c' := chars.get! i;
+let chars_in_result := result.toList;
+let chars_in_string := string.toList;
+chars_in_result.length = string.length ∧
+(∀ i, i < chars_in_result.length →
+  let c := chars_in_result.get! i;
+  let c' := chars_in_string.get! i;
   (c.isUpper → c'.isLower) ∧
   (c.isLower → c'.isUpper) ∧
   ((¬ c.isUpper ∧ ¬ c.isLower) → c = c')

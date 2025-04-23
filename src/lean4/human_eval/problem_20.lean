@@ -22,13 +22,14 @@ def problem_spec
 (numbers: List Rat) :=
 -- spec
 let spec (result: (Rat × Rat)) :=
-numbers.length ≥ 2 →
+2 ≤ numbers.length →
 (let (smaller, larger) := result;
 let abs_diff := |larger - smaller|;
 smaller ≤ larger ∧
 smaller ∈ numbers ∧
 larger ∈ numbers ∧
-(∀ x y, x ∈ numbers → y ∈ numbers →  abs_diff ≤ |x - y|));
+(∀ x y, x ∈ numbers → y ∈ numbers →  abs_diff ≤ |x - y|) ∧
+(smaller = larger → numbers.filter (fun z => z = smaller).length > 1));
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result
