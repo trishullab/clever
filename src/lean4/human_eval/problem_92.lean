@@ -27,7 +27,8 @@ def problem_spec
 (a: Rat) (b: Rat) (c: Rat) :=
 -- spec
 let spec (result : Bool) :=
-  result = (a + b = c) ∨ (a + c = b) ∨ (b + c = a) ∧ a.den = 1 ∧ b.den = 1 ∧ c.den = 1
+  let nums := [a, b, c];
+  result = true ↔ ∃ i j k : ℕ, {i, j, k} ⊆ ({0, 1, 2} : Set ℕ) ∧ i ≠ j ∧ j ≠ k ∧ k ≠ i ∧ (nums[i]! + nums[j]! = nums[k]!) ∧ a.den = 1 ∧ a.den = b.den ∧ a.den = c.den
 -- program termination
 ∃ result,
   implementation a b c = result ∧
