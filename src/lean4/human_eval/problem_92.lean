@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def any_int(a: rat, b: rat, c: rat) -> bool"
+function_signature: "def any_int(a: float, b: float, c: float) -> bool"
 docstring: |
     Create a function that takes 3 numbers.
     Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.
