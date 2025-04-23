@@ -4,7 +4,7 @@ import Imports.AllImports
 /--
 function_signature: "def unique(l: list)"
 docstring: |
-    Return sorted unique elements in a list
+    Return sorted unique elements in a list.
 test_cases:
   - input: [5, 3, 5, 2, 3, 3, 9, 0, 123]
     output: [0, 2, 3, 5, 9, 123]
@@ -19,11 +19,12 @@ def problem_spec
 (l: List Int) :=
 -- spec
 let spec (result: List Int) :=
-(∀ x, x ∈ result ↔ x ∈ l ∧ result.count x = 1) ∧
-List.Sorted Int.le result
+  (∀ x, x ∈ result ↔ x ∈ l ∧ result.count x = 1) ∧
+  List.Sorted Int.le result
 -- program termination
-∃ result, implementation l = result ∧
-spec result
+∃ result,
+  implementation l = result ∧
+  spec result
 -- end_def problem_spec
 
 -- start_def generated_spec
