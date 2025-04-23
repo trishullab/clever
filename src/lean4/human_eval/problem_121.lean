@@ -3,8 +3,9 @@ import Imports.AllImports
 -- start_def problem_details
 /--
 function_signature: "def solution(lst: List[int]) -> int"
-docstring: Given a non-empty list of integers, return the sum of all of the odd elements that
-are in even positions.
+docstring: |
+    Given a non-empty list of integers, return the sum of all of the odd elements that
+    are in even positions.
 test_cases:
   - input: [5, 8, 7, 1]
     expected_output: 12
