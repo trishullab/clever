@@ -21,7 +21,9 @@ def problem_spec
 (implementation: String → String)
 -- inputs
 (s : String) :=
-let isAlphabetic (c: Char) : Bool :=
+let isAlphabetic (string: String) : Bool :=
+∀ i, i < string.length →
+let c := string.get! ⟨i⟩;
 ('a'.toNat ≤ c.toNat ∧ c.toNat ≤ 'z'.toNat) ∨
 ('A'.toNat ≤ c.toNat ∧ c.toNat ≤ 'Z'.toNat)
 -- spec
