@@ -31,10 +31,11 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Bool) :=
-if result then Nat.Prime n else ¬ Nat.Prime n;
+  if result then Nat.Prime n else ¬ Nat.Prime n;
 -- program termination
-∃ result, implementation n = result ∧
-spec result
+∃ result,
+  implementation n = result ∧
+  spec result
 -- end_def problem_spec
 
 -- start_def generated_spec
