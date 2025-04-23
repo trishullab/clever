@@ -2,16 +2,16 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def fib(n: int)"
+function_signature: "def fib(n: int) -> int"
 docstring: |
     Return n-th Fibonacci number.
 test_cases:
   - input: 10
-    output: 55
+    expected_output: 55
   - input: 1
-    output: 1
+    expected_output: 1
   - input: 8
-    output: 21
+    expected_output: 21
 -/
 -- end_def problem_details
 

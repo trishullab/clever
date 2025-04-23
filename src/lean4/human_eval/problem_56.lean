@@ -13,7 +13,7 @@ test_cases:
     expected_output: True
   - input: "<<><>>"
     expected_output: True
-  - input: ""><<>"
+  - input: "><<>"
     expected_output: False
 -/
 -- end_def problem_details
