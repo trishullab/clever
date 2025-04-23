@@ -22,7 +22,8 @@ def problem_spec
 let spec (result: List Int) :=
 result.length = numbers.length ∧
 ∀ i, i < numbers.length →
-result[i]! = (numbers.take (i + 1)).maximum.get!;
+(result[i]! ∈ numbers.take(i + 1) ∧
+∄ j, j ≤ i ∧ result[i]! < numbers[j]!)
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result

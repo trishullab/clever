@@ -27,7 +27,7 @@ def problem_spec
 (numbers: List Rat) :=
 -- spec
 let spec (result: Rat):=
-numbers.length > 0 →
+0 < numbers.length →
 0 ≤ result ∧
 result * numbers.length * numbers.length =
 (numbers.map (fun x => |x * numbers.length - numbers.sum|)).sum;
