@@ -4,7 +4,6 @@ import Imports.AllImports
 /--
 function_signature: "def get_coords_sorted(lst : list(list(int)), x : int) -> list((int, int))"
 docstring: |
-    """
     You are given a 2 dimensional data, as a nested lists,
     which is similar to matrix, however, unlike matrices,
     each row may contain a different number of columns.
