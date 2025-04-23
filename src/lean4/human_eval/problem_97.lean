@@ -28,7 +28,11 @@ def problem_spec
 (a b: Int) :=
 -- spec
 let spec (result : Int) :=
-  result + (a % 10) * b + a * (b % 10) + (a - a % 10) * (b - b % 10) = a * b
+  |result| ≤ 81 ∧
+  result % 10 = (a * b) % 10 ∧
+  ((b%10) ≠ 0 → (result % (b%10) = 0 ∧ (result/ (b%10)) % 100 = (a%10))) ∧
+  ((a%10) ≠ 0 → (result % (a%10) = 0 ∧ (result/ (a%10)) % 100 = (b%10))) ∧
+  ((a%10 = 0) ∨ (b%10 = 0) → result = 0)
 -- program termination
 ∃ result,
   implementation a b = result ∧
