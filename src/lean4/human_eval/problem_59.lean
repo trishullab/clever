@@ -21,7 +21,7 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Nat) :=
-  1 < n → ((Nat.Prime result ∧ ∃ k : Nat, k < n ∧ k * result = n) ∧
+  1 < n ∧ ¬ Nat.Prime n → ((Nat.Prime result ∧ ∃ k : Nat, k < n ∧ k * result = n) ∧
   ∀ i, i < n ∧ (∃ k : Nat, k < n ∧ k * i = n) ∧ Nat.Prime i → i ≤ result);
 -- program termination
 ∃ result, implementation n = result ∧
@@ -59,9 +59,8 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation [1, 2, 3] 4 = [1, 4, 2, 4, 3]
--- #test implementation [] 4 = []
--- #test implementation [1] 4 = [1]
+-- #test implementation 13195 = 29
+-- #test implementation 2048 = 2
 -- end_def test_cases
 
 -- start_def correctness_definition

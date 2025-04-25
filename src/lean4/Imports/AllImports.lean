@@ -7,7 +7,8 @@ import Std.Data.HashMap
 name: fibonacci_non_computable
 use: |
   Non-computable definition to check if a number is a Fibonacci number.
-problems: []
+problems:
+  - 55
 sample_problems:
   - 3
 -/

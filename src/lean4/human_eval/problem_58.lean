@@ -29,7 +29,7 @@ let is_sorted (result: List Int) :=
 let spec (result: List Int) :=
   is_unique result ∧
   is_sorted result ∧
-  (∀ i, i ∈ result ↔ i ∈ l1 ∧ i ∈ l2)
+  (∀ i : Int, i ∈ result ↔ i ∈ l1 ∧ i ∈ l2)
 -- program termination
 ∃ result, implementation l1 l2 = result ∧
 spec result
@@ -66,9 +66,8 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation [1, 2, 3] 4 = [1, 4, 2, 4, 3]
--- #test implementation [] 4 = []
--- #test implementation [1] 4 = [1]
+-- #test implementation [1, 4, 3, 34, 653, 2, 5] [5, 7, 1, 5, 9, 653, 121] = [1, 5, 653]
+-- #test implementation [5, 3, 2, 8] [3, 2] = [2, 3]
 -- end_def test_cases
 
 -- start_def correctness_definition

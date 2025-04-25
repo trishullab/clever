@@ -21,7 +21,7 @@ def problem_spec
 (n : Nat) :=
 -- spec
 let spec (result: Nat) :=
-  0 < n → (∃ l : List Nat, l = (List.range n).map (fun i => i + 1) →
+  0 < n → (let l := (List.range n).map (fun i => i + 1);
   result = l.sum)
 -- program termination
 ∃ result, implementation n = result ∧
@@ -59,9 +59,11 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation [1, 2, 3] 4 = [1, 4, 2, 4, 3]
--- #test implementation [] 4 = []
--- #test implementation [1] 4 = [1]
+-- #test implementation 30 = 465
+-- #test implementation 100 = 5050
+-- #test implementation 5 = 15
+-- #test implementation 10 = 55
+-- #test implementation 1 = 1
 -- end_def test_cases
 
 -- start_def correctness_definition
