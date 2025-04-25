@@ -57,6 +57,12 @@ def implementation (a h: Rat) : Rat :=
   0.5 * a * h
 -- end_def implementation
 
+-- Uncomment the following test cases after implementing the function
+-- start_def test_cases
+-- #test implementation 5 3 = 7.5
+-- #test implementation 8 2 = 8.0
+-- end_def test_cases
+
 -- start_def correctness_definition
 theorem correctness
 (a h : Rat)

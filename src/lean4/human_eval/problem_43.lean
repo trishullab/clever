@@ -67,6 +67,15 @@ def implementation (numbers: List Int) : Bool :=
   sorry
 -- end_def implementation
 
+-- Uncomment the following test cases after implementing the function
+-- start_def test_cases
+-- #test implementation [1, 3, 5, 0] = false
+-- #test implementation [1, 3, -2, 1] = false
+-- #test implementation [1, 2, 3, 7] = false
+-- #test implementation [2, 4, -5, 3, 5, 7] = true
+-- #test implementation [1] = false
+-- end_def test_cases
+
 -- start_def correctness_definition
 theorem correctness
 (numbers : List Int)

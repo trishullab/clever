@@ -64,9 +64,11 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation "" = ""
--- #test implementation "cat" = "catac"
--- #test implementation "cata" = "catac"
+-- #test implementation 3 5 = 3
+-- #test implementation 1101 101 = 2
+-- #test implementation 0 101 = 1
+-- #test implementation 3 11 = 8
+-- #test implementation 100 101 = 1
 -- end_def test_cases
 
 -- start_def correctness_definition
