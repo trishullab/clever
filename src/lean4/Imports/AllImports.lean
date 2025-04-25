@@ -1,6 +1,6 @@
 import Mathlib
 import Mathlib.Algebra.Polynomial.Basic
-
+import Std.Data.HashMap
 
 -- start_def helper_definitions
 /--

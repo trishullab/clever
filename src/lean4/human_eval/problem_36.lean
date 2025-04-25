@@ -23,10 +23,13 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Nat) :=
-let all_numbers_lt_n := {x | x < n};
-let multiples_of_11_or_13 := all_numbers_lt_n ∩ {x | x % 11 = 0 ∨ x % 13 = 0};
-let possible_multiple_with_7 := multiples_of_11_or_13 ∩ {x | x.repr.contains '7'};
-possible_multiple_with_7.toFinset.sum (λ x => x.repr.count '7') = result;
+  match n with
+  | 0 => result = 0
+  | Nat.succ k =>
+    if k % 11 = 0 ∨ k % 13 = 0 then
+      result = k.repr.count '7' + implementation k
+    else
+      result = implementation k
 -- program termination
 ∃ result, implementation n = result ∧
 spec result
@@ -83,4 +86,5 @@ let result := implementation n
 use result
 simp [result]
 simp [implementation]
+sorry
 -- end_def correctness_proof
