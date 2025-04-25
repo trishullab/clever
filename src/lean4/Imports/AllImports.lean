@@ -42,10 +42,10 @@ fibonacci_non_computable_4 (n + 4) (f₁ + f₂ + f₃ + f₄)
 
 -- start_def helper_definitions
 /--
-name: fibonacci_non_computable_4
+name: fibonacci_non_computable_3
 use: |
   Non-computable definition to check if a number is a Fibonacci number such that
-  fib(n) = fib(n - 1) + fib(n - 2) + fib(n - 3) + fib(n - 4).
+  fib(n) = fib(n - 1) + fib(n - 2) + fib(n - 3).
 problems:
   - 63
 -/

@@ -65,7 +65,8 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation "( ) (( )) (( )( ))" = ["()", "(())", "(()())"]
+-- #test implementation [3, 1, 2, 4, 5] : List Int = [1, 4, 12, 20]
+-- #test implementation [1, 2, 3] : List Int = [2, 6]
 -- end_def test_cases
 
 -- start_def correctness_definition

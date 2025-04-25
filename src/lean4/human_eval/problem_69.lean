@@ -26,12 +26,12 @@ def problem_spec
 (numbers: List Int) :=
 -- spec
 let spec (result: Int) :=
-numbers.length > 0 ∧
+0 < numbers.length ∧ numbers.all (fun n => 0 < n) →
 (result ≠ -1 ↔ ∃ i : Nat, i < numbers.length ∧
   numbers[i]! = result → numbers[i]! > 0 ∧
   numbers[i]! ≤ (numbers.filter (fun x => x = numbers[i]!)).length ∧
   (¬∃ j : Nat, j < numbers.length ∧
-  numbers[i]! < numbers[j]! ∧ numbers[j]! ≤ (numbers.filter (fun x => x = numbers[j]!)).length));
+  numbers[i]! < numbers[j]! ∧ numbers[j]! ≤ numbers.count numbers[j]!));
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result
@@ -68,8 +68,9 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation [] = (0, 1)
--- #test implementation [1, 2, 3, 4] = (10, 24)
+-- #test implementation [4, 1, 2, 2, 3, 1] = 2
+-- #test implementation [1, 2, 2, 3, 3, 4, 4, 4] = 3
+-- #test implementation [5, 5, 4, 4, 4] = -1
 -- end_def test_cases
 
 -- start_def correctness_definition

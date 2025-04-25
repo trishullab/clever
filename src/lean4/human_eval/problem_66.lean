@@ -29,7 +29,7 @@ ascii_list.length = string.length ∧
 ∀ i, i < ascii_list.length →
 ascii_list[i]! = (string.get! ⟨i⟩).toNat - 65 ∧
 ∃ ascii_list_filtered : List Nat, ascii_list_filtered = ascii_list.filter (fun x => 0 ≤ x ∧ x ≤ 25) ∧
-result = ascii_list_filtered.sum);
+result = ascii_list_filtered.sum + 65 * ascii_list_filtered.length);
 -- program termination
 ∃ result, implementation string = result ∧
 spec result
@@ -66,9 +66,12 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation "" = ""
--- #test implementation "cat" = "catac"
--- #test implementation "cata" = "catac"
+-- #test implementation "" = 0
+-- #test implementation "abAB" = 131
+-- #test implementation "abcCd" = 67
+-- #test implementation "helloE" = 69
+-- #test implementation "woArBld" = 131
+-- #test implementation "aAaaaXa" = 153
 -- end_def test_cases
 
 -- start_def correctness_definition

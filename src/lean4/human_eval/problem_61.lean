@@ -26,7 +26,8 @@ def problem_spec
 (brackets: String) :=
 -- spec
 let spec (result: Bool) :=
-  result ↔ balanced_paren_non_computable brackets '(' ')'
+  brackets.data.all (fun c => c = '(' ∨ c = ')') →
+  (result ↔ balanced_paren_non_computable brackets '(' ')')
 -- program terminates
 ∃ result, impl brackets = result ∧
 -- return value satisfies spec
@@ -64,7 +65,10 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation "( ) (( )) (( )( ))" = ["()", "(())", "(()())"]
+-- #test implementation "(" = false
+-- #test implementation "()" = true
+-- #test implementation "(()())" = true
+-- #test implementation ")(()" = false
 -- end_def test_cases
 
 -- start_def correctness_definition

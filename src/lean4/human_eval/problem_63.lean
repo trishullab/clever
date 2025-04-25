@@ -10,6 +10,7 @@ docstring: |
     fibfib(2) == 1
     fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).
     Please write a function to efficiently compute the n-th element of the fibfib number sequence.
+Note(Meghana): While the specification asks for an efficient computation of fibfib, we cannot enforce this constraint currently.
 test_cases:
   - input: 1
     output: 0
@@ -65,14 +66,9 @@ def implementation (n: Nat) : Nat :=
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- NOTE we changed to #eval! instead of #test
--- because we can't use #test for implementation
--- without a proof of termination
--- #eval! implementation 1 = 2
--- #eval! implementation 2 = 3
--- #eval! implementation 3 = 5
--- #eval! implementation 4 = 13
--- #eval! implementation 5 = 89
+-- #test implementation 1 = 0
+-- #test implementation 5 = 4
+-- #test implementation 8 = 24
 -- end_def test_cases
 
 -- start_def correctness_definition

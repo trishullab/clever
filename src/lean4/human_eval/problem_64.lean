@@ -22,17 +22,17 @@ def problem_spec
 (implementation: String → Nat)
 -- inputs
 (string: String) :=
+let isVowel (c : Char) :=
+  let vowels := "aeiouAEIOU"
+  vowels.contains c
+let isY (c : Char) := c = 'y' ∨ c = 'Y'
 -- spec
 let spec (result: Nat) :=
-let string_list := string.toList;
-let vowel_count := (string_list.filter (fun c => c = 'a' ∨ c = 'e' ∨ c = 'i' ∨ c = 'o' ∨ c = 'u' ∨
-                            c = 'A' ∨ c = 'E' ∨ c = 'I' ∨ c = 'O' ∨ c = 'U')).length
-(string.length = 0 → result = 0) ∧
-(string_list.length > 0 →
-(result = vowel_count ↔ (string_list[string_list.length - 1]! != 'y' ∧
-                          string_list[string_list.length - 1]! != 'Y')) ∨
-(result = vowel_count + 1 ↔ (string_list[string_list.length - 1]! = 'y' ∨
-                          string_list[string_list.length - 1]! = 'Y')));
+string.data.all (fun c => c.isAlpha) →
+if string.length = 1 then
+  result = if isVowel string.data[0]! ∨ isY string.data[0]! then 1 else 0
+else
+  result = (if isVowel string.data[0]! then 1 else 0) + implementation (string.drop 1);
 -- program termination
 ∃ result, implementation string = result ∧
 spec result
@@ -69,9 +69,8 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation "" = ""
--- #test implementation "cat" = "catac"
--- #test implementation "cata" = "catac"
+-- #test implementation "abcde" = 2
+-- #test implementation "ACEDY" = 3
 -- end_def test_cases
 
 -- start_def correctness_definition

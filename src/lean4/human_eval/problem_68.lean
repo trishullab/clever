@@ -4,12 +4,12 @@ import Imports.AllImports
 /--
 function_signature: "def pluck(numbers: List[Int]) -> List[Int]"
 docstring: |
-    Given an array representing a branch of a tree that has non-negative Nateger nodes
+    Given an array representing a branch of a tree that has non-negative integer nodes
     your task is to pluck one of the nodes and return it.
     The plucked node should be the node with the smallest even value.
     If multiple nodes with the same smallest even value are found return the node that has smallest index.
 
-    The plucked node should be returned in a list, [ smalest_value, its index ],
+    The plucked node should be returned in a list, [ smallest_value, its index ],
     If there are no even values or the given array is empty, return [].
 test_cases:
   - input: [4, 2, 3]
@@ -35,8 +35,9 @@ let spec (result: List Nat) :=
 (result.length = 2 ↔ ∃ i, i < numbers.length ∧
   numbers[i]! % 2 = 0 ∧
   result[0]! = numbers[i]! ∧
-  result[1]! = i ∧ ∀ j, j < numbers.length ∧
-  j ≠ i → numbers[j]! % 2 = 1)
+  result[1]! = i ∧
+  (∀ j, j < numbers.length → j < i → (numbers[j]! % 2 = 1 ∨ numbers[i]! < numbers[j]!)) ∧
+  (∀ k, k < numbers.length → numbers[k]! % 2 = 0 → numbers[i]! ≤ numbers[k]!));
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result
@@ -73,8 +74,10 @@ sorry
 
 -- -- Uncomment the following test cases after implementing the function
 -- -- start_def test_cases
--- #test implementation [] = (0, 1)
--- #test implementation [1, 2, 3, 4] = (10, 24)
+-- #test implementation [4, 2, 3] = [2, 1]
+-- #test implementation [1, 2, 3] = [2, 1]
+-- #test implementation [] = []
+-- #test implementation [5, 0, 3, 0, 4, 2] = [0, 1]
 -- -- end_def test_cases
 
 -- start_def correctness_definition

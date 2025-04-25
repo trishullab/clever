@@ -30,7 +30,7 @@ def problem_spec
 (n : Nat) :=
 -- spec
 let spec (result: Nat) :=
-∃ x : Nat, ∃ y : Nat, x + y = n - result
+∃ x y : Nat, x + y = n - result
 ∧ (String.join [x.repr, " apples and ", y.repr, " oranges"] = string)
 -- program termination
 ∃ result, implementation string n = result ∧
@@ -68,9 +68,10 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation "" = ""
--- #test implementation "cat" = "catac"
--- #test implementation "cata" = "catac"
+-- #test implementation "5 apples and 6 oranges" 19 = 8
+-- #test implementation "0 apples and 1 oranges" 3 = 2
+-- #test implementation "2 apples and 3 oranges" 100 = 95
+-- #test implementation "100 apples and 1 oranges" 120 = 19
 -- end_def test_cases
 
 -- start_def correctness_definition
