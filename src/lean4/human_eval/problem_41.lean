@@ -64,6 +64,12 @@ def implementation (x : Nat) : Nat :=
   sorry
 -- end_def implementation
 
+-- Uncomment the following test cases after implementing the function
+-- start_def test_cases
+-- #test implementation 0 = 0
+-- #test implementation 5 = 25
+-- end_def test_cases
+
 -- start_def correctness_definition
 theorem correctness
 (x : Nat)

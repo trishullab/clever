@@ -66,6 +66,13 @@ def implementation (x base: Nat) : String :=
   sorry
 -- end_def implementation
 
+-- Uncomment the following test cases after implementing the function
+-- start_def test_cases
+-- #test implementation 8 3 = '22'
+-- #test implementation 8 2 = '1000'
+-- #test implementation 7 2 = '111'
+-- end_def test_cases
+
 -- start_def correctness_definition
 theorem correctness
 (x base : Nat)
