@@ -137,11 +137,11 @@ sample_problems:
   - 0
 -/
 def balanced_paren_non_computable
-(paren_string: String): Prop
+(paren_string: String) (bracket_type_left : Char) (bracket_type_right: Char): Prop
 :=
 let chars := paren_string.toList;
-(∀ (i : ℕ), i ≤ chars.length → ((chars.take i).count ')') ≤ ((chars.take i).count '(')) ∧
-(chars.count '(' = chars.count ')')
+(∀ (i : ℕ), i ≤ chars.length → ((chars.take i).count bracket_type_right) ≤ ((chars.take i).count bracket_type_left)) ∧
+(chars.count bracket_type_left = chars.count bracket_type_right)
 
 -- start_def helper_definitions
 /--
