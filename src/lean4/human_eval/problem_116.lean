@@ -15,11 +15,11 @@ docstring: |
         * grid[i][j] -> 0 | 1
         * 0 <= capacity
 test_cases:
-  - input: [[0,0,1,0], [0,1,0,0], [1,1,1,1]], 1
+  - input: ([[0,0,1,0], [0,1,0,0], [1,1,1,1]], 1)
     expected_output: 6
-  - input: [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]], 2
+  - input: ([[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]], 2)
     expected_output: 5
-  - input: [[0,0,0], [0,0,0]], 5
+  - input: ([[0,0,0], [0,0,0]], 5)
     expected_output: 0
 -/
 -- end_def problem_details
