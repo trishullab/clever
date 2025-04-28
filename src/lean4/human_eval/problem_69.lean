@@ -28,7 +28,7 @@ def problem_spec
 let spec (result: Int) :=
 0 < numbers.length ∧ numbers.all (fun n => 0 < n) →
 (result ≠ -1 ↔ ∃ i : Nat, i < numbers.length ∧
-  numbers[i]! = result → numbers[i]! > 0 ∧
+  numbers[i]! = result ∧ numbers[i]! > 0 ∧
   numbers[i]! ≤ (numbers.filter (fun x => x = numbers[i]!)).length ∧
   (¬∃ j : Nat, j < numbers.length ∧
   numbers[i]! < numbers[j]! ∧ numbers[j]! ≤ numbers.count numbers[j]!));

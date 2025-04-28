@@ -22,14 +22,14 @@ def problem_spec
 (implementation: String → Nat)
 -- inputs
 (string: String) :=
+let isUpper (c : Char)
+  65 ≤ c ∧ c ≤ 90
 -- spec
 let spec (result: Nat) :=
-(∃ ascii_list : List Nat,
-ascii_list.length = string.length ∧
-∀ i, i < ascii_list.length →
-ascii_list[i]! = (string.get! ⟨i⟩).toNat - 65 ∧
-∃ ascii_list_filtered : List Nat, ascii_list_filtered = ascii_list.filter (fun x => 0 ≤ x ∧ x ≤ 25) ∧
-result = ascii_list_filtered.sum + 65 * ascii_list_filtered.length);
+if string.length = 1 then
+  result = if isUpper string.data[0]! then string.data[0].toNat else 0
+else
+  result = (if isUpper string.data[0]! then string.data[0].toNat else 0) + implementation (string.drop 1);
 -- program termination
 ∃ result, implementation string = result ∧
 spec result
