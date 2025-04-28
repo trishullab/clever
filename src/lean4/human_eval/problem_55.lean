@@ -44,8 +44,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x, problem_spec impl x) ↔
-(∀ x, generated_spec impl x) :=
+(∀ n, problem_spec impl n) ↔
+(∀ n, generated_spec impl n) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry

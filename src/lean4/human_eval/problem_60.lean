@@ -21,8 +21,10 @@ def problem_spec
 (n : Nat) :=
 -- spec
 let spec (result: Nat) :=
-  0 < n → (let l := (List.range n).map (fun i => i + 1);
-  result = l.sum)
+  0 < n →
+  if n = 1
+  then result = 1
+  else result = n + implementation n-1
 -- program termination
 ∃ result, implementation n = result ∧
 spec result
@@ -33,7 +35,7 @@ def generated_spec
 -- function signature
 (impl: Nat → Nat)
 -- inputs
-(x : Nat) : Prop :=
+(n : Nat) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -43,8 +45,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x, problem_spec impl x) ↔
-(∀ x, generated_spec impl x) :=
+(∀ n, problem_spec impl n) ↔
+(∀ n, generated_spec impl n) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry

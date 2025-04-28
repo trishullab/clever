@@ -3,7 +3,7 @@ import Imports.AllImports
 -- start_def problem_details
 /--
 function_signature: "def below_threshold(numbers: List[Int], threshold: Int) -> bool"
-docstring: Return True if all numbers in the list l are below threshold t.
+docstring: Return True if all numbers in the list l are below threshold t, and False otherwise.
 test_cases:
   - input: [[1, 2, 4, 10], 100]
     expected_output: True
@@ -37,8 +37,8 @@ def generated_spec
 -- function signature
 (impl: List Int → Int → Bool)
 -- inputs
-(x : List Int)
-(y : Int) : Prop :=
+(numbers : List Int)
+(threshold : Int) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -48,8 +48,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x y, problem_spec impl x y) ↔
-(∀ x y, generated_spec impl x y) :=
+(∀ numbers threshold, problem_spec impl numbers threshold) ↔
+(∀ numbers threshold, generated_spec impl numbers threshold) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry

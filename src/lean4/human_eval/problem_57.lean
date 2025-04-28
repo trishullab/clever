@@ -26,7 +26,7 @@ let decreasing := ∀ i, i < numbers.length - 1 → numbers[i + 1]! ≤ numbers[
 -- spec
 let spec (result: Bool) :=
   1 < numbers.length →
-  result ↔ (increasing ∨ decreasing);
+  (result ↔ (increasing ∨ decreasing));
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result
@@ -37,7 +37,7 @@ def generated_spec
 -- function signature
 (impl: List Int → Bool)
 -- inputs
-(x : List Int) : Prop :=
+(numbers : List Int) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -47,8 +47,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x, problem_spec impl x) ↔
-(∀ x, generated_spec impl x) :=
+(∀ numbers, problem_spec impl numbers) ↔
+(∀ numbers, generated_spec impl numbers) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry

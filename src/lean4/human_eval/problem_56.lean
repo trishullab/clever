@@ -5,7 +5,7 @@ import Imports.AllImports
 function_signature: "def correct_bracketing(brackets: str) -> Bool"
 docstring: |
     brackets is a string of "<" and ">".
-    return True if every opening bracket has a corresponding closing bracket.
+    return True if every opening bracket has a corresponding closing bracket, i.e., (each open bracket is properly closed)
 test_cases:
   - input: "<"
     expected_output: False
@@ -27,7 +27,7 @@ def problem_spec
 -- spec
 let spec (result: Bool) :=
   brackets.data.all (fun c => c = '<' ∨ c = '>') →
-  result ↔ balanced_paren_non_computable brackets '<' '>'
+  (result ↔ balanced_paren_non_computable brackets '<' '>')
 -- program terminates
 ∃ result, impl brackets = result ∧
 -- return value satisfies spec
@@ -39,7 +39,7 @@ def generated_spec
 -- function signature
 (impl: String → Bool)
 -- inputs
-(x : String) : Prop :=
+(brackets : String) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -49,15 +49,15 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x, problem_spec impl x) ↔
-(∀ x, generated_spec impl x) :=
+(∀ brackets, problem_spec impl brackets) ↔
+(∀ brackets, generated_spec impl brackets) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
 --end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (paren_string: String) : Bool :=
+def implementation (brackets: String) : Bool :=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
