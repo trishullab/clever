@@ -24,13 +24,15 @@ def problem_spec
 (impl: List Rat → Int)
 -- inputs
 (numbers: List Rat) :=
+let isEven (n : Rat) := n % 2 = 0;
+let isNegative (n : Rat) := n < 0;
+let isNotInteger (n : Rat) := ¬ n.isInt;
 -- spec
 let spec (result: Int) :=
 0 ≤ result ∧
-let suppress_negatives := numbers.map (fun x => if x < 0 then 0 else x);
-let suppress_evens := suppress_negatives.map (fun x => if x % 2 = 0 then 0 else x);
-let suppress_non_integers := suppress_evens.map (fun x => if x.isInt then x else 0);
-result = (suppress_non_integers.map (fun x => x.floor * x.floor)).sum;
+if numbers.length = 1
+then result = if (isEven numbers[0]! ∨ isNegative numbers[0]! ∨ isNotInteger numbers[0]!) then (0 : Int) else numbers[0]!.floor ^ 2
+else result = if (isEven numbers[0]! ∨ isNegative numbers[0]! ∨ isNotInteger numbers[0]!) then (0 : Int) else numbers[0]!.floor ^ 2 + impl numbers.tail
 -- program terminates
 ∃ result, impl numbers = result ∧
 -- return value satisfies spec
@@ -67,9 +69,10 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation ([1, 2, 2, -4]: List Int) = (-9: Int)
--- #test implementation ([0, 1]: List Int) = (0: Int)
--- #test implementation ([]: List Int) = none
+-- #test implementation ([1, 3, 2, 0]: List Rat) = (10: Int)
+-- #test implementation ([-1, -2, 0]: List Int) = (0: Int)
+-- #test implementation ([9, -2]: List Int) = 81
+-- #test implementation ([0]: List Int) = 0
 -- end_def test_cases
 
 

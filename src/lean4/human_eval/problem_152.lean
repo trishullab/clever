@@ -67,9 +67,8 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation ([1, 2, 2, -4]: List Int) = (-9: Int)
--- #test implementation ([0, 1]: List Int) = (0: Int)
--- #test implementation ([]: List Int) = none
+-- #test implementation [1,2,3,4,5,1] [1,2,3,4,2,-2] = [0,0,0,0,3,3]
+-- #test implementation [0,5,0,0,0,4], [4,1,1,0,0,-2] = [4,4,1,0,0,6]
 -- end_def test_cases
 
 

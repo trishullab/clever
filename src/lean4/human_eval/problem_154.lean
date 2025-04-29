@@ -4,7 +4,7 @@ import Imports.AllImports
 /--
 function_signature: "def cycpattern_check(String a, String b) -> Bool"
 docstring: |
-    You are given 2 words. You need to return True if the second word or any of its rotations is a substring in the first word
+    You are given 2 words. You need to return True if the second word or any of its rotations is a substring in the first word, else False
 test_cases:
   - input: ["abcd", "abd"]
     expected_output: False
@@ -69,9 +69,12 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation ([1, 2, 2, -4]: List Int) = (-9: Int)
--- #test implementation ([0, 1]: List Int) = (0: Int)
--- #test implementation ([]: List Int) = none
+-- #test implementation "abcd" "abd" = False
+-- #test implementation "hello" "ell" = True
+-- #test implementation "whassup" "psus" = False
+-- #test implementation "abab" "baa" = True
+-- #test implementation "efef" "eeff" = False
+-- #test implementation "himenss" "simen" = True
 -- end_def test_cases
 
 

@@ -73,9 +73,9 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation ([1, 2, 2, -4]: List Int) = (-9: Int)
--- #test implementation ([0, 1]: List Int) = (0: Int)
--- #test implementation ([]: List Int) = none
+-- #test implementation "1234" = "4321"
+-- #test implementation "ab" = "AB"
+-- #test implementation "#a@C" = "#A@c"
 -- end_def test_cases
 
 

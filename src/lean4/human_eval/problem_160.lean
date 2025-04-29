@@ -28,19 +28,16 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(impl: Nat → Nat → Nat → List Nat)
+(impl: List String → List Nat → Int)
 -- inputs
-(number need remaining: Nat) :=
+(operator : List String)
+(operand : List Nat) :=
 -- spec
-let spec (result: List Nat) :=
-number ≤ 1000 → need ≤ 1000 → remaining ≤ 1000 →
-result.length = 2 ∧
-(need ≤ remaining → result[0]! - number = number ∧
-need = remaining - result[1]!) ∧
-(remaining < need → result[0]! - remaining = number ∧
-result[1]! = 0);
+let spec (result: Int) :=
+operator.length = operand.length - 1 ∧ 1 < operator.length →
+sorry
 -- program terminates
-∃ result, impl number need remaining = result ∧
+∃ result, impl operator operand = result ∧
 -- return value satisfies spec
 spec result
 -- end_def problem_spec
@@ -48,9 +45,10 @@ spec result
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: Nat → Nat → Nat → List Nat)
+(impl: List String → List Nat → Int)
 -- inputs
-(a b c : Nat) : Prop :=
+(operator : List String)
+(operand : List Nat) : Prop :=
 -- end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -59,15 +57,15 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ a b c, problem_spec impl a b c) ↔
-(∀ a b c, generated_spec impl a b c) :=
+(∀ operator operand, problem_spec impl operator operand) ↔
+(∀ operator operand, generated_spec impl operator operand) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
 -- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (a b c: Nat) : List Nat :=
+def implementation (operator: List String) (operand : List Nat) : Int :=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
@@ -75,16 +73,14 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation ([1, 2, 2, -4]: List Int) = (-9: Int)
--- #test implementation ([0, 1]: List Int) = (0: Int)
--- #test implementation ([]: List Int) = none
+-- #test implementation ['+', '*', '-'] [2,3,4,5] = 9
 -- end_def test_cases
 
 
 -- start_def correctness_definition
 theorem correctness
-(a b c: Nat)
-: problem_spec implementation a b c :=
+(operator : List String) (operand : List Nat)
+: problem_spec implementation operator operand :=
 -- end_def correctness_definition
 -- start_def correctness_proof
 sorry

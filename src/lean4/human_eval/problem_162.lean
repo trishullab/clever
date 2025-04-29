@@ -20,16 +20,7 @@ def problem_spec
 (string : String) :=
 -- spec
 let spec (result: String) :=
-result.length = string.length ∧
-let hasNoAlphabet := string.all (λ c => not (c.isAlpha));
-(hasNoAlphabet →
-  result.toList = string.toList.reverse) ∧
-(hasNoAlphabet = false →
-  ∀ i, i < string.length →
-  let c := string.get! ⟨i⟩;
-  (c.isAlpha → ((c.isLower → c.toUpper = result.get! ⟨i⟩) ∨
-              (c.isUpper → c.toLower = result.get! ⟨i⟩))) ∧
-  (¬ c.isAlpha → c = result.get! ⟨i⟩))
+sorry
 -- program terminates
 ∃ result, impl string = result ∧
 -- return value satisfies spec
@@ -66,9 +57,7 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation ([1, 2, 2, -4]: List Int) = (-9: Int)
--- #test implementation ([0, 1]: List Int) = (0: Int)
--- #test implementation ([]: List Int) = none
+-- #test implementation 'Hello world' = '3e25960a79dbc69b674cd4ec67a72c62'
 -- end_def test_cases
 
 
