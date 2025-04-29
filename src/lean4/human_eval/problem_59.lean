@@ -22,8 +22,8 @@ def problem_spec
 -- spec
 let spec (result: Nat) :=
   1 < n ∧ ¬ Nat.Prime n →
-  (Nat.Prime result ∧ result | n ∧
-  ∀ i, i < n ∧ k ∣ n ∧ Nat.Prime i → i ≤ result);
+  (Nat.Prime result ∧ result ∣ n ∧
+  ∀ i, i < n ∧ i ∣ n ∧ Nat.Prime i → i ≤ result);
 -- program termination
 ∃ result, implementation n = result ∧
 spec result
