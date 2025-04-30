@@ -59,6 +59,12 @@ def implementation (numbers: List Int) : List Int :=
   sorry
 -- end_def implementation
 
+-- Uncomment the following test cases after implementing the function
+-- start_def test_cases
+-- #test implementation [1, 2, 3] = [2, 3, 4]
+-- #test implementation [5, 3, 5, 2, 3, 3, 9, 0, 123] = [6, 4, 6, 3, 4, 4, 10, 1, 124]
+-- end_def test_cases
+
 -- start_def correctness_definition
 theorem correctness
 (numbers : List Int)

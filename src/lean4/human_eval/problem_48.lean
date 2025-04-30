@@ -62,9 +62,10 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation "" = ""
--- #test implementation "cat" = "catac"
--- #test implementation "cata" = "catac"
+-- #test implementation "" = true
+-- #test implementation "aba" = true
+-- #test implementation "aaaaa" = true
+-- #test implementation "zbcd" = false
 -- end_def test_cases
 
 -- start_def correctness_definition

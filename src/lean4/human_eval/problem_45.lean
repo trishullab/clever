@@ -21,8 +21,8 @@ def problem_spec
 (a h: Rat) :=
 -- spec
 let spec (result: Rat) :=
-  a = 0 → result = 0 ∨
-  (2 * result) / a = h;
+  a = 0 → result = 0 ∧
+  (a ≠ 0 → (2 * result) / a = h);
 -- -- program termination
 ∃ result, implementation a h = result ∧
 spec result
@@ -56,6 +56,12 @@ def implementation (a h: Rat) : Rat :=
 -- start_def implementation
   0.5 * a * h
 -- end_def implementation
+
+-- Uncomment the following test cases after implementing the function
+-- start_def test_cases
+-- #test implementation 5 3 = 7.5
+-- #test implementation 8 2 = 8.0
+-- end_def test_cases
 
 -- start_def correctness_definition
 theorem correctness
