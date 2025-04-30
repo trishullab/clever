@@ -11,7 +11,7 @@ test_cases:
   - input: 19
     expected_output: xix
   - input: 152
-    expected_output:cii
+    expected_output:clii
   - input: 426
     expected_output:cdxxvi
 -/
@@ -23,10 +23,61 @@ def problem_spec
 (impl: Nat → String)
 -- inputs
 (num: Nat) :=
+
+let is_sorted_asc : List Int → Bool := fun numbers =>
+let rec is_sorted_asc_helper : List Int → Bool → Bool := fun numbers is_sorted =>
+  match numbers with
+  | [] => is_sorted
+  | [x] => is_sorted
+  | x::y::rest => if x <= y then is_sorted_asc_helper (y::rest) true else false;
+is_sorted_asc_helper numbers false;
+
+let is_mini_roman : Nat → String → Bool := fun input result =>
+
+  let sym_to_num : Std.HashMap String Nat :=
+    Std.HashMap.ofList [
+      ("I", 1),
+      ("IV", 4),
+      ("V", 5),
+      ("IX", 9),
+      ("X", 10),
+      ("XL", 40),
+      ("L", 50),
+      ("XC", 90),
+      ("C", 100),
+      ("CD", 400),
+      ("D", 500),
+      ("CM", 900),
+      ("M", 1000)
+    ];
+
+  -- Recursive function `go` that checks the Roman numeral
+  let rec decode : Nat → List Char → Bool := fun input result =>
+    match result with
+    | [] => input = 0  -- Base case: If no symbols left, input should be 0
+    | [x] =>
+      match sym_to_num[String.mk (result.take 1)]? with
+      | some n => input = n  -- If only 1 symbol left, it should match the input value
+      | none => false  -- If no valid symbol, return false
+    | x::y::rest =>
+      -- Ensure that there are at least 2 characters to take
+      let two := result.take 2
+      let one := result.take 1
+      -- Try two-symbol match
+      match sym_to_num[String.mk two]? with
+      | some n => decode (input - n) rest
+      | none =>
+        -- If two-symbol match fails, try one-symbol match
+        match sym_to_num[String.mk one]? with
+        | some m => decode (input - m) (y::rest)
+        | none => false  -- If both fail, return false
+
+
+  decode input result.toList
 -- spec
 let spec (result: String) :=
-num ≤ 1000 ∧
-sorry
+1 ≤ num ∧ num ≤ 1000 →
+is_mini_roman num result
 -- program terminates
 ∃ result, impl num = result ∧
 -- return value satisfies spec
@@ -63,9 +114,9 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation ([1, 2, 2, -4]: List Int) = (-9: Int)
--- #test implementation ([0, 1]: List Int) = (0: Int)
--- #test implementation ([]: List Int) = none
+-- #test implementation 19 = xix
+-- #test implementation 152 = clii
+-- #test implementation 426 = cdxxvi
 -- end_def test_cases
 
 

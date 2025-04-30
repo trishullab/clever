@@ -11,6 +11,8 @@ docstring: |
     You are given two arrays of scores and guesses of equal length, where each index shows a match.
     Return an array of the same length denoting how far off each guess was. If they have guessed correctly,
     the value is 0, and if not, the value is the absolute difference between the guess and the score.
+
+    Note: to reviewer, the reason for not using |.| to get the absolute value is to avoid leaking the implementation.
 test_cases:
   - input: [[1,2,3,4,5,1], [1,2,3,4,2,-2]]
     expected_output: [0,0,0,0,3,3]
@@ -30,7 +32,8 @@ let spec (result: List Rat) :=
   result.length = scores.length ∧
   scores.length = guesses.length ∧
   ∀ i, i < scores.length →
-  result[i]! = |scores[i]! - guesses[i]!|;
+  if scores[i]! > guesses[i]! then result[i]! + guesses[i]! = scores[i]!
+  else result[i]! + scores[i]! = guesses[i]!
 -- program terminates
 ∃ result, impl scores guesses = result ∧
 -- return value satisfies spec
