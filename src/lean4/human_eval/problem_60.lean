@@ -9,7 +9,7 @@ test_cases:
   - input: 30
     expected_output: 465
   - input: 100
-    expected_output: 50
+    expected_output: 4950
 -/
 -- end_def problem_details
 
@@ -22,9 +22,8 @@ def problem_spec
 -- spec
 let spec (result: Nat) :=
   0 < n →
-  if n = 1
-  then result = 1
-  else result = n + implementation n-1
+  (result = 1 ↔ n = 1) ∧
+  (∀ i, implementation (i + 1) - (implementation i) = i + 1)
 -- program termination
 ∃ result, implementation n = result ∧
 spec result
