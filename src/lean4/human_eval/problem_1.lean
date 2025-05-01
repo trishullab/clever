@@ -31,7 +31,7 @@ let forward_spec (result_list: List String) :=
 -- the result list
 ∀ i j, j < paren_string_filtered.length → i ≤ j →
 let substr_ij := (paren_string_filtered.take (j + 1)).drop i;
-balanced_paren_non_computable substr_ij →
+balanced_paren_non_computable substr_ij '(' ')' →
 count_paren_groups substr_ij = 1 →
 substr_ij ∈ result_list;
 let backward_spec (result_list: List String) :=
@@ -42,7 +42,7 @@ let backward_spec (result_list: List String) :=
 -- that is not from the input string
 ∀ str, str ∈ result_list →
 paren_string_filtered.containsSubstr str = true ∧
-balanced_paren_non_computable str ∧
+balanced_paren_non_computable str '(' ')' ∧
 count_paren_groups str = 1;
 let spec (result_list: List String) :=
 forward_spec result_list ∧ backward_spec result_list;
