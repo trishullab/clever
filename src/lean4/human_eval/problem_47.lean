@@ -73,6 +73,8 @@ def implementation (numbers: List Rat) : Rat :=
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
+-- #test implementation [3, 1, 2, 4, 5] = 3
+-- #test implementation [-10, 4, 6, 1000, 10, 20] = 15.0
 -- end_def test_cases
 
 -- start_def correctness_definition

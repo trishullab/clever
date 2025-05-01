@@ -28,7 +28,8 @@ def problem_spec
 let spec (result: List String) :=
 result.all (λ s => s.startsWith pref) ∧
 result.all (λ s => s ∈ strings) ∧
-strings.all (λ s => s.startsWith pref → s ∈ result);
+strings.all (λ s => s.startsWith pref → s ∈ result) ∧
+∀ s : String, s ∈ result → result.count s = strings.count s;
 -- program termination
 ∃ result, implementation strings pref = result ∧
 spec result
