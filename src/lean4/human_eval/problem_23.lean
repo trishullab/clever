@@ -21,9 +21,9 @@ def problem_spec
 (string: String) :=
 -- spec
 let spec (result: Nat) :=
-let characters := string.toList;
 -- every character in the string is counted once
-(characters.map (fun _ => 1)).sum = result;
+result = 0 ↔ string.isEmpty ∧
+(0 < result → result - 1 = implementation (string.drop 1))
 -- program termination
 ∃ result, implementation string = result ∧
 spec result
