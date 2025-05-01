@@ -6,7 +6,7 @@ function_signature: "def special_factorial(n: int) -> int"
 docstring: |
     The Brazilian factorial is defined as:
     brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
-    where n > 0
+    where n > 0. Please write a function that computes the Brazilian factorial.
 test_cases:
   - input: 4
     expected_output: 288

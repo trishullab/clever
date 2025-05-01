@@ -23,9 +23,12 @@ def problem_spec
 (n: Int) :=
 -- spec
 let spec (result: Bool) :=
-  let sum_exists := ∃ a b c d : Int,
-  (a > 0 ∧ a % 2 = 0) ∧ (b > 0 ∧ b % 2 = 0) ∧ (c > 0 ∧ c % 2 = 0) ∧ (d > 0 ∧ d % 2 = 0) ∧
-  (a + b + c + d = n);
+  let sum_exists := ∃ a b c d : Nat,
+    Even a ∧
+    Even b ∧
+    Even c ∧
+    Even d ∧
+    (a + b + c + d = n);
   result = true ↔ sum_exists
 -- program termination
 ∃ result, impl n = result ∧

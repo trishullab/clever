@@ -31,7 +31,7 @@ let spec (result: Bool) :=
   let words := txt.splitOn " ";
   match words with
   | [] => result = False
-  | [last_word] => (result ↔ last_word.length = 1) ∧ (let diff := (last_word.get 0).toLower.toNat - 'a'.toNat; 0 ≤ diff ∧ diff ≤ 25)
+  | [last_word] => (result ↔ last_word.length = 1 ∧ (let diff := (last_word.get 0).toLower.toNat - 'a'.toNat; 0 ≤ diff ∧ diff ≤ 25))
   | head::tail => result ↔ (let tail_txt := String.join tail; impl tail_txt);
 -- program terminates
 ∃ result, impl txt = result ∧

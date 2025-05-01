@@ -29,9 +29,8 @@ def problem_spec
 (lst: List Rat) :=
 -- spec
 let spec (result: Int) :=
-  match lst with
-  | [] => result = 0
-  | head::tail => 0 ≤ result - head.ceil^2 ∧ (impl (lst.drop 1) = (result - head.ceil^2))
+  (lst = [] → result = 0) ∧
+  (lst != [] → 0 ≤ result - lst[0]!.ceil^2 ∧ (impl (lst.drop 1) = (result - lst[0]!.ceil^2)))
 -- program termination
 ∃ result, impl lst = result ∧
 -- return value satisfies spec

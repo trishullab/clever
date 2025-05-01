@@ -37,8 +37,7 @@ let valid := (file_name.toList.filter Char.isDigit).length ≤ 3 ∧
     Char.isAlpha (before.get! 0) ∧
     (after = "txt" ∨ after = "exe" ∨ after = "dll")
 (result = "Yes" ↔ valid) ∧
-(result = "No" ↔ ¬valid) ∧
-(result ≠ "Yes" ∧ result ≠ "No" → false)
+(result = "No" ↔ ¬valid)
 
 -- program termination
 ∃ result, impl file_name = result ∧

@@ -26,13 +26,13 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(impl: Int → List Int)
+(impl: Nat → List Int)
 -- inputs
-(n: Int) :=
+(n: Nat) :=
 -- spec
 let spec (result: List Int) :=
-  n ≥ 0 →
   0 < result.length ∧
+  result.length = n ∧
   let i := result.length-1;
   (i = 0 → result[0]! = 1) ∧ -- base case
   (i = 1 → result[1]! = 3) ∧
@@ -48,9 +48,9 @@ spec result
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: Int → List Int)
+(impl: Nat → List Int)
 -- inputs
-(n: Int) : Prop :=
+(n: Nat) : Prop :=
 -- end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -67,7 +67,7 @@ sorry
 -- end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (n: Int) : List Int:=
+def implementation (n: Nat) : List Int:=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
@@ -81,7 +81,7 @@ sorry
 
 -- start_def correctness_definition
 theorem correctness
-(n: Int)
+(n: Nat)
 : problem_spec implementation n :=
 -- end_def correctness_definition
 -- start_def correctness_proof

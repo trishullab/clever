@@ -74,7 +74,9 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
-
+-- #test implementation "1/5" "5/1" = True
+-- #test implementation "1/6" "2/1" = False
+-- #test implementation "7/10" "10/2" = False
 -- end_def test_cases
 
 

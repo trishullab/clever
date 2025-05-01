@@ -24,8 +24,7 @@ def problem_spec
 (arr: List Int) :=
 -- spec
 let spec (result: Int) :=
-  let ms := Multiset.ofList arr;
-  ¬arr.any (fun x => 1 < ms.count x) →
+  ¬arr.any (fun x => 1 < arr.count x) →
   (arr.length = 0 ∨ arr.length = 1 → result = -1) ∧
   (1 < arr.length →
     let last := arr.length-1;

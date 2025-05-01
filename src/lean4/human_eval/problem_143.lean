@@ -32,9 +32,9 @@ let spec (result: String) :=
 let words := sentence.splitOn;
 let result_words := result.splitOn;
   1 ≤ sentence.length → sentence.length ≤ 100 →
-  sentence.all (fun x => let diff := x.toLower.toNat - 'a'.toNat; (0 ≤ diff ∧ diff ≤ 25) ∨ x = ' ') →
+  sentence.all (fun x => Char.isAlpha x) →
   result_words.length ≤ words.length ∧
-  ∀ word ∈ result_words, word ∈ words ∧
+  (∀ word ∈ result_words, word ∈ words ∧ Nat.Prime word.length) ∧
   match result_words with
   | [] => ∀ word ∈ words, ¬(Nat.Prime word.length)
   | head :: tail => if Nat.Prime head.length ∧ head = words[0]! then String.join tail = impl (String.join (words.drop 1))
