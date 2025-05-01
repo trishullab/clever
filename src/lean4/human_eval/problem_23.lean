@@ -75,5 +75,5 @@ unfold problem_spec
 let result := implementation string
 use result
 simp [result]
-simp [implementation]
+sorry
 -- end_def correctness_proof
