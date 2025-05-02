@@ -44,7 +44,7 @@ def generated_spec
 -- function signature
 (impl: String → String)
 -- inputs
-(x : String) : Prop :=
+(string : String) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -54,8 +54,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x, problem_spec impl x) ↔
-(∀ x, generated_spec impl x) :=
+(∀ string, problem_spec impl string) ↔
+(∀ string, generated_spec impl string) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
