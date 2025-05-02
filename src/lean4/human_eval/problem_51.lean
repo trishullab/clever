@@ -25,15 +25,14 @@ def problem_spec
 (implementation: String → String)
 -- inputs
 (string: String) :=
-let check_vowels (s: String): Bool :=
+let is_consonant (c: Char): Bool :=
   let vowels := "aeiouAEIOU"
-  s.all (λ c => not (vowels.contains c))
+  not (vowels.contains c);
 -- spec
 let spec (result: String) :=
-let vowels := "aeiouAEIOU";
-check_vowels result ∧ result.length ≤ string.length ∧
+result.all (λ c => is_consonant c) ∧ result.length ≤ string.length ∧
 ∀ c, result.contains c → string.contains c ∧
-∀ c , string.contains c ∧ (not (vowels.contains c)) → (result.contains c);
+∀ c , string.contains c ∧ is_consonant c → (result.contains c);
 -- program termination
 ∃ result, implementation string = result ∧
 spec result
