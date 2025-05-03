@@ -24,7 +24,7 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result : Nat) :=
-  n > 0 →
+  0 < n →
   result = {k : ℕ | 10 ^ (n - 1) ≤ k ∧ k < 10 ^ n ∧ (k.repr.front = '1' ∨ k.repr.back = '1')}.ncard
 -- program termination
 ∃ result,

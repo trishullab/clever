@@ -8,7 +8,6 @@ docstring: |
 test_cases:
   - input: [4, 2, 6, 7]
     output: 2
-Note: The spec formalization takes the result, makes it a list of 0/1s and then reverse it and uses Nat.ofDigits. The reversal is because ofDigits expects little-endian order.
 -/
 -- end_def problem_details
 

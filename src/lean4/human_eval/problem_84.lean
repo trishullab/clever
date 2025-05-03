@@ -24,7 +24,7 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result : String) :=
-  n > 0 →
+  0 < n →
   result.all (fun c => c = '0' ∨ c = '1') →
   Nat.ofDigits 2 (result.data.map (fun c => if c = '0' then 0 else 1)).reverse = (Nat.digits 10 n).sum
 -- program termination
