@@ -20,7 +20,8 @@ def problem_spec
 (a: Int) :=
 -- spec
 let spec (result: Bool) :=
-  True -- FIX !!
+  (a < 100) →
+    result = exists a b c, (Nat.Prime a) ∧ (Nat.Prime b) ∧ (Nat.Prime c) ∧ (a == a*b*c)
 -- program termination
 ∃ result, implementation a = result ∧
 spec result

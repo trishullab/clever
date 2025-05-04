@@ -4,7 +4,7 @@ import Imports.AllImports
 /--
 function_signature: "def iscube(a: int) -> bool"
 docstring: |
-    Write a function that takes an integer a and returns True if this ingeger is a cube of some integer number.
+    Write a function that takes an integer a and returns True if this integer is a cube of some integer number.
     Note: you may assume the input is always valid.
 test_cases:
   - input: 1
@@ -31,7 +31,7 @@ def problem_spec
 (a: Int) :=
 -- spec
 let spec (result: Bool) :=
-  True -- FIX !!
+  result = exists n: Int, a == n^3
 -- program termination
 ∃ result, implementation a = result ∧
 spec result

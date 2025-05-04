@@ -30,7 +30,7 @@ def problem_spec
 (x: Int) (n: Int) :=
 -- spec
 let spec (result: Bool) :=
-  True -- FIX !!
+  result = exists k: Nat, x == n^k
 -- program termination
 ∃ result, implementation x n = result ∧
 spec result

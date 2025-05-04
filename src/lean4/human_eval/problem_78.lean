@@ -34,9 +34,11 @@ def problem_spec
 (implementation: String → Int)
 -- inputs
 (num: String) :=
+let IsPrimeHexDigit (c: Char): Bool :=
+  if c = '2' ∨ c = '3' ∨ c = '5' ∨ c = '7' ∨ c = 'B' ∨ c = 'D' then 1 else 0;
 -- spec
 let spec (result: Int) :=
-  True -- FIX !!
+  result = num.foldl (λ acc a => acc + (IsPrimeHexDigit a)) 0
 -- program termination
 ∃ result, implementation num = result ∧
 spec result
