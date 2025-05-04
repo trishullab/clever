@@ -40,7 +40,7 @@ def generated_spec
 -- function signature
 (impl: List Int → List Int)
 -- inputs
-(x : List Int) : Prop :=
+(xs : List Int) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -50,8 +50,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x, problem_spec impl x) ↔
-(∀ x, generated_spec impl x) :=
+(∀ xs, problem_spec impl xs) ↔
+(∀ xs, generated_spec impl xs) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
