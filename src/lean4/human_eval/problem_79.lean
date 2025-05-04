@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def decimal_to_binary(decimal: int) -> string"
+function_signature: "def decimal_to_binary(decimal: nat) -> string"
 docstring: |
     You will be given a number in decimal form and your task is to convert it to
     binary format. The function should return a string, with each character representing a binary
@@ -21,12 +21,12 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: Int → String)
+(implementation: Nat → String)
 -- inputs
-(decimal: Int) :=
+(decimal: Nat) :=
 -- spec
 let spec (result: String) :=
-  True -- FIX !!
+  result = "db" ++ (Nat.toDigits 2 decimal).asString ++ "db"
 -- program termination
 ∃ result, implementation decimal = result ∧
 spec result
@@ -35,9 +35,9 @@ spec result
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: Int → String)
+(impl: Nat → String)
 -- inputs
-(decimal: Int) : Prop :=
+(decimal: Nat) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -55,7 +55,7 @@ sorry
 --end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (decimal: Int) : String :=
+def implementation (decimal: Nat) : String :=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
@@ -71,7 +71,7 @@ sorry
 
 -- start_def correctness_definition
 theorem correctness
-(decimal: Int)
+(decimal: Nat)
 : problem_spec implementation decimal
 :=
 -- end_def correctness_definition

@@ -23,7 +23,14 @@ def problem_spec
 (a: Rat) (b: Rat) (c: Rat) :=
 -- spec
 let spec (result : Rat) :=
-  True -- FIX !!
+  let is_valid_triangle :=
+    (a + b > c) ∧  (a + c > b) ∧ (b + c > a);
+  let s :=
+    (a + b + c) / 2;
+  if is_valid_triangle then
+    result = Real.sqrt (s * (s-a) * (s-b) * (s-c))
+  else
+    result = -1
 -- program termination
 ∃ result, implementation a b c = result ∧
 spec result
