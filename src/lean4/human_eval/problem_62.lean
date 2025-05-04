@@ -21,13 +21,14 @@ def problem_spec
 (impl: List Int → List Int)
 -- inputs
 (xs: List Int) :=
+let rec check_derivative (numbers : List Int) : List Int :=
+  match numbers with
+  | []       => []
+  | (x::rest)  => (rest.length * x) :: (check_derivative rest)
 -- spec
 let spec (result: List Int) :=
   result.length = xs.length - 1 ∧
-  (∃ div_array: List Int, div_array.length = xs.length ∧
-  div_array[0]! = 0 ∧
-  ∀ i, i < xs.length ∧ 0 < i → div_array[i]! = xs[i]! / result[i - 1]! ∧
-  div_array = List.range (xs.length));
+  result = (check_derivative xs.reverse).reverse
 -- program terminates
 ∃ result, impl xs = result ∧
 -- return value satisfies spec

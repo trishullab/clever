@@ -22,14 +22,14 @@ def problem_spec
 (implementation: String → Nat)
 -- inputs
 (string: String) :=
-let isUpper (c : Char)
-  65 ≤ c ∧ c ≤ 90
+let isUpper (c : Char) :=
+  65 ≤ c.toNat ∧ c.toNat ≤ 90
 -- spec
 let spec (result: Nat) :=
 if string.length = 1 then
-  result = if isUpper string.data[0]! then string.data[0].toNat else 0
+  result = if isUpper string.data[0]! then string.data[0]!.toNat else 0
 else
-  result = (if isUpper string.data[0]! then string.data[0].toNat else 0) + implementation (string.drop 1);
+  result = (if isUpper string.data[0]! then string.data[0]!.toNat else 0) + implementation (string.drop 1);
 -- program termination
 ∃ result, implementation string = result ∧
 spec result
