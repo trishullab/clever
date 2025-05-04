@@ -25,7 +25,7 @@ def problem_spec
 (arr: List Int) :=
 -- spec
 let spec (result : Int) :=
-  True -- FIX !!
+  result == ((List.finRange (arr.length/2)).filter (fun i => arr[i]? != arr[arr.length - 1 - i]?)).length
 -- program termination
 ∃ result, implementation arr = result ∧
 spec result

@@ -27,9 +27,17 @@ def problem_spec
 (implementation: List String → List String → List String)
 -- inputs
 (lst1: List String) (lst2: List String) :=
+let sum_chars (xs: List String) : Int :=
+  xs.foldl (λ acc a => acc + a.length) 0;
 -- spec
 let spec (result : List String) :=
-  True -- FIX !!
+  ((result == lst1) ∨ (result == lst2))
+  ∧
+  (sum_chars result ≤ sum_chars lst1)
+  ∧
+  (sum_chars result ≤ sum_chars lst2)
+  ∧
+  ((sum_chars lst1 == sum_chars lst2) → (result == lst1))
 -- program termination
 ∃ result, implementation lst1 lst2 = result ∧
 spec result
