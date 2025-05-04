@@ -33,7 +33,7 @@ def generated_spec
 -- function signature
 (impl: String → String → Bool)
 -- inputs
-(x y: String) : Prop :=
+(s0 s1: String) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -43,8 +43,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x y, problem_spec impl x y) ↔
-(∀ x y, generated_spec impl x y) :=
+(∀ s0 s1, problem_spec impl s0 s1) ↔
+(∀ s0 s1, generated_spec impl s0 s1) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
@@ -59,8 +59,12 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation ([1, 2, 3]: List Rat) 0.5 = false
--- #test implementation ([1, 2.8, 3, 4, 5, 2]: List Rat) 0.3 = true
+-- #test implementation 'eabcdzzzz' 'dddzzzzzzzddeddabc' = true
+-- #test implementation 'abcd' 'dddddddabc' = true
+-- #test implementation 'dddddddabc' 'abcd' = true
+-- #test implementation 'eabcd' 'dddddddabc' = false
+-- #test implementation 'abcd' 'dddddddabce' = false
+-- #test implementation 'eabcdzzzz' 'dddzzzzzzzddddabc' = false
 -- end_def test_cases
 
 

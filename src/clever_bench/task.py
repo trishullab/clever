@@ -25,7 +25,7 @@ class ProblemViewTask:
         time_str = time.strftime("%Y-%m-%d_%H-%M-%S")
         self.report_dir = Path(report_dir) / time_str
         self.report_dir.mkdir(parents=True, exist_ok=True)
-        os.makedirs(self.lean_folder_path / "temp", exist_ok=True)
+        os.makedirs(os.path.join(self.lean_folder_path, "temp"), exist_ok=True)
     
     def get_view(self, idx: int) -> LeanProblemView:
         problem = self.benchmark.problems[idx]
@@ -93,6 +93,16 @@ class ProblemViewTask:
                 "correctness_helper_lemmas",
                 "correctness_proof"
             )
+        if view.test_cases_lean is not None:
+            # Uncomment the test cases line by line
+            test_cases_lines = [line.strip() for line in view.test_cases_lean.splitlines() if line.strip()]
+            uncommented_test_cases = []
+            for line in test_cases_lines:
+                line = line.strip()
+                if line.startswith("--"):
+                    line = line[2:].strip()
+                uncommented_test_cases.append(line)
+            view.test_cases_lean = "\n".join(uncommented_test_cases)
         return view
 
     def get_visible_problems(self) -> list[LeanProblemView]:

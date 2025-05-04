@@ -59,8 +59,8 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation ([1, 2, 3]: List Rat) 0.5 = false
--- #test implementation ([1, 2.8, 3, 4, 5, 2]: List Rat) 0.3 = true
+-- #test implementation 2 3 = 5
+-- #test implementation 5 7 = 12
 -- end_def test_cases
 
 

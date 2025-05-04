@@ -44,8 +44,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x, problem_spec impl x) ↔
-(∀ x, generated_spec impl x) :=
+(∀ n, problem_spec impl n) ↔
+(∀ n, generated_spec impl n) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
@@ -60,14 +60,9 @@ def implementation (n: Nat) : Nat :=
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- NOTE we changed to #eval! instead of #test
--- because we can't use #test for implementation
--- without a proof of termination
--- #eval! implementation 1 = 2
--- #eval! implementation 2 = 3
--- #eval! implementation 3 = 5
--- #eval! implementation 4 = 13
--- #eval! implementation 5 = 89
+-- #test implementation 10 = 55
+-- #test implementation 1 = 1
+-- #test implementation 8 = 21
 -- end_def test_cases
 
 -- start_def correctness_definition

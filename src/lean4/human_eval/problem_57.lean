@@ -4,7 +4,7 @@ import Imports.AllImports
 /--
 function_signature: "def monotonic(numbers: List[int]) -> Bool"
 docstring: |
-    Return True is list elements are monotonically increasing or decreasing.
+    Return True if list elements are monotonically increasing or decreasing.
 test_cases:
   - input: [1, 2, 4, 20]
     expected_output: True
@@ -26,7 +26,7 @@ let decreasing := ∀ i, i < numbers.length - 1 → numbers[i + 1]! ≤ numbers[
 -- spec
 let spec (result: Bool) :=
   1 < numbers.length →
-  result ↔ (increasing ∨ decreasing);
+  (result ↔ (increasing ∨ decreasing));
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result
@@ -37,7 +37,7 @@ def generated_spec
 -- function signature
 (impl: List Int → Bool)
 -- inputs
-(x : List Int) : Prop :=
+(numbers : List Int) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -47,8 +47,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x, problem_spec impl x) ↔
-(∀ x, generated_spec impl x) :=
+(∀ numbers, problem_spec impl numbers) ↔
+(∀ numbers, generated_spec impl numbers) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
@@ -63,9 +63,9 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation [1, 2, 3] 4 = [1, 4, 2, 4, 3]
--- #test implementation [] 4 = []
--- #test implementation [1] 4 = [1]
+-- #test implementation [1, 2, 4, 20] = true
+-- #test implementation [1, 20, 4, 10] = false
+-- #test implementation [4, 1, 0, -10] = true
 -- end_def test_cases
 
 -- start_def correctness_definition

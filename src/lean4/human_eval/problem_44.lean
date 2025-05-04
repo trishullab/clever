@@ -32,10 +32,10 @@ let pow_sum := pow_array.sum;
 (∀ i, i < result_array.length →
 result_array[i]! < base ∧ 0 ≤ result_array[i]! →
 pow_sum = x);
--- -- program termination
+-- program termination
 ∃ result, implementation x base = result ∧
 spec result
--- -- end_def problem_spec
+-- end_def problem_spec
 
 -- start_def generated_spec
 def generated_spec
@@ -65,6 +65,13 @@ def implementation (x base: Nat) : String :=
 -- start_def implementation
   sorry
 -- end_def implementation
+
+-- Uncomment the following test cases after implementing the function
+-- start_def test_cases
+-- #test implementation 8 3 = '22'
+-- #test implementation 8 2 = '1000'
+-- #test implementation 7 2 = '111'
+-- end_def test_cases
 
 -- start_def correctness_definition
 theorem correctness

@@ -51,6 +51,7 @@ result_split.length = numbers_split.length ∧
 ∃ m, m ∈ result_mapped_to_numbers) ∧
 (∀ n, n ∈ result_mapped_to_numbers →
 ∃ m, m ∈ numbers_as_str_mapped_to_numbers) ∧
+(∀ n, numbers_as_str_mapped_to_numbers.count n = result_mapped_to_numbers.count n) ∧
 is_sorted_asc result_mapped_to_numbers = true;
 -- program termination
 ∃ result, implementation numbers = result ∧

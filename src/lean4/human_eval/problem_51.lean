@@ -2,30 +2,37 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def is_palindrome(string: str) -> Bool"
+function_signature: "def remove_vowels(string: str) -> string"
 docstring: |
-    Checks if given string is a palindrome
+    remove_vowels is a function that takes string and returns string without vowels.
 test_cases:
   - input: ""
-    expected_output: True
-  - input: "aba"
-    expected_output: True
+    expected_output: ""
+  - input: "abcdef\nghijklm"
+    expected_output: "bcdf\nghjklm"
+  - input: "abcdef"
+    expected_output: "bcdf"
   - input: "aaaaa"
-    expected_output: "True"
-  - input: "zbcd"
-    expected_output: "False"
+    expected_output: ""
+  - input: "aaBAA"
+    expected_output: "B"
 -/
 -- end_def problem_details
 
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: String → Bool)
+(implementation: String → String)
 -- inputs
 (string: String) :=
+let is_consonant (c: Char): Bool :=
+  let vowels := "aeiouAEIOU"
+  not (vowels.contains c);
 -- spec
-let spec (result: Bool) :=
-result ↔ is_palindrome string
+let spec (result: String) :=
+result.all (λ c => is_consonant c) ∧ result.length ≤ string.length ∧
+∀ c, result.contains c → string.contains c ∧
+∀ c , string.contains c ∧ is_consonant c → (result.contains c);
 -- program termination
 ∃ result, implementation string = result ∧
 spec result
@@ -34,9 +41,9 @@ spec result
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: String → Bool)
+(impl: String → String)
 -- inputs
-(x: String) : Prop :=
+(string : String) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -46,15 +53,15 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ x, problem_spec impl x) ↔
-(∀ x, generated_spec impl x) :=
+(∀ string, problem_spec impl string) ↔
+(∀ string, generated_spec impl string) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
 --end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (string: String) : Bool :=
+def implementation (string: String) : String :=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
@@ -62,10 +69,9 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation "" = true
--- #test implementation "aba" = true
--- #test implementation "aaaaa" = true
--- #test implementation "zbcd" = false
+-- #test implementation "" = ""
+-- #test implementation "cat" = "catac"
+-- #test implementation "cata" = "catac"
 -- end_def test_cases
 
 -- start_def correctness_definition
