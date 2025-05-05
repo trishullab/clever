@@ -11,9 +11,9 @@ test_cases:
   - input: 19
     expected_output: xix
   - input: 152
-    expected_output:clii
+    expected_output: clii
   - input: 426
-    expected_output:cdxxvi
+    expected_output: cdxxvi
 -/
 -- end_def problem_details
 
