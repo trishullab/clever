@@ -25,6 +25,122 @@ test_cases:
 -/
 -- end_def problem_details
 
+-- /-- The five supported operators. -/
+inductive Op where
+  | add     -- `+`
+  | sub     -- `-`
+  | mul     -- `*`
+  | floordiv-- `//`
+  | exp     -- `**`
+deriving Repr, DecidableEq
+
+instance : Inhabited Op where
+  default := Op.add
+
+/-- Convert from the string symbols to our `Op`. -/
+def Op.ofString : String → Option Op
+  | "+"  => some .add
+  | "-"  => some .sub
+  | "*"  => some .mul
+  | "//" => some .floordiv
+  | "**" => some .exp
+  | _    => none
+
+/-- Precedences: +,- = 1; *,// = 2; ** = 3. -/
+def Op.prec : Op → Nat
+  | .add | .sub      => 1
+  | .mul | .floordiv => 2
+  | .exp             => 3
+
+/-- Associativity: all left-assoc except exponentiation. -/
+def Op.leftAssoc : Op → Bool
+  | .exp => false
+  | _    => true
+
+/-- Integer exponentiation (exponent must be ≥ 0). -/
+partial def intPow (x : Int) : Nat → Int
+  | 0     => 1
+  | n + 1 => x * intPow x n
+
+/-- Apply an `Op` to two operands. -/
+def Op.apply : Op → Int → Int → Int
+  | .add,      x, y => x + y
+  | .sub,      x, y => x - y
+  | .mul,      x, y => x * y
+  | .floordiv, x, y => x / y
+  | .exp,      x, y =>
+    if y < 0 then panic! "negative exponent"
+    else       intPow x y.toNat
+
+/-- A token is either a literal integer or an operator. -/
+inductive Token where
+  | num : Int → Token
+  | op  : Op  → Token
+deriving Repr
+
+open Token
+
+/-- Interleave the two input lists into a flat token stream. -/
+def buildTokens (ops : List Op) (xs : List Int) : List Token :=
+  let rec go (ops : List Op) (rem : List Int) : List Token :=
+    match ops, rem with
+    | [], [n]       => [num n]
+    | o :: ops', n :: m :: rem' =>
+        num n :: op o :: go ops' (m::rem')
+    | _, _ => panic! "buildTokens: operator/operand length mismatch"
+  go ops xs
+
+/-- Shunting-yard: convert infix tokens into RPN. -/
+def toRPN (tokens : List Token) : List Token :=
+  let rec loop
+    (inps : List Token)
+    (opSt : List Op)
+    (out  : List Token) : List Token :=
+  match inps with
+  | []      =>
+    -- flush remaining ops
+    opSt.foldl (fun acc o => acc ++ [op o]) out
+  | t::ts   =>
+    match t with
+    | num _ => loop ts opSt (out ++ [t])
+    | op o   =>
+      -- pop while top-of-stack has higher prec, or equal+left-assoc
+      let rec pop
+        (stk : List Op)
+        (acc : List Token)
+        : (List Op × List Token) :=
+      match stk with
+      | o' :: stk' =>
+        if o'.prec > o.prec ∨ (o'.prec == o.prec ∧ o.leftAssoc) then
+          pop stk' (acc ++ [op o'])
+        else
+          (stk, acc)
+      | [] => ([], acc)
+      let (stk', out') := pop opSt out
+      loop ts (o::stk') out'
+  loop tokens [] []
+
+/-- check a list of RPN token is equal to result -/
+def evalRPN (rpn : List Token) (result : Int) : Bool :=
+  let rec evalLoop (rpn : List Token) (result : Int) : Bool :=
+    match rpn with
+    | [num n] => (result = n)
+    | (op o)::(num x)::(num y)::rest => evalRPN rest (result - o.apply x y)
+    | _ => panic! "evalRPN: malformed expression"
+  evalLoop rpn result
+
+/-- Main entry: given a list of operator‐strings (e.g. `["+","*","-"]`) and
+    a list of nonnegative `Int`s, evaluate the expression. -/
+def doAlgebra (opsStr : List String) (xs : List Int) (result : Int) : Bool :=
+  -- parse operators, error on invalid symbol
+  let ops : List Op :=
+    opsStr.map fun s =>
+      match Op.ofString s with
+      | some o => o
+      | none   => panic! "unknown operator"
+  let toks := buildTokens ops xs
+  evalRPN (toRPN toks) result
+
 -- start_def problem_spec
 def problem_spec
 -- function signature
@@ -35,7 +151,7 @@ def problem_spec
 -- spec
 let spec (result: Int) :=
 operator.length = operand.length - 1 ∧ 1 < operator.length →
-sorry
+doAlgebra operator operand result
 -- program terminates
 ∃ result, impl operator operand = result ∧
 -- return value satisfies spec
