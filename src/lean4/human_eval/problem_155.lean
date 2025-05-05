@@ -7,9 +7,9 @@ docstring: |
     Given an integer. return a tuple that has the number of even and odd digits respectively.
 test_cases:
   - input: -12
-    expected_output: (1, 1)
+    expected_output: [1, 1]
   - input: 123
-    expected_output:(1, 2)
+    expected_output: [1, 2]
 -/
 -- end_def problem_details
 
