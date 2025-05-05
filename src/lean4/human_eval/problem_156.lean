@@ -24,14 +24,6 @@ def problem_spec
 -- inputs
 (num: Nat) :=
 
-let is_sorted_asc : List Int → Bool := fun numbers =>
-let rec is_sorted_asc_helper : List Int → Bool → Bool := fun numbers is_sorted =>
-  match numbers with
-  | [] => is_sorted
-  | [x] => is_sorted
-  | x::y::rest => if x <= y then is_sorted_asc_helper (y::rest) true else false;
-is_sorted_asc_helper numbers false;
-
 let is_mini_roman : Nat → String → Bool := fun input result =>
 
   let sym_to_num : Std.HashMap String Nat :=
