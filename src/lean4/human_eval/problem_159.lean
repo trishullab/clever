@@ -10,13 +10,13 @@ docstring: |
                                     the number of carrots left after your meals ]
     if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.
 
-  Variables:
-    @number : integer
-        the number of carrots that you have eaten.
-    @need : integer
-        the number of carrots that you need to eat.
-    @remaining : integer
-        the number of remaining carrots thet exist in stock
+    Variables:
+      @number : integer
+          the number of carrots that you have eaten.
+      @need : integer
+          the number of carrots that you need to eat.
+      @remaining : integer
+          the number of remaining carrots thet exist in stock
 
     Constrain:
     * 0 <= number <= 1000
