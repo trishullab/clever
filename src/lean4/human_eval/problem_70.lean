@@ -25,7 +25,10 @@ def problem_spec
 (lst: List Int) :=
 -- spec
 let spec (result: List Int) :=
-  True --FIX!!!
+  let sorted_lst := lst.mergeSort;
+  (List.Perm lst result)
+  ∧ (forall i, (0 <= i ∧ i < lst.length ∧ i % 2 = 0) → result[i]! = sorted_lst[i / 2]!)
+  ∧ (forall i, (0 <= i ∧ i < lst.length ∧ i % 2 = 1) → result[i]! = sorted_lst[lst.length - (i-1)/2 - 1]!)
 -- program termination
 ∃ result, implementation lst = result ∧ spec result
 -- end_def problem_spec
