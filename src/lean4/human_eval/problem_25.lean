@@ -25,7 +25,7 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: List Nat) :=
-n ≥ 2 →
+2 ≤ n →
 (result.prod = n ∧
 List.Sorted Nat.le result ∧
 result.all (λ i => n % i = 0 ∧ Nat.Prime i));

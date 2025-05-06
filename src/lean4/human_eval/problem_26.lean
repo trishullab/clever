@@ -21,7 +21,9 @@ def problem_spec
 -- spec
 let spec (result: List Int) :=
 (∀ i: Int, i ∈ result → numbers.count i = 1) ∧
-(∀ i: Int, i ∈ numbers → numbers.count i = 1 → i ∈ result);
+(∀ i: Int, i ∈ numbers → numbers.count i = 1 → i ∈ result) ∧
+(∀ i j : Nat, i < result.length → j < result.length → i < j →
+∃ ip jp : Nat, ip < jp ∧ result[i]! = numbers[ip]! ∧ result[j]! = numbers[jp]!)
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result
