@@ -12,11 +12,11 @@ docstring: |
     You can assume that x, and n are valid fractions, and do not have zero as denominator.
 test_cases:
   - input: ["1/5", "5/1"]
-    output: True
+    expected_output: True
   - input: ["1/6", "2/1"]
-    output: False
+    expected_output: False
   - input: ["7/10", "10/2"]
-    output: False
+    expected_output: False
 -/
 -- end_def problem_details
 
