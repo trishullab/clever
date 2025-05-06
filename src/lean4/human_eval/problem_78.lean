@@ -34,15 +34,29 @@ def problem_spec
 (implementation: String → Int)
 -- inputs
 (num: String) :=
-let IsPrimeHexDigit (c: Char): Bool :=
-  if c = '2' ∨ c = '3' ∨ c = '5' ∨ c = '7' ∨ c = 'B' ∨ c = 'D' then 1 else 0;
 -- spec
 let spec (result: Int) :=
-  result = num.foldl (λ acc a => acc + (IsPrimeHexDigit a)) 0
+  let num_val (ch : Char) :=
+    if ch.isDigit then
+      (ch.toNat - '0'.toNat)
+    else if ch.isUpper then
+      ((ch.toNat - 'A'.toNat) + 10)
+    else 0;
+  0 < num.length →
+  (
+    let char_val := num_val num.toList[0]!;
+    (Nat.Prime char_val →
+      (1 < num.length → result = char_val + implementation (num.drop 1)) ∧
+      (1 = num.length → result = char_val)) ∧
+    (¬Nat.Prime char_val →
+      (1 < num.length → result = implementation (num.drop 1)) ∧
+      (1 = num.length → result = 0))
+  )
 -- program termination
 ∃ result, implementation num = result ∧
 spec result
 -- end_def problem_spec
+
 
 -- start_def generated_spec
 def generated_spec
@@ -70,7 +84,9 @@ sorry
 def implementation (num: String) : Int :=
 -- end_def implementation_signature
 -- start_def implementation
-sorry
+  let IsPrimeHexDigit (c: Char): Int :=
+    if c = '2' ∨ c = '3' ∨ c = '5' ∨ c = '7' ∨ c = 'B' ∨ c = 'D' then 1 else 0;
+  num.foldl (λ acc a => acc + (IsPrimeHexDigit a)) 0
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function

@@ -28,7 +28,7 @@ let spec (result : Rat) :=
   let s :=
     (a + b + c) / 2;
   if is_valid_triangle then
-    result = Real.sqrt (s * (s-a) * (s-b) * (s-c))
+    |result^2 - (s * (s-a) * (s-b) * (s-c))| ≤ ((1: Rat)/10000)
   else
     result = -1
 -- program termination

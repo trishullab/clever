@@ -31,7 +31,7 @@ def problem_spec
 (a: Int) :=
 -- spec
 let spec (result: Bool) :=
-  result = exists n: Int, a == n^3
+  result ↔ exists n: Int, a = n^3
 -- program termination
 ∃ result, implementation a = result ∧
 spec result
