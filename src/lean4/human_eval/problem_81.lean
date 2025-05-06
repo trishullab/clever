@@ -29,6 +29,7 @@ docstring: |
 test_cases:
   - input: [4.0, 3, 1.7, 2, 3.5]
     output: ['A+', 'B', 'C-', 'C', 'A-']
+note: formalization uses a list of tuples instead of a hashmap because Hashable Float is not available in the standard library.
 -/
 -- end_def problem_details
 
@@ -39,9 +40,8 @@ def problem_spec
 -- inputs
 (grades: List Float) :=
 -- spec
-let _ : Hashable Float := sorry
-let grade_dict : Std.HashMap Float String :=
-  Std.HashMap.ofList [
+let grade_dict : List (Float × String) :=
+  [
     (4.0, "A+"),
     (3.7, "A"),
     (3.3, "A-"),
@@ -60,9 +60,12 @@ let spec (result : List String) :=
   result.length = grades.length ∧
   ∀ i, i < grades.length →
     let number_grade := grades[i]!
-    let number_grade_keys := grade_dict.keys
+    let number_grade_keys := grade_dict.map (fun (g, _) => g)
     if number_grade > 0.0 then
-      ∃ k ∈ number_grade_keys, k ≥ number_grade ∧ (∀ k' ∈ number_grade_keys, k' ≥ number_grade → k ≤ k') ∧ result[i]! = grade_dict[k]!
+      ∃ i : Nat, i < number_grade_keys.length ∧
+        number_grade_keys[i]! ≥ number_grade ∧
+        (∀ k' : Nat, k' < number_grade_keys.length → number_grade_keys[k']! ≥ number_grade → number_grade_keys[i]! ≤ number_grade_keys[k']!) ∧
+        result[i]! = (grade_dict[i]!).snd
     else
       result[i]! = "E"
 -- program termination
