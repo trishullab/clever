@@ -15,16 +15,16 @@ test_cases:
 -/
 -- end_def problem_details
 
+noncomputable def check_derivative : List ℤ → List ℤ
+  | []       => []
+  | (x::rest)  => (Polynomial.eval 1 (Polynomial.derivative (Polynomial.C x * Polynomial.X ^ rest.length))) :: (check_derivative rest)
+
 -- start_def problem_spec
 def problem_spec
 -- function signature
 (impl: List Int → List Int)
 -- inputs
 (xs: List Int) :=
-let rec check_derivative (numbers : List Int) : List Int :=
-  match numbers with
-  | []       => []
-  | (x::rest)  => (rest.length * x) :: (check_derivative rest)
 -- spec
 let spec (result: List Int) :=
   result.length = xs.length - 1 ∧
