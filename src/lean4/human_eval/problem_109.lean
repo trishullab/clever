@@ -33,9 +33,15 @@ def problem_spec
 (implementation: List Int → Bool)
 -- inputs
 (arr: List Int) :=
+let is_shifted (xs: List Int) (ys: List Int) (i: Nat) :=
+  (xs.length = ys.length) ∧
+  (0 <= i) ∧
+  (i < xs.length) ∧
+  (forall j, (0 <= j ∧ j < ys.length) → (ys[j]! = xs[(j-i) % xs.length]!))
 -- spec
 let spec (result: Bool) :=
-  True -- FIX !!
+  ((arr = []) → (result = True)) ∧
+  result ↔ (exists i, exists arr_shifted, (is_shifted arr arr_shifted i) ∧ (List.Sorted Int.le arr_shifted))
 -- program termination
 ∃ result, implementation arr = result ∧
 spec result

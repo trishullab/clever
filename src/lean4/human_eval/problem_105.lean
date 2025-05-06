@@ -25,7 +25,11 @@ def problem_spec
 (arr: List Int) :=
 -- spec
 let spec (result: List String) :=
-  True -- FIX !!
+  let digits: List String := ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+  (forall s: String, (s ∈ result → s ∈ digits)) ∧
+  (arr.length ≥ result.length) ∧
+  (forall x: Nat, ((x: Int) ∈ arr ∧ 1 ≤ x ∧ x ≤ 9) → (digits[x-1]! ∈ result)) ∧
+  (List.Sorted Int.le (List.map (fun (s: String) => (List.indexOf s digits) + 1) result).reverse)
 -- program termination
 ∃ result, implementation arr = result ∧
 spec result
@@ -41,7 +45,6 @@ def generated_spec
 --start_def generated_spec_body
 sorry
 --end_def generated_spec_body
-
 
 -- start_def spec_isomorphism
 theorem spec_isomorphism:

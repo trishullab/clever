@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def unique_digits(x: List[int]) -> List[int]"
+function_signature: "def unique_digits(x: List[nat]) -> List[nat]"
 docstring: |
     Given a list of positive integers x. return a sorted list of all
     elements that hasn't any even digit.
@@ -19,12 +19,15 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: List Int → List Int)
+(implementation: List Nat → List Nat)
 -- inputs
-(x: List Int) :=
+(x: List Nat) :=
 -- spec
-let spec (result: List Int) :=
-  True -- FIX !!
+let spec (result: List Nat) :=
+  let has_even_digits(i: Nat): Bool :=
+    (List.filter (fun d => Even d) (Nat.digits 10 i)).length > 0;
+  (List.Sorted Nat.le result) ∧
+  (forall i, i ∈ result ↔ (i ∈ x ∧ !(has_even_digits i)))
 -- program termination
 ∃ result, implementation x = result ∧
 spec result
@@ -33,14 +36,13 @@ spec result
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: List Int → List Int)
+(impl: List Nat → List Nat)
 -- inputs
-(x: List Int) : Prop :=
+(x: List Nat) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
 --end_def generated_spec_body
-
 
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
@@ -53,7 +55,7 @@ sorry
 --end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (x: List Int) : List Int :=
+def implementation (x: List Nat) : List Nat :=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
@@ -70,7 +72,7 @@ sorry
 
 -- start_def correctness_definition
 theorem correctness
-(x: List Int)
+(x: List Nat)
 : problem_spec implementation x
 :=
 -- end_def correctness_definition

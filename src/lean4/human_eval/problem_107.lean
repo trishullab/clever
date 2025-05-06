@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def even_odd_palindrome(n: int) -> (int, int)"
+function_signature: "def even_odd_palindrome(n: nat) -> (nat, nat)"
 docstring: |
     Given a positive integer n, return a tuple that has the number of even and odd
     integer palindromes that fall within the range(1, n), inclusive.
@@ -17,12 +17,15 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: Int → Int × Int)
+(implementation: Nat → Nat × Nat)
 -- inputs
-(n: Int) :=
+(n: Nat) :=
 -- spec
-let spec (result: Int × Int) :=
-  True -- FIX !!
+let spec (result: Nat × Nat) :=
+  let is_palindrome (k: Nat): Bool :=
+    List.Palindrome (Nat.digits 10 k);
+  (result.1 = (List.filter (fun (k: Nat) => (k != 0) ∧ (Even k) ∧ (is_palindrome k)) (List.range (n+1))).length) ∧
+  (result.2 = (List.filter (fun (k: Nat) => (k != 0) ∧ (Odd k) ∧ (is_palindrome k)) (List.range (n+1))).length)
 -- program termination
 ∃ result, implementation n = result ∧
 spec result
@@ -31,9 +34,9 @@ spec result
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: Int → Int × Int)
+(impl: Nat → Nat × Nat)
 -- inputs
-(n: Int) : Prop :=
+(n: Nat) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -51,7 +54,7 @@ sorry
 --end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (n: Int) : Int × Int :=
+def implementation (n: Nat) : Nat × Nat :=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
@@ -70,7 +73,7 @@ sorry
 
 -- start_def correctness_definition
 theorem correctness
-(n: Int)
+(n: Nat)
 : problem_spec implementation n
 :=
 -- end_def correctness_definition

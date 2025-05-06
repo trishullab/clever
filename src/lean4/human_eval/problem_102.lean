@@ -23,7 +23,9 @@ def problem_spec
 (x: Int) (y: Int) :=
 -- spec
 let spec (result: Int) :=
-  True -- FIX !!
+  (result = -1 ∨ (x ≤ result ∧ result ≤ y ∧ Even result)) ∧
+  (result = -1 ∨ (forall i: Int, (x ≤ i ∧ i ≤ y ∧ Even i) → result ≥ i)) ∧
+  (result = -1 ↔ (x > y ∨ (x == y ∧ Odd x ∧ Odd y)))
 -- program termination
 ∃ result, implementation x y = result ∧
 spec result

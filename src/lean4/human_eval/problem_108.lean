@@ -26,7 +26,14 @@ def problem_spec
 (arr: List Int) :=
 -- spec
 let spec (result: Int) :=
-  True -- FIX !!
+  let signed_digits(x: Int): List Int :=
+    let x': Nat := Int.natAbs x;
+    if x >= 0 then
+      Nat.digits 10 x'
+    else
+      let (xs: List Nat) := Nat.digits 10 x';
+      (-Int.ofNat (xs[0]!)) :: xs.tail;
+  result = ((List.map (fun (x: Int) => (signed_digits x).sum) arr).filter (fun (x: Int) => x > 0)).length
 -- program termination
 ∃ result, implementation arr = result ∧
 spec result
