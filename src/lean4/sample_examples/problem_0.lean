@@ -29,7 +29,7 @@ def problem_spec
 -- spec
 let spec (result: Bool) :=
 paren_string.length > 0 →
-(result ↔ balanced_paren_non_computable paren_string);
+(result ↔ balanced_paren_non_computable paren_string '(' ')');
 -- program terminates
 ∃ result, impl paren_string = result ∧
 -- return value satisfies spec

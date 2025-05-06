@@ -19,11 +19,12 @@ def problem_spec
 (string: String) :=
 -- spec
 let spec (result: String) :=
-let chars := result.toList;
-chars.length = string.length ∧
-(∀ i, i < chars.length →
-  let c := chars.get! i;
-  let c' := chars.get! i;
+let chars_in_result := result.toList;
+let chars_in_string := string.toList;
+chars_in_result.length = string.length ∧
+(∀ i, i < chars_in_result.length →
+  let c := chars_in_result.get! i;
+  let c' := chars_in_string.get! i;
   (c.isUpper → c'.isLower) ∧
   (c.isLower → c'.isUpper) ∧
   ((¬ c.isUpper ∧ ¬ c.isLower) → c = c')
@@ -78,24 +79,5 @@ unfold problem_spec
 let result := implementation string
 use result
 simp [result]
-apply And.intro
-simp [implementation]
-simp [String.map_eq]
-rcases string with ⟨s⟩
-induction s
-simp
-intros i h
-simp [implementation] at h
-simp [String.map_eq] at h
-rename_i head tail ih
-intros i h
-apply And.intro
-intros h_char_i_is_upper
-simp [implementation]
-simp [String.map_eq]
-by_cases h_head_is_upper: head.isUpper
-simp [h_head_is_upper]
-by_cases h_i_eq_0: i = 0
-simp [h_i_eq_0]
-repeat sorry
+sorry
 -- end_def correctness_proof

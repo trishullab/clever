@@ -2,77 +2,78 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def strlen(string: str) -> int"
+function_signature: "def largest_prime_factor(n: Nat) -> Nat"
 docstring: |
-    Return length of given string
+    Return the largest prime factor of n. Assume n > 1 and is not a prime.
 test_cases:
-  - input: ""
-    expected_output: 0
-  - input: "abc"
-    expected_output: 3
+  - input: 13195
+    expected_output: 29
+  - input: 2048
+    expected_output: 2
 -/
 -- end_def problem_details
 
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: String → Nat)
+(implementation: Nat → Nat)
 -- inputs
-(string: String) :=
+(n: Nat) :=
 -- spec
 let spec (result: Nat) :=
--- every character in the string is counted once
-result = 0 ↔ string.isEmpty ∧
-(0 < result → result - 1 = implementation (string.drop 1))
+  1 < n ∧ ¬ Nat.Prime n →
+  (Nat.Prime result ∧ result ∣ n ∧
+  ∀ i, i < n ∧ i ∣ n ∧ Nat.Prime i → i ≤ result);
 -- program termination
-∃ result, implementation string = result ∧
+∃ result, implementation n = result ∧
 spec result
 -- end_def problem_spec
 
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(implementation: String → Nat)
+(impl: Nat → Nat)
 -- inputs
-(string: String) : Prop :=
--- end_def generated_spec
--- start_def generated_spec_body
+(x : Nat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
 sorry
--- end_def generated_spec_body
+--end_def generated_spec_body
+
 
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
-∀ implementation,
-(∀ string, problem_spec implementation string) ↔
-(∀ string, generated_spec implementation string) :=
+∀ impl,
+(∀ x, problem_spec impl x) ↔
+(∀ x, generated_spec impl x) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
--- end_def spec_isomorphism_proof
+--end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (string: String): Nat :=
+def implementation (n: Nat) : Nat :=
 -- end_def implementation_signature
 -- start_def implementation
-string.length
+sorry
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
-#test implementation "" = 0
-#test implementation "abc" = 3
+-- #test implementation 13195 = 29
+-- #test implementation 2048 = 2
 -- end_def test_cases
 
 -- start_def correctness_definition
 theorem correctness
-(string: String)
-: problem_spec implementation string
+(n: Nat)
+: problem_spec implementation n
 :=
 -- end_def correctness_definition
 -- start_def correctness_proof
 by
 unfold problem_spec
-let result := implementation string
+let result := implementation n
 use result
 simp [result]
 sorry

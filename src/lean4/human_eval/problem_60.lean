@@ -2,77 +2,81 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def strlen(string: str) -> int"
+function_signature: "def sum_to_n(n: Nat) -> Nat"
 docstring: |
-    Return length of given string
+    sum_to_n is a function that sums numbers from 1 to n.
 test_cases:
-  - input: ""
-    expected_output: 0
-  - input: "abc"
-    expected_output: 3
+  - input: 30
+    expected_output: 465
+  - input: 100
+    expected_output: 4950
 -/
 -- end_def problem_details
 
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: String → Nat)
+(implementation: Nat → Nat)
 -- inputs
-(string: String) :=
+(n : Nat) :=
 -- spec
 let spec (result: Nat) :=
--- every character in the string is counted once
-result = 0 ↔ string.isEmpty ∧
-(0 < result → result - 1 = implementation (string.drop 1))
+  0 < n →
+  (result = 1 ↔ n = 1) ∧
+  (∀ i, implementation (i + 1) - (implementation i) = i + 1)
 -- program termination
-∃ result, implementation string = result ∧
+∃ result, implementation n = result ∧
 spec result
 -- end_def problem_spec
 
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(implementation: String → Nat)
+(impl: Nat → Nat)
 -- inputs
-(string: String) : Prop :=
--- end_def generated_spec
--- start_def generated_spec_body
+(n : Nat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
 sorry
--- end_def generated_spec_body
+--end_def generated_spec_body
+
 
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
-∀ implementation,
-(∀ string, problem_spec implementation string) ↔
-(∀ string, generated_spec implementation string) :=
+∀ impl,
+(∀ n, problem_spec impl n) ↔
+(∀ n, generated_spec impl n) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
--- end_def spec_isomorphism_proof
+--end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (string: String): Nat :=
+def implementation (n: Nat) : Nat :=
 -- end_def implementation_signature
 -- start_def implementation
-string.length
+sorry
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
-#test implementation "" = 0
-#test implementation "abc" = 3
+-- #test implementation 30 = 465
+-- #test implementation 100 = 5050
+-- #test implementation 5 = 15
+-- #test implementation 10 = 55
+-- #test implementation 1 = 1
 -- end_def test_cases
 
 -- start_def correctness_definition
 theorem correctness
-(string: String)
-: problem_spec implementation string
+(n: Nat)
+: problem_spec implementation n
 :=
 -- end_def correctness_definition
 -- start_def correctness_proof
 by
 unfold problem_spec
-let result := implementation string
+let result := implementation n
 use result
 simp [result]
 sorry

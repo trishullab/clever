@@ -2,12 +2,22 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def largest_divisor(n: int) -> int"
+function_signature: "def fibfib(n: int)"
 docstring: |
-    For a given number n, find the largest number that divides n evenly, smaller than n
+    The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
+    fibfib(0) == 0
+    fibfib(1) == 0
+    fibfib(2) == 1
+    fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).
+    Please write a function to efficiently compute the n-th element of the fibfib number sequence.
+Note(Meghana): While the specification asks for an efficient computation of fibfib, we cannot enforce this constraint currently.
 test_cases:
-  - input: 15
-    expected_output: 5
+  - input: 1
+    output: 0
+  - input: 5
+    output: 4
+  - input: 8
+    output: 24
 -/
 -- end_def problem_details
 
@@ -19,7 +29,7 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Nat) :=
-0 < n → 0 < result → result ∣ n → ∀ x, x ∣ n → x ≠ n → x ≤ result;
+fibonacci_non_computable_3 n result
 -- program termination
 ∃ result, implementation n = result ∧
 spec result
@@ -28,40 +38,37 @@ spec result
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(implementation: Nat → Nat)
+(impl: Nat → Nat)
 -- inputs
-(n: Nat) : Prop :=
--- end_def generated_spec
--- start_def generated_spec_body
+(x : Nat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
 sorry
--- end_def generated_spec_body
+--end_def generated_spec_body
+
 
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
-∀ implementation,
-(∀ n, problem_spec implementation n) ↔
-(∀ n, generated_spec implementation n) :=
+∀ impl,
+(∀ x, problem_spec impl x) ↔
+(∀ x, generated_spec impl x) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
--- end_def spec_isomorphism_proof
+--end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
 def implementation (n: Nat) : Nat :=
 -- end_def implementation_signature
 -- start_def implementation
-let possible_divisors := (List.range (n / 2 + 1)).drop 1
-let reversed_possible_divisors := List.reverse possible_divisors;
-Id.run do
-  for i in reversed_possible_divisors do
-    if n % i = 0 then
-      return i
-  return 1
+  sorry
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
-#test implementation 15 = 5
+-- #test implementation 1 = 0
+-- #test implementation 5 = 4
+-- #test implementation 8 = 24
 -- end_def test_cases
 
 -- start_def correctness_definition
@@ -76,5 +83,5 @@ unfold problem_spec
 let result := implementation n
 use result
 simp [result]
-sorry
+repeat sorry
 -- end_def correctness_proof

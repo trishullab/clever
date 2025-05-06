@@ -265,7 +265,7 @@ match n with
 -- end_def test_cases
 
 -- start_def correctness_helper_lemmas
-theorem fib_comp_to_non_comp (n : ℕ)
+lemma fib_comp_to_non_comp (n : ℕ)
 (f : Nat → Nat)
 (h_f_0: f 0 = 0)
 (h_f_1: f 1 = 1)

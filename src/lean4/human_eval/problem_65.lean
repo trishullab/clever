@@ -2,38 +2,38 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def change_base(x: Nat, base: Nat) -> String"
+function_signature: "def circular_shift(x: Int, shift: Int) -> String"
 docstring: |
-    Change numerical base of input number x to base.
-    return string representation after the conversion.
-    base numbers are less than 10.
+    Circular shift the digits of the integer x, shift the digits right by shift
+    and return the result as a string.
+    If shift > number of digits, return digits reversed.
 test_cases:
-  - input: (8, 3)
-    expected_output: '22'
-  - input: (8, 2)
-    expected_output: '1000'
-  - input: (7, 2)
-    expected_output: '111'
+  - input: [12, 1]
+    expected_output: 21
+  - input: [12, 2]
+    expected_output: 12
 -/
 -- end_def problem_details
 
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: Nat → Nat -> String)
+(implementation: Nat → Nat → String)
 -- inputs
-(x base: Nat) :=
+(x shift: Nat) :=
+let isReverse (s: String) : Bool :=
+  let n := s.length;
+  ∀ i, i < n / 2 → s.get! ⟨i⟩ = s.get! ⟨n - 1 - i⟩;
 -- spec
 let spec (result: String) :=
-let result_array := result.toList.map (fun c => c.toNat - '0'.toNat);
-let pow_array := (List.range result_array.length).map (fun i => base^(result_array.length - i - 1) * result_array[i]!);
-let pow_sum := pow_array.sum;
-(0 < base ∧ base ≤ 10) ∧
-(∀ i, i < result_array.length →
-result_array[i]! < base ∧ 0 ≤ result_array[i]! →
-pow_sum = x);
+let x_str := Nat.repr x;
+result.length = x_str.length ∧
+(x_str.length < shift → isReverse x_str) ∧
+(shift ≤ x_str.length →
+  x_str.take shift = result.drop (x_str.length - shift) ∧
+  x_str.drop shift = result.take (x_str.length - shift));
 -- program termination
-∃ result, implementation x base = result ∧
+∃ result, implementation x shift = result ∧
 spec result
 -- end_def problem_spec
 
@@ -42,7 +42,7 @@ def generated_spec
 -- function signature
 (impl: Nat → Nat → String)
 -- inputs
-(x base: Nat) : Prop :=
+(x y: Nat) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -60,29 +60,28 @@ sorry
 --end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (x base: Nat) : String :=
+def implementation (x shift: Nat) : String :=
 -- end_def implementation_signature
 -- start_def implementation
-  sorry
+sorry
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation 8 3 = '22'
--- #test implementation 8 2 = '1000'
--- #test implementation 7 2 = '111'
+-- #test implementation (12 : Int) (1 : Int) = "21"
+-- #test implementation (12 : Int) (2 : Int) = "12"
 -- end_def test_cases
 
 -- start_def correctness_definition
 theorem correctness
-(x base : Nat)
-: problem_spec implementation x base
+(x shift: Nat)
+: problem_spec implementation x shift
 :=
 -- end_def correctness_definition
 -- start_def correctness_proof
 by
 unfold problem_spec
-let result := implementation x base
+let result := implementation x shift
 use result
 simp [result]
 sorry
