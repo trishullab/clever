@@ -33,7 +33,6 @@ let spec (result: Int) :=
     if x >= 0 then
       xs
     else
-      let (xs: List Nat) := Nat.digits 10 x';
       (-Int.ofNat (xs[0]!)) :: xs.tail;
   result = ((List.map (fun (x: Int) => (signed_digits x).sum) arr).filter (fun (x: Int) => x > 0)).length
 -- program termination
@@ -73,7 +72,6 @@ def implementation (arr: List Int) : Int :=
     if x >= 0 then
       xs
     else
-      let (xs: List Nat) := Nat.digits 10 x';
       (-Int.ofNat (xs[0]!)) :: xs.tail;
   ((List.map (fun (x: Int) => (signed_digits x).sum) arr).filter (fun (x: Int) => x > 0)).length
 -- end_def implementation
