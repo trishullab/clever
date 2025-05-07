@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def rounded_avg(n: int, m: int) -> Option[string]"
+function_signature: "def rounded_avg(n: nat, m: nat) -> Option[string]"
 docstring: |
     You are given two positive integers n and m, and your task is to compute the
     average of the integers from n through m (including n and m).
@@ -23,12 +23,20 @@ test_cases:
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: Int → Int → Option String)
+(implementation: Nat → Nat → Option String)
 -- inputs
-(n: Int) (m: Int) :=
+(n: Nat) (m: Nat) :=
 -- spec
 let spec (result: Option String) :=
-  True -- FIX !!
+  (n > m ↔ result.isNone) ∧
+  (n ≤ m ↔ result.isSome) ∧
+  (n ≤ m →
+    (result.isSome ∧
+    let val := Option.getD result "";
+    let xs := List.Ico n (m+1);
+    let avg := xs.sum / xs.length;
+    (val.take 2 = "0b") ∧
+    (Nat.ofDigits 2 ((val.drop 2).toList.map (fun c => c.toNat - '0'.toNat)).reverse = avg)))
 -- program termination
 ∃ result, implementation n m = result ∧
 spec result
@@ -37,9 +45,9 @@ spec result
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: Int → Int → Option String)
+(impl: Nat → Nat → Option String)
 -- inputs
-(n: Int) (m: Int) : Prop :=
+(n: Nat) (m: Nat) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -57,10 +65,15 @@ sorry
 --end_def spec_isomorphism_proof
 
 -- start_def implementation_signature
-def implementation (n: Int) (m: Int) : Option String :=
+def implementation (n: Nat) (m: Nat) : Option String :=
 -- end_def implementation_signature
 -- start_def implementation
-sorry
+if n > m then
+  none
+else
+  let xs := List.Ico n (m+1);
+  let avg := xs.sum / xs.length;
+  some ("0b" ++ (Nat.toDigits 2 avg).asString)
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
@@ -69,7 +82,6 @@ sorry
 -- #test implementation 7 13 = some "0b1010"
 -- #test implementation 964 977 = some "0b1111001010"
 -- #test implementation 996 997 = some "0b1111100100"
--- #test implementation 560 851 = some "0b1011000010"
 -- #test implementation 185 546 = some "0b101101110"
 -- #test implementation 362 496 = some "0b110101101"
 -- #test implementation 350 902 = some "0b1001110010"
@@ -81,7 +93,7 @@ sorry
 
 -- start_def correctness_definition
 theorem correctness
-(n: Int) (m: Int)
+(n: Nat) (m: Nat)
 : problem_spec implementation n m
 :=
 -- end_def correctness_definition
