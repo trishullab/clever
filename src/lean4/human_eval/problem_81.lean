@@ -63,8 +63,8 @@ let spec (result : List String) :=
     let number_grade_keys := grade_dict.map (fun (g, _) => g)
     if 0.0 < number_grade then
       ∃ i : Nat, i < number_grade_keys.length ∧
-        number_grade ≤ number_grade_keys[i]! ∧
-        (∀ k' : Nat, k' < number_grade_keys.length → number_grade ≤ number_grade_keys[k']! → number_grade_keys[i]! ≤ number_grade_keys[k']!) ∧
+        number_grade_keys[i]! ≤ number_grade ∧
+        (∀ k' : Nat, k' < number_grade_keys.length → number_grade_keys[k']! ≤ number_grade → number_grade_keys[k']! ≤ number_grade_keys[i]!) ∧
         result[i]! = (grade_dict[i]!).snd
     else
       result[i]! = "E"
