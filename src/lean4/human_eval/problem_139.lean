@@ -21,9 +21,9 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Nat) :=
-  0 < n →
-  let factorial := @Nat.rec (fun _ => Nat) 1 (fun i result => (i+1) * result) n;
-  result = factorial * impl (n-1)
+let factorial := Nat.factorial n;
+(0 < n → result / factorial = impl (n - 1)) ∧
+(n = 0 → result = 1);
 -- program termination
 ∃ result, impl n = result ∧
 -- return value satisfies spec

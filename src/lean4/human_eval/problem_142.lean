@@ -27,9 +27,9 @@ def problem_spec
 let spec (result : Int) :=
 let last := lst.length-1;
 (lst = [] → result = 0) ∧
-(last % 3 = 0 → result = lst[last]! ^ 2 + impl (lst.take last)) ∧
-(last % 4 = 0 ∧ last % 3 != 0 → result = lst[last]! ^ 3 + impl (lst.take last)) ∧
-(last % 3 != 0 ∧ last % 4 != 0 → result = lst[last]! + impl (lst.take last))
+(lst ≠ [] ∧ last % 3 = 0 → result = lst[last]! ^ 2 + impl (lst.take last)) ∧
+(lst ≠ [] ∧ last % 4 = 0 ∧ last % 3 != 0 → result = lst[last]! ^ 3 + impl (lst.take last)) ∧
+(lst ≠ [] ∧ last % 3 != 0 ∧ last % 4 != 0 → result = lst[last]! + impl (lst.take last))
 -- program termination
 ∃ result, impl lst = result ∧
 -- return value satisfies spec
