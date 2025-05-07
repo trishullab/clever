@@ -290,6 +290,24 @@ def is_palindrome
 s = s.toList.reverse.asString
 -- end_def helper_definitions
 
+-- start_def helper_definitions
+/--
+name: digit_sum
+use: |
+  Helper to sum the digits of a number. If the number is negative, the
+  negative sign is treated as part of the first digit.
+problems:
+  - 145
+-/
+def digit_sum (n : Int) : Int :=
+  let ds := (toString n.natAbs).toList.map fun c => c.toNat - Char.toNat '0'
+  match ds with
+  | [] => 0
+  | d :: ds' =>
+    let tail := ds'.foldl (· + ·) 0
+    if n < 0 then Int.ofNat tail - Int.ofNat d
+    else Int.ofNat (d + tail)
+-- end_def helper_definitions
 
 -- start_def test_cases
 #test string_is_paren_balanced_helper "()" 0 = true
@@ -322,4 +340,9 @@ s = s.toList.reverse.asString
 #test is_palindrome "abcdba" = false
 #test is_palindrome "abcddcbac" = false
 #test is_palindrome "abcddcba" = true
+#test digit_sum 15 = 6
+#test digit_sum (-11) = 0
+#test digit_sum (-63) = -3
+#test digit_sum 0 = 0
+#test digit_sum (-25) = 3
 -- end_def test_cases
