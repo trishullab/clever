@@ -22,7 +22,7 @@ def problem_spec
 (s: String) :=
 -- spec
 let spec (result: List String) :=
-  True -- FIX !!
+  result = List.map (fun s => (s.toList.filter (fun c => c != ',')).asString) ((s.splitOn).filter (fun s => s != "" ∧ s != ","))
 -- program termination
 ∃ result, implementation s = result ∧
 spec result
@@ -54,7 +54,7 @@ sorry
 def implementation (s: String) : List String :=
 -- end_def implementation_signature
 -- start_def implementation
-sorry
+  List.map (fun s => (s.toList.filter (fun c => c != ',')).asString) ((s.splitOn).filter (fun s => s != "" ∧ s != ","))
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
@@ -65,7 +65,6 @@ sorry
 -- #test implementation "One,, two, three, four, five, six," = ["One", "two", "three", "four", "five", "six"]
 -- #test implementation "" = []
 -- #test implementation "ahmed     , gamal" = ["ahmed", "gamal"]
-
 -- end_def test_cases
 
 -- start_def correctness_definition
