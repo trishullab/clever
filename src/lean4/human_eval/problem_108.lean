@@ -24,12 +24,14 @@ def problem_spec
 (implementation: List Int → Int)
 -- inputs
 (arr: List Int) :=
+
 -- spec
 let spec (result: Int) :=
   let signed_digits(x: Int): List Int :=
     let x': Nat := Int.natAbs x;
+    let xs: List Nat := Nat.digits 10 x';
     if x >= 0 then
-      Nat.digits 10 x'
+      xs
     else
       let (xs: List Nat) := Nat.digits 10 x';
       (-Int.ofNat (xs[0]!)) :: xs.tail;
@@ -65,7 +67,15 @@ sorry
 def implementation (arr: List Int) : Int :=
 -- end_def implementation_signature
 -- start_def implementation
-sorry
+  let signed_digits(x: Int): List Int :=
+    let x': Nat := Int.natAbs x;
+    let xs: List Nat := Nat.digits 10 x';
+    if x >= 0 then
+      xs
+    else
+      let (xs: List Nat) := Nat.digits 10 x';
+      (-Int.ofNat (xs[0]!)) :: xs.tail;
+  ((List.map (fun (x: Int) => (signed_digits x).sum) arr).filter (fun (x: Int) => x > 0)).length
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
