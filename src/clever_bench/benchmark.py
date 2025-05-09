@@ -64,6 +64,19 @@ class Benchmark:
         problems.sort(key=lambda x: x[0])
         for _, problem in problems:
             self.problems.append(problem)
+    
+    def get_problem(self, idx: int) -> LeanProblem:
+        """
+        Returns the LeanProblem at the given index.
+        """
+        if -1 < idx < len(self.problems) and self.problems[idx].problem_id == idx:
+            return self.problems[idx]
+        else:
+            # Find the problem with the given ID
+            for problem in self.problems:
+                if problem.problem_id == idx:
+                    return problem
+        raise ValueError(f"Problem with ID {idx} not found.")
 
     def to_json(self) -> str:
         return json.dumps([problem.to_dict() for problem in self.problems], indent=2)

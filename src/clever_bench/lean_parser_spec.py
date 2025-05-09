@@ -97,6 +97,7 @@ class LeanSpecParser:
             nl_spec = f"{metadata.function_signature}\n\"\"\"{metadata.docstring}\"\"\""
 
         return LeanProblem(
+            problem_id=self.problem_id,
             problem_spec_metadata=metadata,
             problem_spec_nl=nl_spec,
             problem_spec_formal_ground_truth=self._get_first("problem_spec"),
