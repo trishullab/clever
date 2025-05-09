@@ -69,9 +69,7 @@ class Benchmark:
         """
         Returns the LeanProblem at the given index.
         """
-        if idx < 0 or idx >= len(self.problems):
-            raise IndexError("Index out of range.")
-        if self.problems[idx].problem_id == idx:
+        if -1 < idx < len(self.problems) and self.problems[idx].problem_id == idx:
             return self.problems[idx]
         else:
             # Find the problem with the given ID

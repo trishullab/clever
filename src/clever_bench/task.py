@@ -109,7 +109,8 @@ class ProblemViewTask:
         views = []
 
         for idx in range(len(self.benchmark.problems)):
-            view = self.get_view(idx)
+            problem_idx = self.benchmark.problems[idx].problem_id
+            view = self.get_view(problem_idx)
             views.append(view)
 
         return views
