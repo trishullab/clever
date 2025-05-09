@@ -28,7 +28,7 @@ class ProblemViewTask:
         os.makedirs(os.path.join(self.lean_folder_path, "temp"), exist_ok=True)
     
     def get_view(self, idx: int) -> LeanProblemView:
-        problem = self.benchmark.problems[idx]
+        problem = self.benchmark.get_problem(idx)
         meta = problem.problem_spec_metadata
         view = LeanProblemView(
             problem_id=str(idx),
