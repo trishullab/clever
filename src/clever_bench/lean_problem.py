@@ -36,6 +36,7 @@ class ProblemSpecMetadata:
 
 @dataclass
 class LeanProblem:
+    problem_id: int
     problem_spec_metadata: Optional[ProblemSpecMetadata]
     problem_spec_nl: Optional[str]
     problem_spec_formal_ground_truth: Optional[str]
