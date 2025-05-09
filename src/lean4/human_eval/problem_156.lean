@@ -63,9 +63,9 @@ sorry
 
 -- Uncomment the following test cases after implementing the function
 -- start_def test_cases
--- #test implementation 19 = xix
--- #test implementation 152 = clii
--- #test implementation 426 = cdxxvi
+-- #test implementation 19 = "xix"
+-- #test implementation 152 = "clii"
+-- #test implementation 426 = "cdxxvi"
 -- end_def test_cases
 
 
