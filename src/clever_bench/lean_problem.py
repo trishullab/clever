@@ -54,6 +54,7 @@ class LeanProblem:
 
     def to_dict(self) -> Dict[str, Any]:
         return {
+            "problem_id": self.problem_id,
             "problem_spec_metadata": self.problem_spec_metadata.to_dict() if self.problem_spec_metadata else None,
             "problem_spec_nl": self.problem_spec_nl,
             "problem_spec_formal_ground_truth": self.problem_spec_formal_ground_truth,
