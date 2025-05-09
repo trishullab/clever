@@ -27,18 +27,22 @@ def problem_spec
 
 -- spec
 let spec (result: Int) :=
-  let signed_digits(x: Int): List Int :=
-    let x': Nat := Int.natAbs x;
-    let xs: List Nat := Nat.digits 10 x';
+  let dig_sum (x: Int): Int :=
+    let digs := x.natAbs.digits 10;
     if x >= 0 then
-      xs
+      (List.map (fun t => (t: Int)) digs).sum
     else
-      (-Int.ofNat (xs[0]!)) :: xs.tail;
-  result = ((List.map (fun (x: Int) => (signed_digits x).sum) arr).filter (fun (x: Int) => x > 0)).length
+      (List.map (fun t => (t: Int)) (digs.drop 1)).sum - (digs[0]! : Int);
+  (arr = [] → result = 0) ∧
+  (arr ≠ [] → 0 < (dig_sum arr[0]!) → result = 1 + implementation (arr.drop 1)) ∧
+  (arr ≠ [] → (dig_sum arr[0]!) ≤ 0 → result = implementation (arr.drop 1));
 -- program termination
 ∃ result, implementation arr = result ∧
 spec result
 -- end_def problem_spec
+
+
+
 
 -- start_def generated_spec
 def generated_spec
