@@ -72,7 +72,7 @@ sorry
 -- start_def test_cases
 -- #test implementation 2 8 = [2, 4, 6, 8]
 -- #test implementation 8 2 = [2, 4, 6, 8]
--- #test implementation 10 14 = []
+-- #test implementation 10 14 = [10, 12, 14]
 -- end_def test_cases
 
 
