@@ -64,7 +64,7 @@ spec result
 -- end_def generated_spec
 
 -- start_def iso_helper_lemmas
-theorem fib0_unique (n : ℕ) (h : fibonacci_non_computable 0 n) : n = 0 :=
+lemma fib0_unique (n : ℕ) (h : fibonacci_non_computable 0 n) : n = 0 :=
 -- end_def iso_helper_lemmas
 -- start_def iso_helper_lemmas_proof
 by
@@ -73,7 +73,7 @@ rfl
 -- end_def iso_helper_lemmas_proof
 
 -- start_def iso_helper_lemmas
-theorem fib1_unique (n : ℕ) (h : fibonacci_non_computable 1 n) : n = 1 :=
+lemma fib1_unique (n : ℕ) (h : fibonacci_non_computable 1 n) : n = 1 :=
 -- end_def iso_helper_lemmas
 -- start_def iso_helper_lemmas_proof
 by
@@ -82,7 +82,7 @@ rfl
 -- end_def iso_helper_lemmas_proof
 
 -- start_def iso_helper_lemmas
-theorem fib_rec_unique (n m : ℕ):
+lemma fib_rec_unique (n m : ℕ):
   fibonacci_non_computable (n + 2) m ↔
   ∃ f₁ f₂, fibonacci_non_computable n f₁ ∧
   fibonacci_non_computable (n + 1) f₂ ∧
@@ -103,7 +103,7 @@ exact fibonacci_non_computable.step _ _ _ h₁ h₂
 -- end_def iso_helper_lemmas_proof
 
 -- start_def iso_helper_lemmas
-theorem fib_inversion (n f₁ f₂ : ℕ)
+lemma fib_inversion (n f₁ f₂ : ℕ)
 (h : fibonacci_non_computable n f₁) (h' : fibonacci_non_computable n f₂) :
   f₁ = f₂ :=
 -- end_def iso_helper_lemmas
@@ -115,7 +115,7 @@ intro f₁ f₂
 by_cases h_n'_lt_1: n' < 2
 intro h h'
 -- if n' < 1 then
-have h_n'_eq_0: n' = 0 ∨ n' = 1:= by
+have h_n'_eq_0: n' = 0 ∨ n' = 1 := by
   interval_cases n'
   all_goals simp
 cases h_n'_eq_0
@@ -147,7 +147,7 @@ linarith
 -- end_def iso_helper_lemmas_proof
 
 -- start_def iso_helper_lemmas
-theorem fib_rec_unique_seq (n : ℕ)
+lemma fib_rec_unique_seq (n : ℕ)
 (f : Nat → Nat)
 (h_f_0: f 0 = 0)
 (h_f_1: f 1 = 1)
@@ -159,7 +159,7 @@ by
 induction' n using Nat.strong_induction_on with n' ih
 by_cases h_n'_lt_1: n' < 2
 -- if n' < 1 then
-have h_n'_eq_0: n' = 0 ∨ n' = 1:= by
+have h_n'_eq_0: n' = 0 ∨ n' = 1 := by
   interval_cases n'
   all_goals simp
 cases h_n'_eq_0
