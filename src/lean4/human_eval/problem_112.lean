@@ -8,7 +8,7 @@ docstring: |
     then check if the result string is palindrome.
     A string is called palindrome if it reads the same backward as forward.
     You should return a tuple containing the result string and True/False for the check.
-    -- Note(George): I used a fairly complicated replace statement in the spec, not sure if optimal.
+    -- Note: We assume the deletions preserve the order of the remaining characters.
 test_cases:
   - input: ["abcde", "ae"]
     expected_output: ("bcd", False)

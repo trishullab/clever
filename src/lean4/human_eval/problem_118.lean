@@ -18,7 +18,7 @@ test_cases:
   - input: "FULL"
     expected_output: "U"
   - input: "quick"
-    expected_output: ""
+    expected_output: "i"
   - input: "ab"
     expected_output: ""
 -/
@@ -88,7 +88,7 @@ sorry
 -- start_def test_cases
 -- #test implementation "yogurt" = "u"
 -- #test implementation "FULL" = "U"
--- #test implementation "quick" = ""
+-- #test implementation "quick" = "i"
 -- #test implementation "ab" = ""
 -- end_def test_cases
 
