@@ -28,19 +28,19 @@ let is_mini_roman : Nat → String → Bool := fun input result =>
 
   let sym_to_num : Std.HashMap String Nat :=
     Std.HashMap.ofList [
-      ("I", 1),
-      ("IV", 4),
-      ("V", 5),
-      ("IX", 9),
-      ("X", 10),
-      ("XL", 40),
-      ("L", 50),
-      ("XC", 90),
-      ("C", 100),
-      ("CD", 400),
-      ("D", 500),
-      ("CM", 900),
-      ("M", 1000)
+      ("i", 1),
+      ("iv", 4),
+      ("v", 5),
+      ("ix", 9),
+      ("x", 10),
+      ("xl", 40),
+      ("l", 50),
+      ("xc", 90),
+      ("c", 100),
+      ("cd", 400),
+      ("d", 500),
+      ("cm", 900),
+      ("m", 1000)
     ];
 
   -- Recursive function `go` that checks the Roman numeral

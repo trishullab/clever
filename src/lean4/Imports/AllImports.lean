@@ -270,6 +270,64 @@ def is_palindrome
 s = s.toList.reverse.asString
 -- end_def helper_definitions
 
+-- start_def helper_definitions
+/--
+use: |
+  Helper Methods to evaluate an expression
+  - 160
+  -/
+def mergeAlternately : List Nat → List String → List String
+| [], []       => []
+| [], y :: ys  => y :: mergeAlternately [] ys
+| x :: xs, []  => x.repr :: mergeAlternately xs []
+| x :: xs, y :: ys => x.repr :: y :: mergeAlternately xs ys
+
+-- /-- Apply a single binary op to two `Int`s. -/
+def applyOp (x y : Int) : String → Option Int
+  | "+"  => some (x + y)
+  | "-"  => some (x - y)
+  | "*"  => some (x * y)
+  | "//" => if y == 0 then none else some (x / y)
+  | "**" =>
+    if x < 0 then none
+    else some (Int.ofNat ((Int.toNat x) ^ (Int.toNat y)))
+  | _     => none
+
+/-- Noncomputable relational spec for a single step evaluation (any op, ignoring precedence). -/
+inductive evalArith_pass : List String → Int → Prop
+| num {s : String} {n : Nat} (h : s.toNat! = n) :
+    evalArith_pass [s] (Int.ofNat n)
+| binOp {ts1 ts2 : List String} {op : String} {r1 r2 r : Int}
+    (h1 : evalArith_pass ts1 r1)
+    (h2 : evalArith_pass ts2 r2)
+    (hop : applyOp r1 r2 op = some r) :
+    evalArith_pass (ts1 ++ op :: ts2) r
+
+/-- Relational spec for exponentiation (highest precedence). -/
+inductive evalArith_exp : List String → Int → Prop
+| of_pass {ts r} (h : evalArith_pass ts r) : evalArith_exp ts r
+| step {ts1 ts2 r1 r2 r} (h1 : evalArith_exp ts1 r1) (h2 : evalArith_exp ts2 r2)
+    (hop : applyOp r1 r2 "**" = some r) :
+    evalArith_exp (ts1 ++ "**" :: ts2) r
+
+/-- Relational spec for multiplication/division (middle precedence). -/
+inductive evalArith_mul : List String → Int → Prop
+| of_exp {ts r} (h : evalArith_exp ts r) : evalArith_mul ts r
+| step {ts1 ts2 r1 r2 r} (h1 : evalArith_mul ts1 r1) (h2 : evalArith_mul ts2 r2)
+    (hop : applyOp r1 r2 "*" = some r ∨ applyOp r1 r2 "//" = some r) :
+    evalArith_mul (ts1 ++ "*" :: ts2) r
+
+/-- Relational spec for addition/subtraction (lowest precedence). -/
+inductive evalArith_add : List String → Int → Prop
+| of_mul {ts r} (h : evalArith_mul ts r) : evalArith_add ts r
+| step {ts1 ts2 r1 r2 r} (h1 : evalArith_add ts1 r1) (h2 : evalArith_add ts2 r2)
+    (hop : applyOp r1 r2 "+" = some r ∨ applyOp r1 r2 "-" = some r) :
+    evalArith_add (ts1 ++ "+" :: ts2) r
+
+def evalArith_precedence (ts : List String) (r : Int) : Prop :=
+  evalArith_add ts r
+-- end_def helper_definitions
+
 
 -- start_def test_cases
 #test string_is_paren_balanced_helper "()" 0 = true

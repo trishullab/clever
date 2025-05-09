@@ -22,11 +22,12 @@ def problem_spec
 -- spec
 let spec (result: Int × Int) :=
   let (even_count, odd_count) := result;
-  let num_str := (|num|.toNat).repr;
-  let even_digits := num_str.toList.filter (λ c => c.toNat % 2 = 0);
-  let odd_digits := num_str.toList.filter (λ c => c.toNat % 2 = 1);
-  even_count = even_digits.length ∧
-  odd_count = odd_digits.length;
+  let numAbs := |num|.toNat;
+  let numBy10 := numAbs/10;
+  let (even_count', odd_count') := impl numBy10;
+  (result = impl numAbs) ∧
+  (0 ≤ num → (Even num ↔ 1 + even_count' = even_count) ∧ (Odd num ↔ even_count' = even_count)) ∧
+  (0 ≤ num → (Odd num ↔ 1 + odd_count' = odd_count) ∧ (Even num ↔ odd_count' = odd_count));
 -- program terminates
 ∃ result, impl num = result ∧
 -- return value satisfies spec

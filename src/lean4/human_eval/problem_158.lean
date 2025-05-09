@@ -31,7 +31,7 @@ let unique_chars (string: String) :=
 -- spec
 let spec (result: String) :=
 (result = "" ↔ words.length = 0) ∧
-(result ∈ words ∧
+(words.length != 0 → result ∈ words ∧
 let unique_chars_list := words.map unique_chars;
 let max_unique_chars := unique_chars_list.max?.get!;
 unique_chars result = max_unique_chars ∧

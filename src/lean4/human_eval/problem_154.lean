@@ -29,10 +29,12 @@ def problem_spec
 (a b: String) :=
 -- spec
 let spec (result: Bool) :=
+(b.length = 0 → result) ∧
+(0 < b.length →
 result ↔ ((b.length ≤ a.length) ∧
   (∃ i : Nat, i < b.length ∧
   let b_rotation := b.drop i ++ b.take i;
-  a.containsSubstr b_rotation));
+  a.containsSubstr b_rotation)));
 -- program terminates
 ∃ result, impl a b = result ∧
 -- return value satisfies spec

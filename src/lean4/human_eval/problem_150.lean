@@ -22,9 +22,8 @@ def problem_spec
 (n x y: Int) :=
 -- spec
 let spec (result: Int) :=
-0 < n →
 (result = x ↔ Nat.Prime n.toNat) ∧
-(result = y ↔ (¬ Nat.Prime n.toNat ∨ n = 1))
+(result = y ↔ (¬ Nat.Prime n.toNat ∨ n ≤ 1))
 -- program terminates
 ∃ result, impl n x y = result ∧
 -- return value satisfies spec
