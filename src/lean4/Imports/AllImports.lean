@@ -292,6 +292,72 @@ s = s.toList.reverse.asString
 
 -- start_def helper_definitions
 /--
+name: roman_value_non_computable
+use: |
+  Non-computable definition to check if a Roman numeral string is a canonical representation of a specific integer value.
+problems:
+  - 156
+sample_problems: []
+-/
+inductive roman_value_non_computable : String → ℕ → Prop
+| empty : roman_value_non_computable "" 0
+
+-- Must match in canonical decreasing order of Roman numeral values
+| m {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("m" ++ s) (1000 + n)
+
+| cm {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("cm" ++ s) (900 + n)
+
+| d {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("d" ++ s) (500 + n)
+
+| cd {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("cd" ++ s) (400 + n)
+
+| c {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("c" ++ s) (100 + n)
+
+| xc {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("xc" ++ s) (90 + n)
+
+| l {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("l" ++ s) (50 + n)
+
+| xl {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("xl" ++ s) (40 + n)
+
+| x {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("x" ++ s) (10 + n)
+
+| ix {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("ix" ++ s) (9 + n)
+
+| v {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("v" ++ s) (5 + n)
+
+| iv {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("iv" ++ s) (4 + n)
+
+| i {s n} :
+    roman_value_non_computable s n →
+    roman_value_non_computable ("i" ++ s) (1 + n)
+-- end_def helper_definitions
+
+-- start_def helper_definitions
+/--
 use: |
   Helper Methods to evaluate an expression
   - 160

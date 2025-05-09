@@ -24,52 +24,52 @@ def problem_spec
 -- inputs
 (num: Nat) :=
 
-let is_mini_roman : Nat → String → Bool := fun input result =>
+-- let is_mini_roman : Nat → String → Bool := fun input result =>
 
-  let sym_to_num : Std.HashMap String Nat :=
-    Std.HashMap.ofList [
-      ("i", 1),
-      ("iv", 4),
-      ("v", 5),
-      ("ix", 9),
-      ("x", 10),
-      ("xl", 40),
-      ("l", 50),
-      ("xc", 90),
-      ("c", 100),
-      ("cd", 400),
-      ("d", 500),
-      ("cm", 900),
-      ("m", 1000)
-    ];
+--   let sym_to_num : Std.HashMap String Nat :=
+--     Std.HashMap.ofList [
+--       ("i", 1),
+--       ("iv", 4),
+--       ("v", 5),
+--       ("ix", 9),
+--       ("x", 10),
+--       ("xl", 40),
+--       ("l", 50),
+--       ("xc", 90),
+--       ("c", 100),
+--       ("cd", 400),
+--       ("d", 500),
+--       ("cm", 900),
+--       ("m", 1000)
+--     ];
 
-  -- Recursive function `go` that checks the Roman numeral
-  let rec decode : Nat → List Char → Bool := fun input result =>
-    match result with
-    | [] => input = 0  -- Base case: If no symbols left, input should be 0
-    | [x] =>
-      match sym_to_num[String.mk (result.take 1)]? with
-      | some n => input = n  -- If only 1 symbol left, it should match the input value
-      | none => false  -- If no valid symbol, return false
-    | x::y::rest =>
-      -- Ensure that there are at least 2 characters to take
-      let two := result.take 2
-      let one := result.take 1
-      -- Try two-symbol match
-      match sym_to_num[String.mk two]? with
-      | some n => decode (input - n) rest
-      | none =>
-        -- If two-symbol match fails, try one-symbol match
-        match sym_to_num[String.mk one]? with
-        | some m => decode (input - m) (y::rest)
-        | none => false  -- If both fail, return false
+--   -- Recursive function `go` that checks the Roman numeral
+--   let rec decode : Nat → List Char → Bool := fun input result =>
+--     match result with
+--     | [] => input = 0  -- Base case: If no symbols left, input should be 0
+--     | [x] =>
+--       match sym_to_num[String.mk (result.take 1)]? with
+--       | some n => input = n  -- If only 1 symbol left, it should match the input value
+--       | none => false  -- If no valid symbol, return false
+--     | x::y::rest =>
+--       -- Ensure that there are at least 2 characters to take
+--       let two := result.take 2
+--       let one := result.take 1
+--       -- Try two-symbol match
+--       match sym_to_num[String.mk two]? with
+--       | some n => decode (input - n) rest
+--       | none =>
+--         -- If two-symbol match fails, try one-symbol match
+--         match sym_to_num[String.mk one]? with
+--         | some m => decode (input - m) (y::rest)
+--         | none => false  -- If both fail, return false
 
 
-  decode input result.toList
+--   decode input result.toList
 -- spec
 let spec (result: String) :=
 1 ≤ num ∧ num ≤ 1000 →
-is_mini_roman num result
+roman_value_non_computable result num
 -- program terminates
 ∃ result, impl num = result ∧
 -- return value satisfies spec
