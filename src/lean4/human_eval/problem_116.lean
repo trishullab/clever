@@ -4,55 +4,42 @@ import Imports.AllImports
 /--
 function_signature: "def max_fill_count(grid : list[list[int]], capacity : int) -> int"
 docstring: |
-    You are given a rectangular grid of wells. Each row represents a single well,
-    and each 1 in a row represents a single unit of water.
-    Each well has a corresponding bucket that can be used to extract water from it,
-    and all buckets have the same capacity.
-    Your task is to use the buckets to empty the wells.
-    Output the number of times you need to lower the buckets.
-    Constraints:
-        * all wells have the same length
-        * grid[i][j] -> 0 | 1
-        * 0 <= capacity
+    Please write a function that sorts an array of non-negative integers according to
+    number of ones in their binary representation in ascending order.
+    For similar number of ones, sort based on decimal value.
 test_cases:
-  - input: ([[0,0,1,0], [0,1,0,0], [1,1,1,1]], 1)
-    expected_output: 6
-  - input: ([[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]], 2)
-    expected_output: 5
-  - input: ([[0,0,0], [0,0,0]], 5)
-    expected_output: 0
+  - input: [1, 5, 2, 3, 4]
+    expected_output: [1, 2, 3, 4, 5]
+  - input: [1, 0, 2, 3, 4]
+    expected_output: [0, 1, 2, 3, 4]
 -/
 -- end_def problem_details
 
 -- start_def problem_spec
 def problem_spec
 -- function signature
-(implementation: List (List Nat) → Nat → Nat)
+(implementation: List Nat → List Nat)
 -- inputs
-(grid: List (List Nat))
-(capacity: Nat) :=
+(lst: List Nat) :=
 -- spec
-let spec (result : Nat) :=
-  (∃ len : Nat, grid.all (fun row => row.length = len)) →
-  capacity > 0 →
-  grid.all (fun row => row.all (fun cell => cell = 0 ∨ cell = 1)) →
-  (result = 0 ↔ grid.length = 0) ∧
-  (grid.length > 0 →
-    let well_water_count := grid.head!.sum;
-    result - (well_water_count / capacity) - (if well_water_count % capacity > 0 then 1 else 0) = implementation grid.tail! capacity)
+let spec (result : List Nat) :=
+  ∀ x : Nat, lst.count x = result.count x ∧
+  result.length = lst.length ∧
+  (∀ i j : Nat, i < j →
+    Nat.digits 2 (result.get! i) < Nat.digits 2 (result.get! j) ∨
+    (Nat.digits 2 (result.get! i) = Nat.digits 2 (result.get! j) ∧ result.get! i < result.get! j))
 -- program termination
 ∃ result,
-  implementation grid capacity = result ∧
+  implementation lst = result ∧
   spec result
 -- end_def problem_spec
 
 -- start_def generated_spec
 def generated_spec
 -- function signature
-(impl: List (List Nat) → Nat → Nat)
+(impl: List Nat → List Nat)
 -- inputs
-(grid: List (List Nat))
-(capacity: Nat) : Prop :=
+(lst: List Nat) : Prop :=
 --end_def generated_spec
 --start_def generated_spec_body
 sorry
@@ -61,8 +48,8 @@ sorry
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
 ∀ impl,
-(∀ grid capacity, problem_spec impl grid capacity) ↔
-(∀ grid capacity, generated_spec impl grid capacity) :=
+(∀ lst, problem_spec impl lst) ↔
+(∀ lst, generated_spec impl lst) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry
@@ -70,24 +57,22 @@ sorry
 
 
 -- start_def implementation_signature
-def implementation (grid: List (List Nat)) (capacity: Nat) : Nat :=
+def implementation (lst: List Nat) : List Nat :=
 -- end_def implementation_signature
 -- start_def implementation
 sorry
 -- end_def implementation
 
 -- start_def test_cases
--- #test implementation [[0,0,1,0], [0,1,0,0], [1,1,1,1]] 1 = 6
--- #test implementation [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]] 2 = 5
--- #test implementation [[0,0,0], [0,0,0]] 5 = 0
+-- #test implementation [1, 5, 2, 3, 4] = [1, 2, 3, 4, 5]
+-- #test implementation [1, 0, 2, 3, 4] = [0, 1, 2, 3, 4]
 -- end_def test_cases
 
 
 -- start_def correctness_definition
 theorem correctness
-(grid: List (List Nat))
-(capacity: Nat)
-: problem_spec implementation grid capacity
+(lst: List Nat)
+: problem_spec implementation lst
 :=
 -- end_def correctness_definition
 -- start_def correctness_proof

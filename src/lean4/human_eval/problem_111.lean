@@ -38,7 +38,7 @@ let spec (result : Std.HashMap Char Nat) :=
       result.get! key = s.count key) ∧
     (∀ char ∈ s.data, char.isLower →
       ((∃ char2 ∈ s.data, char2.isLower ∧ char2 ≠ char ∧
-      s.count char2 > s.count char) ↔ char ∉ result.keys))
+      s.count char < s.count char2) ↔ char ∉ result.keys))
 -- program termination
 ∃ result,
   implementation s = result ∧

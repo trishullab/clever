@@ -35,6 +35,7 @@ def problem_spec
 (capacity: Nat) :=
 -- spec
 let spec (result : Nat) :=
+  (grid.all (fun row => row.all (fun cell => cell = 0 ∨ cell = 1))) →
   (∃ len : Nat, grid.all (fun row => row.length = len)) →
   (result = 0 ↔ grid.length = 0) ∧
   (grid.length > 0 →

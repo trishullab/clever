@@ -10,11 +10,11 @@ docstring: |
     You should return a tuple containing the result string and True/False for the check.
     -- Note(George): I used a fairly complicated replace statement in the spec, not sure if optimal.
 test_cases:
-  - input: 'abcde'
-    expected_output: ('bcd', False)
-  - input: 'abcdef'
-    expected_output: ('acdef', False)
-  - input: 'abcdedcba'
+  - input: ["abcde", "ae"]
+    expected_output: ("bcd", False)
+  - input: ["abcdef", "b"]
+    expected_output: ("acdef", False)
+  - input: ["abcdedcba", "ab"]
     expected_output: ('cdedc', True)
 -/
 -- end_def problem_details
@@ -74,11 +74,9 @@ sorry
 -- end_def implementation
 
 -- start_def test_cases
--- #test implementation 'abcde' 'a' = ('bcd', False)
--- #test implementation 'abcdef' 'a' = ('acdef', False)
--- #test implementation 'abcdedcba' 'a' = ('cdedc', True)
--- #test implementation 'abcde' '' = ('abcde', True)
--- #test implementation 'abcde' 'b' = ('acde', False)
+-- #test implementation "abcde" "ae" = ("bcd", False)
+-- #test implementation "abcdef" "b" = ("acdef", False)
+-- #test implementation "abcdedcba" "ab" = ("cdedc", True)
 -- end_def test_cases
 
 

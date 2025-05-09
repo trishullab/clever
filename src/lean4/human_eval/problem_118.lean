@@ -41,14 +41,14 @@ let spec (result : String) :=
   (result ≠ "" →
     result.length = 1 ∧
     result.data[0]! ∈ s.data ∧
-    is_consonant result.data[0]! ∧
+    ¬ is_consonant result.data[0]! ∧
     ∃ (i j k : Nat),
       i < j ∧ j < k ∧ k < s.length ∧
       is_consonant s.data[i]! ∧ ¬ is_consonant s.data[j]! ∧ is_consonant s.data[k]! ∧
       result.data[0]! = s.data[j]! ∧
       (∀ (i' j' k' : Nat),
         i' < j' ∧ j' < k' ∧ k' < s.length ∧ is_consonant s.data[i']! ∧ ¬ is_consonant s.data[j']! ∧ is_consonant s.data[k']! →
-        j ≤ j')
+        j' ≤ j)
   )
 -- program termination
 ∃ result,
