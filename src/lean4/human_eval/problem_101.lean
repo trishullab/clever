@@ -22,7 +22,11 @@ def problem_spec
 (s: String) :=
 -- spec
 let spec (result: List String) :=
-  result = List.map (fun s => (s.toList.filter (fun c => c != ',')).asString) ((s.splitOn).filter (fun s => s != "" ∧ s != ","))
+  let chars := s.toList;
+  let first := s.takeWhile (fun c => c ≠ ',' ∧ c ≠ ' ');
+  (result = [] ↔ (∀ x ∈ chars, x = ' ' ∨ x = ',') ∨ s = "") ∧
+  (result ≠ [] ↔ result = [first] ++ (implementation (s.drop (first.length + 1))))
+
 -- program termination
 ∃ result, implementation s = result ∧
 spec result
@@ -38,7 +42,6 @@ def generated_spec
 --start_def generated_spec_body
 sorry
 --end_def generated_spec_body
-
 
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
