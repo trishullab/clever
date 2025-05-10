@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def words_in_sentence(sentence: String) -> String"
+function_signature: "def words_in_sentence(sentence: str) -> str"
 docstring: |
     You are given a string representing a sentence,
     the sentence contains some words separated by a space,

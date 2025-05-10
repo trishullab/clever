@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def sorted_list_sum(lst: List[String]) -> List[String]"
+function_signature: "def sorted_list_sum(lst: List[str]) -> List[str]"
 docstring: |
     Write a function that accepts a list of strings as a parameter,
     deletes the strings that have odd lengths from it,
