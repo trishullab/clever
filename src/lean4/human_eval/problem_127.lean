@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def intersection(interval1: Tuple[Int, Int], interval2: Tuple[Int, Int]) -> String"
+function_signature: "def intersection(interval1: Tuple[Int, Int], interval2: Tuple[Int, Int]) -> str"
 docstring: |
     You are given two intervals,
     where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).

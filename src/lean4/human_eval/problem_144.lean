@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def simplify(x: String, n: String) -> Bool"
+function_signature: "def simplify(x: str, n: str) -> Bool"
 docstring: |
     Your task is to implement a function that will simplify the expression
     x * n. The function returns True if x * n evaluates to a whole number and False
