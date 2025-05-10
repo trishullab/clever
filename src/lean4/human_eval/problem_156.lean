@@ -25,8 +25,8 @@ def problem_spec
 (num: Nat) :=
 -- spec
 let spec (result: String) :=
-1 ≤ num ∧ num ≤ 1000 →
-roman_value_non_computable result num
+1 ≤ num ∧ num ≤ 1000 ∧ (result.data.all (fun c => c.isLower)) →
+isValidRoman result ∧ romanToDecimal result = num
 -- program terminates
 ∃ result, impl num = result ∧
 -- return value satisfies spec

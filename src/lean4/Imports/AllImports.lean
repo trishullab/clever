@@ -292,68 +292,87 @@ s = s.toList.reverse.asString
 
 -- start_def helper_definitions
 /--
-name: roman_value_non_computable
+name: romanToDecimal
 use: |
-  Non-computable definition to check if a Roman numeral string is a canonical representation of a specific integer value.
+  Definition to convert a Roman numeral string to an integer
 problems:
   - 156
 sample_problems: []
 -/
-inductive roman_value_non_computable : String → ℕ → Prop
-| empty : roman_value_non_computable "" 0
+-- Valid characters and their values
+def romanCharToValue : Char → Nat
+| 'i' => 1
+| 'v' => 5
+| 'x' => 10
+| 'l' => 50
+| 'c' => 100
+| 'd' => 500
+| 'm' => 1000
+| _   => 0
 
--- Must match in canonical decreasing order of Roman numeral values
-| m {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("m" ++ s) (1000 + n)
+-- Legal subtractive pairs: first char can precede second for subtraction
+def validSubtractivePairs : List (Char × Char) :=
+  [('i', 'v'), ('i', 'x'), ('x', 'l'), ('x', 'c'), ('c', 'd'), ('c', 'm')]
 
-| cm {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("cm" ++ s) (900 + n)
+-- Max allowed repetitions for each character
+def maxRepetitions : Char → Nat
+| 'i' | 'x' | 'c' | 'm' => 3
+| 'v' | 'l' | 'd'       => 1
+| _                    => 0
 
-| d {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("d" ++ s) (500 + n)
+-- Helper to count consecutive repetitions
+def countRepetitions : List Char → Char → Nat → Nat
+| [], _, n => n
+| (h :: t), c, n => if h = c then countRepetitions t c (n + 1) else n
 
-| cd {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("cd" ++ s) (400 + n)
+-- Validate that all characters are valid Roman symbols
+def allValidChars (s : String) : Bool :=
+  s.data.all (λ c => romanCharToValue c ≠ 0)
 
-| c {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("c" ++ s) (100 + n)
+-- Validate proper use of repetitions
+partial def validRepetition : List Char → Bool
+| [] => true
+| c :: rest =>
+  let max := maxRepetitions c
+  let count := countRepetitions rest c 1
+  count ≤ max ∧ validRepetition (rest.drop (count - 1))
 
-| xc {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("xc" ++ s) (90 + n)
+-- Validate legal subtractive combinations
+def validSubtractiveOrder : List Char → Bool
+| [] | [_] => true
+| c1 :: c2 :: rest =>
+  match romanCharToValue c1, romanCharToValue c2 with
+  | v1, v2 =>
+    if v1 < v2 then
+      -- check if c1 and c2 form a legal subtractive pair
+      (c1, c2) ∈ validSubtractivePairs ∧ validSubtractiveOrder rest
+    else if v1 = 0 ∨ v2 = 0 then
+      false
+    else
+      validSubtractiveOrder (c2 :: rest)
 
-| l {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("l" ++ s) (50 + n)
+-- Top-level validator
+def isValidRoman (s : String) : Bool :=
+  allValidChars s ∧
+  validRepetition s.data ∧
+  validSubtractiveOrder s.data
 
-| xl {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("xl" ++ s) (40 + n)
+-- Helper to convert list of roman characters to decimal
+def romanToDecimalAux : List Char → Nat
+| [] => 0
+| c1 :: c2 :: rest =>
+    let val1 := romanCharToValue c1
+    let val2 := romanCharToValue c2
+    if val1 < val2 then
+      -- subtractive notation
+      (val2 - val1) + romanToDecimalAux rest
+    else
+      val1 + romanToDecimalAux (c2 :: rest)
+| [c] => romanCharToValue c
 
-| x {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("x" ++ s) (10 + n)
-
-| ix {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("ix" ++ s) (9 + n)
-
-| v {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("v" ++ s) (5 + n)
-
-| iv {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("iv" ++ s) (4 + n)
-
-| i {s n} :
-    roman_value_non_computable s n →
-    roman_value_non_computable ("i" ++ s) (1 + n)
+-- Main function: converts a valid lowercase Roman numeral string to Nat
+def romanToDecimal (s : String) : Nat :=
+  romanToDecimalAux s.data
 -- end_def helper_definitions
 
 -- start_def helper_definitions
