@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def bf(planet1: String, planet2: String) -> List[String]"
+function_signature: "def bf(planet1: str, planet2: str) -> List[str]"
 docstring: |
     There are eight planets in our solar system: the closest to the Sun
     is Mercury, the next one is Venus, then Earth, Mars, Jupiter, Saturn,

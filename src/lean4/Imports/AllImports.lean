@@ -91,6 +91,7 @@ use: |
 problems:
   - 1
   - 6
+  - 132
 sample_problems:
   - 0
 -/
@@ -137,6 +138,7 @@ use: |
 problems:
   - 1
   - 6
+  - 132
 sample_problems:
   - 0
 -/
@@ -153,6 +155,7 @@ use: |
 problems:
   - 1
   - 6
+  - 132
 sample_problems:
   - 0
 -/
@@ -227,6 +230,7 @@ use: |
   Helper to count the maximum depth of parentheses in a string.
 problems:
   - 6
+  - 132
 -/
 def count_max_paren_depth_helper
 (paren_string: String) (num_open: Int) (max_depth: Nat): Nat :=
@@ -270,6 +274,7 @@ use: |
   Function to count the maximum depth of parentheses in a string.
 problems:
   - 6
+  - 132
 -/
 def count_max_paren_depth
 (paren_string: String): Nat :=
@@ -288,6 +293,34 @@ problems:
 def is_palindrome
 (s: String): Bool :=
 s = s.toList.reverse.asString
+-- end_def helper_definitions
+
+-- start_def helper_definitions
+/--
+name: collatz_reachable
+use: |
+  Helper to check if a natural number m is reachable in the Collatz sequence starting at n.
+problems:
+  - 123
+-/
+def collatz_reachable (n m : Nat) : Prop :=
+  ∃ k, Nat.iterate (fun x => if x % 2 = 0 then x / 2 else x * 3 + 1) k n = m
+-- end_def helper_definitions
+
+-- start_def helper_definitions
+/--
+name: is_subsequence
+use: |
+  Helper to check if List Char xs is a subsequence of List Char ys.
+problems:
+  - 132
+-/
+def is_subsequence (xs ys : List Char) : Bool :=
+  match xs, ys with
+  | [], _ => true
+  | _, [] => false
+  | x::xs', y::ys' =>
+      if x = y then is_subsequence xs' ys' else is_subsequence xs ys'
 -- end_def helper_definitions
 
 -- start_def helper_definitions

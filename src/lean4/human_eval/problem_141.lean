@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def file_name_check(file_name: String) -> String"
+function_signature: "def file_name_check(file_name: str) -> str"
 docstring: |
     Create a function which takes a string representing a file's name, and returns
     'Yes' if the the file's name is valid, and returns 'No' otherwise.

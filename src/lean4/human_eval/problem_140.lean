@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def fix_spaces(text: String) -> String"
+function_signature: "def fix_spaces(text: str) -> str"
 docstring: |
     Given a string text, replace all spaces in it with underscores,
     and if a string has more than 2 consecutive spaces,
