@@ -31,6 +31,7 @@ def problem_spec
 (string: String) :=
 -- spec
 let spec (result: Bool) :=
+string.toList.all (fun x => x = '(' ∨ x = ')') →
 result = true ↔
   ∃ x : String,
     is_subsequence x.toList string.toList ∧
