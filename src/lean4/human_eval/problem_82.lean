@@ -26,7 +26,9 @@ def problem_spec
 (s: String) :=
 -- spec
 let spec (result : Bool) :=
-  result ↔ Nat.Prime s.length
+let is_prime (n: Nat) : Prop :=
+  ¬ (∃ k, 2 ≤ k ∧ k < n ∧ n % k = 0);
+  result ↔ is_prime s.length
 -- program termination
 ∃ result,
   implementation s = result ∧
@@ -58,7 +60,7 @@ sorry
 def implementation (s: String) : Bool :=
 -- end_def implementation_signature
 -- start_def implementation
-sorry
+Nat.Prime s.length
 -- end_def implementation
 
 -- start_def test_cases
@@ -76,5 +78,26 @@ theorem correctness
 -- end_def correctness_definition
 -- start_def correctness_proof
 by
+unfold problem_spec
+let result := implementation s
+use result
+simp [result]
+simp [implementation]
+apply Iff.intro
+intro h_is_prime
+simp [Nat.prime_def] at h_is_prime
+intro x h_2_le_x h_x_lt_s_len
+have h_p' := h_is_prime.2 x
+by_contra h_s_len_mod_x
+have h_x_dvd_s_len: x ∣ s.length := by
+  apply Nat.dvd_of_mod_eq_zero
+  exact h_s_len_mod_x
+simp [h_x_dvd_s_len] at h_p'
+have h_x_eq_s_len_false: ¬ (x = s.length) := by
+  linarith
+simp [h_x_eq_s_len_false] at h_p'
+have h_x_ne_1: ¬ (x = 1) := by
+  linarith
+simp [h_x_ne_1] at h_p'
 sorry
 -- end_def correctness_proof
