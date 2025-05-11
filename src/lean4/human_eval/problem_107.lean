@@ -22,10 +22,21 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Nat × Nat) :=
-  let is_palindrome (k: Nat): Bool :=
+  let is_palindrome (k: Nat): Prop :=
     List.Palindrome (Nat.digits 10 k);
-  (result.1 = (List.filter (fun (k: Nat) => (k != 0) ∧ (Even k) ∧ (is_palindrome k)) (List.range (n+1))).length) ∧
-  (result.2 = (List.filter (fun (k: Nat) => (k != 0) ∧ (Odd k) ∧ (is_palindrome k)) (List.range (n+1))).length)
+  let even_palindrome (k: Nat): Prop :=
+    (Even k) ∧ (is_palindrome k);
+  let odd_palindrome (k: Nat): Prop :=
+    (Odd k) ∧ (is_palindrome k);
+  n > 0 →
+  (1 < n →
+    let impl_n_minus_1 := implementation (n - 1);
+    ((even_palindrome n) → result.1 = 1 + impl_n_minus_1.1) ∧
+    ((odd_palindrome n) → result.2 = 1 + impl_n_minus_1.2) ∧
+    (¬ (odd_palindrome n) → result.2 = impl_n_minus_1.2) ∧
+    (¬ (even_palindrome n) → result.1 = impl_n_minus_1.1))
+  ∧
+  (n = 1 → (result.1 = 0) ∧ (result.2 = 1));
 -- program termination
 ∃ result, implementation n = result ∧
 spec result
