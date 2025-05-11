@@ -31,7 +31,7 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Bool) :=
-  result ↔ (∀ k, 2 ≤ k ∧ k < n ∧ n % k ≠ 0);
+  result ↔ ¬ (∃ k, 2 ≤ k ∧ k < n ∧ n % k = 0);
 -- program termination
 ∃ result,
   implementation n = result ∧
