@@ -31,7 +31,7 @@ def problem_spec
 (n: Nat) :=
 -- spec
 let spec (result: Bool) :=
-  if result then Nat.Prime n else ¬ Nat.Prime n;
+  result ↔ ¬ (∃ k, 2 ≤ k ∧ k < n ∧ n % k = 0);
 -- program termination
 ∃ result,
   implementation n = result ∧
@@ -90,4 +90,5 @@ let result := implementation n
 use result
 simp [result]
 simp [implementation]
+sorry
 -- end_def correctness_proof
