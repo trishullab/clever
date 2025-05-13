@@ -37,7 +37,7 @@ let q1 := fx[1]!.toNat!;
 let p2 := fn[0]!.toNat!;
 let q2 := fn[1]!.toNat!;
 q1 ≠ 0 → q2 ≠ 0 →
-(result = true ↔ ((p1 * p2) % (q1 * q2) = 0))
+(result ↔ (∃ k, k * p1 * p2 = q1 * q2))
 -- program termination
 ∃ result, impl x n = result ∧
 -- return value satisfies spec
