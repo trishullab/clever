@@ -158,7 +158,7 @@ def format_problem_as_lean_with_line_ranges(problem: LeanProblemView) -> tuple[s
         parts.append(body)
         line_counter += 2 + body.count("\n")
         if key:
-            ranges[key] = (start + 1, start + body.count("\n") + 1)
+            ranges[key] = (start - 1, start + body.count("\n") + 1)
 
     # Do NOT dump function_signature (it's Python)
 
@@ -169,12 +169,16 @@ def format_problem_as_lean_with_line_ranges(problem: LeanProblemView) -> tuple[s
     append_block("Ground Truth Spec", problem.problem_spec_formal_ground_truth)
 
     # Isomorphism helper lemmas FIRST
+    isomorphism_line_start = line_counter
     for lemma in problem.isomorphism_helper_lemmas:
         append_block("Isomorphism Lemma", f"{lemma.statement.strip()}\n{lemma.proof.strip()}")
 
     append_block("Isomorphism Theorem", problem.isomorphism_theorem)
     if problem.isomorphism_theorem:
         append_block("Isomorphism Proof", problem.isomorphism_proof, key="isomorphism", is_proof=True)
+    isomorphism_line_end = line_counter
+    if "isomorphism" in ranges:
+        ranges["isomorphism"] = (isomorphism_line_start, isomorphism_line_end)
 
     # Implementation
     append_block("Implementation Signature", problem.implementation_signature)
@@ -183,11 +187,15 @@ def format_problem_as_lean_with_line_ranges(problem: LeanProblemView) -> tuple[s
     append_block("Test Cases", problem.test_cases_lean)
 
     # Correctness helper lemmas FIRST
+    correctness_line_start = line_counter
     for lemma in problem.correctness_helper_lemmas:
         append_block("Correctness Lemma", f"{lemma.statement.strip()}\n{lemma.proof.strip()}")
 
     append_block("Correctness Theorem", problem.correctness_theorem)
     if problem.correctness_theorem:
         append_block("Correctness Proof", problem.correctness_proof, key="correctness", is_proof=True)
+    correctness_line_end = line_counter
+    if "correctness" in ranges:
+        ranges["correctness"] = (correctness_line_start, correctness_line_end)
 
     return "\n\n".join(parts), ranges
