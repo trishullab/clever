@@ -172,8 +172,8 @@ class ProblemViewTask:
             if len(sorry_lines) == 0:
                 return ValidationResult(
                     problem_id=problem.problem_id,
-                    isomorphism_ok=True and problem.isomorphism_theorem is not None,
-                    correctness_ok=True and problem.correctness_theorem is not None,
+                    isomorphism_ok=True and problem.isomorphism_proof is not None,
+                    correctness_ok=True and problem.correctness_proof is not None,
                     compilation_ok=True,
                     error_message="No sorries found",
                     lean_code=lean_code
