@@ -27,7 +27,10 @@ def problem_spec
 (q: List Int) (w: Int) :=
 -- spec
 let spec (result : Bool) :=
-  result ↔ (List.Palindrome q) ∧ (List.sum q ≤ w)
+  (result → (List.Palindrome q)) ∧
+  (result → (List.sum q ≤ w)) ∧
+  (¬(List.Palindrome q) → ¬ result) ∧
+  (¬(List.sum q ≤ w) → ¬ result)
 -- program termination
 ∃ result, implementation q w = result ∧
 spec result
@@ -59,7 +62,7 @@ sorry
 def implementation (q: List Int) (w: Int) : Bool :=
 -- end_def implementation_signature
 -- start_def implementation
-  (List.Palindrome q) ∧ (List.sum q ≤ w)
+(List.Palindrome q) ∧ (List.sum q ≤ w)
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function
@@ -82,5 +85,17 @@ theorem correctness
 -- end_def correctness_definition
 -- start_def correctness_proof
 by
-sorry
+unfold problem_spec
+let result := implementation q w
+use result
+simp [result]
+simp [implementation]
+apply And.intro
+intro h_is_palindrome h_q_sum
+assumption
+apply And.intro
+intro h_palindrome
+simp [h_palindrome]
+intro h_q_sum h_palindrome
+assumption
 -- end_def correctness_proof

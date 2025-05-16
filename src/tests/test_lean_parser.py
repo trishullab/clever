@@ -77,6 +77,18 @@ class TestLeanSpecParser(unittest.TestCase):
                 raise ValueError(f"Correctness theorem in {problem} ends with 'by'")
             self.assertEqual(lean_problem.correctness_proof,
                                 lean_problem_from_json["correctness_proof"])
+            if lean_problem.correctness_proof is not None:
+                if "sorry" not in lean_problem.correctness_proof:
+                    # Count the number of lines in the proof
+                    lines = lean_problem.correctness_proof.split("\n")
+                    num_lines = len(lines)
+                    print(f"Number of lines in correctness proof for {problem}: {num_lines}")
+            if lean_problem.isomorphism_proof is not None:
+                if "sorry" not in lean_problem.isomorphism_proof:
+                    # Count the number of lines in the proof
+                    lines = lean_problem.isomorphism_proof.split("\n")
+                    num_lines = len(lines)
+                    print(f"Number of lines in isomorphism proof for {problem}: {num_lines}")
             self.assertEqual(lean_problem.helper_definitions,
                                 lean_problem_from_json["helper_definitions"])
             self.assertEqual(lean_problem.isomorphism_helper_lemmas,

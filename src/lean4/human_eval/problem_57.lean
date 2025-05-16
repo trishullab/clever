@@ -21,12 +21,15 @@ def problem_spec
 (implementation: List Int → Bool)
 -- inputs
 (numbers: List Int) :=
-let increasing := ∀ i, i < numbers.length - 1 → numbers[i]! ≤ numbers[i + 1]!;
-let decreasing := ∀ i, i < numbers.length - 1 → numbers[i + 1]! ≤ numbers[i]!;
+let non_ordered := ∃ i j,
+i < numbers.length - 1 ∧
+j < numbers.length - 1 ∧
+(numbers[i]! < numbers[i+1]!) ∧
+(numbers[j+1]! < numbers[j]!);
 -- spec
 let spec (result: Bool) :=
   1 < numbers.length →
-  (result ↔ (increasing ∨ decreasing));
+  result ↔ ¬non_ordered;
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result

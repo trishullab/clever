@@ -169,8 +169,25 @@ class ProblemViewTask:
 
             output = stdout.decode()
             sorry_lines = self._extract_sorry_lines(output, filename)
-
-            return self._check_sorries_against_ranges(sorry_lines, proof_ranges, lean_code, problem.problem_id)
+            if len(sorry_lines) == 0:
+                return ValidationResult(
+                    problem_id=problem.problem_id,
+                    isomorphism_ok=True and problem.isomorphism_proof is not None,
+                    correctness_ok=True and problem.correctness_proof is not None,
+                    compilation_ok=True,
+                    error_message="No sorries found",
+                    lean_code=lean_code
+                )
+            else:
+                return ValidationResult(
+                    problem_id=problem.problem_id,
+                    isomorphism_ok=False,
+                    correctness_ok=False,
+                    compilation_ok=True,
+                    error_message="Sorries found",
+                    lean_code=lean_code
+                )
+            # return self._check_sorries_against_ranges(sorry_lines, proof_ranges, lean_code, problem.problem_id)
 
         finally:
             if file_path.exists():
