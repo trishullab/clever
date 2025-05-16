@@ -9,6 +9,7 @@ docstring: |
     - F(0) = 1
     - F(1) = 1
     - F(n) = F(n-1) + F(n-2) for n > 1
+    Note: This is also same as problem 55 (so we don't use it in few-shot prompts)
 test_cases:
   - input:
       0
