@@ -2,7 +2,7 @@ import Imports.AllImports
 
 -- start_def problem_details
 /--
-function_signature: "def sum_product(numbers: List[int]) -> Tuple[int, int]"
+function_signature: "def rolling_max(numbers: List[int]) -> Tuple[int, int]"
 docstring: |
   From a given list of integers, generate a list of rolling maximum element found until given moment
   in the sequence.
