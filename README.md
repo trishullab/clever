@@ -75,7 +75,7 @@ This process allows you to validate your solutions programmatically—whether yo
 
 ## Paper
 
-You can find the paper describing CLEVER at https://arxiv.org/abs/2401.12345.
+You can find the paper describing CLEVER at https://arxiv.org/abs/2505.13938.
 ```bibtex
 @misc{thakur2025clever,
       title={CLEVER: A Curated Benchmark for Formally Verified Code Generation}, 
