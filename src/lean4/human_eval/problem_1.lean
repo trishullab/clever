@@ -25,27 +25,11 @@ def problem_spec
 (paren_string: String) :=
 -- spec
 let paren_string_filtered := (paren_string.toList.filter (fun c => c == '(' ∨  c == ')')).asString;
-let forward_spec (result_list: List String) :=
--- every substring of the input string
--- that is a balanced paren group is in
--- the result list
-∀ i j, j < paren_string_filtered.length → i ≤ j →
-let substr_ij := (paren_string_filtered.take (j + 1)).drop i;
-balanced_paren_non_computable substr_ij '(' ')' →
-count_paren_groups substr_ij = 1 →
-substr_ij ∈ result_list;
-let backward_spec (result_list: List String) :=
--- every string in the result list is a
--- balanced paren group and is a substring
--- of the input string i.e. there is no
--- extra substring in the result list
--- that is not from the input string
-∀ str, str ∈ result_list →
-paren_string_filtered.containsSubstr str = true ∧
-balanced_paren_non_computable str '(' ')' ∧
-count_paren_groups str = 1;
 let spec (result_list: List String) :=
-forward_spec result_list ∧ backward_spec result_list;
+-- concat of result is input_filtered
+(result_list.foldl (· ++ ·) "" = paren_string_filtered) ∧
+-- each item in result is balanced and has only one group
+(∀ str ∈ result_list, balanced_paren_non_computable str '(' ')' ∧ count_paren_groups str = 1);
 -- program terminates
 ∃ result, impl paren_string = result ∧
 -- return value satisfies spec
