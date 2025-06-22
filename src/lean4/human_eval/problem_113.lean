@@ -8,7 +8,7 @@ docstring: |
     Each element i of the output should be "the number of odd elements in the
     string i of the input." where all the i's should be replaced by the number
     of odd digits in the i'th string of the input.
-    Note(George): Found it hard to not leak the implementation, so I opted for a recursive statement.
+    Note(): Found it hard to not leak the implementation, so I opted for a recursive statement.
 test_cases:
   - input: ['1234567']
     expected_output: ["the number of odd elements 4n the str4ng 4 of the 4nput."]

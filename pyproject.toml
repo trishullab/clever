@@ -20,7 +20,7 @@ packages = ["src/clever_bench"]
 name = "clever_bench"
 version = "1.0.0"
 authors = [
-  { name="Amitayush Thakur", email="amitayush@utexas.edu" },
+  { name="Anonymous", email="anonymous@gmail.com" },
 ]
 description = "Python library for running the CLEVER Benchmark"
 readme = "README.md"

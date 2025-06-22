@@ -6,7 +6,7 @@ function_signature: "def sum_largest_prime(lst : list[int]) -> int"
 docstring: |
     You are given a list of integers.
     You need to find the largest prime value and return the sum of its digits.
-    Note(George): Modified to use List of nats because all examples are nats.
+    Note(): Modified to use List of nats because all examples are nats.
 test_cases:
   - input: [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3]
     expected_output: 10

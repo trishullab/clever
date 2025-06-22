@@ -7,7 +7,7 @@ docstring: |
     You are given a list of integers.
     Write a function next_smallest() that returns the 2nd smallest element of the list.
     Return None if there is no such element.
-    TODO(George): Remove this when being reviewed
+    TODO(): Remove this when being reviewed
     The spec is defined as: if result is none there is no second smallest element, which
     exists in a finite list iff there are at least two distinct elements in the list.
     If result is some x, then x is the second smallest element of the list, the spec

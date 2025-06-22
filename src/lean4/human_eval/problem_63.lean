@@ -10,7 +10,7 @@ docstring: |
     fibfib(2) == 1
     fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).
     Please write a function to efficiently compute the n-th element of the fibfib number sequence.
-Note(Meghana): While the specification asks for an efficient computation of fibfib, we cannot enforce this constraint currently.
+Note(): While the specification asks for an efficient computation of fibfib, we cannot enforce this constraint currently.
 test_cases:
   - input: 1
     output: 0

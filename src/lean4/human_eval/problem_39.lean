@@ -5,7 +5,7 @@ import Imports.AllImports
 function_signature: "def prime_fib(n: int)"
 docstring: |
     prime_fib returns n-th prime Fibonacci number.
-    Note(George): A proof of this problem requires the resolution of the open conjecture: there are infinitely many prime Fibonacci numbers.
+    Note(): A proof of this problem requires the resolution of the open conjecture: there are infinitely many prime Fibonacci numbers.
 test_cases:
   - input: 1
     output: 2

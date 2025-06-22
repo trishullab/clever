@@ -9,7 +9,7 @@ docstring: |
     find_zero returns only only zero point, even if there are many.
     Moreover, find_zero only takes list xs having even number of coefficients
     and largest non zero coefficient as it guarantees a solution.
-    Note(George): This problem has been modified from the original HumanEval spec because of Real is not a computable type, but a zero does not necessarily exist over the rationals.
+    Note(): This problem has been modified from the original HumanEval spec because of Real is not a computable type, but a zero does not necessarily exist over the rationals.
 test_cases:
   - input: [1, 2]
     output: -0.5

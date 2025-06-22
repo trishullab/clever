@@ -7,7 +7,7 @@ docstring: |
     Given a string representing a space separated lowercase letters, return a dictionary
     of the letter with the most repetition and containing the corresponding count.
     If several letters have the same occurrence, return all of them.
-    -- Note(George): I believe the equality extensionality for HashMaps makes this spec true.
+    -- Note(): I believe the equality extensionality for HashMaps makes this spec true.
 test_cases:
   - input: 'a b c'
     expected_output: {'a': 1, 'b': 1, 'c': 1}

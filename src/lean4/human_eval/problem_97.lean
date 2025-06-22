@@ -7,7 +7,7 @@ docstring: |
     Complete the function that takes two integers and returns
     the product of their unit digits.
     Assume the input is always valid.
-    -- Note(George): I'm finding it hard to not leak the implementation here, so I opted to make the spec more convoluted.
+    -- Note(): I'm finding it hard to not leak the implementation here, so I opted to make the spec more convoluted.
 test_cases:
   - input: 148, 412
     expected_output: 16
