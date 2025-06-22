@@ -36,8 +36,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/trishullab/clever-bench"
-Issues = "https://github.com/trishullab/clever/issues"
+Homepage = "https://github.com/<anonymous>lab/clever-bench"
+Issues = "https://github.com/<anonymous>lab/clever/issues"
 
 [project.scripts]
 clever-bench-install = "clever_bench.setup:install_clever"
