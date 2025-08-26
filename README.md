@@ -31,6 +31,12 @@ To evaluate your LLM-generated solutions against the CLEVER benchmark, use the P
 
 ### 🔧 Steps
 
+0. **Installing the python package**:
+
+   First install the package by cloning the repository and then run `python -m build` (this will build the python package). Install the package thus built (should be in `dist/`). You can also use `pip install -e .`, if you don't want to use `clever` as an external package. PyPi package coming soon! After installing the package, run the command `clever-bench-install` (this will work on Linux, no prerequisite of installing Lean 4).
+
+   If you are not on Linux, then you will have install the Lean 4 dependency by yourself. After Lean 4 installation, you can run `cd <path-to-clever-package-installation/lean4-dir> && lake exe cache get && lake build` (or equivalent command) to build the Lean 4 environment (This is a one time step only).
+
 1. **Load the benchmark**:
    ```python
    from clever_bench.benchmark import Benchmark
@@ -65,6 +71,8 @@ The returned `ValidationResult` will tell you whether your implementation compil
 CLEVER also supports multi-stage verification: the Python API automatically hides irrelevant fields during each task (e.g., only showing the natural language description field for spec generation), enabling clean task-specific prompting and evaluation.
 
 This process allows you to validate your solutions programmatically—whether you're using LLMs, proof agents, or writing Lean by hand.
+
+You can try our baselines here: [Baseline Provers](https://github.com/trishullab/clever-prover)
 
 
 ## Build Instructions

@@ -6,6 +6,11 @@ def build_clever():
     print("Building clever benchmark")
     clever_dir = os.path.dirname(file_path)
     lean4_dir = os.path.join(clever_dir, "lean4")
+    if not os.path.exists(lean4_dir):
+        # This might be installing via `pip install -e .`
+        clever_dir = os.path.dirname(os.path.dirname(file_path))
+        lean4_dir = os.path.join(clever_dir, "lean4")
+        assert os.path.exists(lean4_dir), f"Lean4 directory not found at {lean4_dir}"
     os.system(f"cd {lean4_dir} && lake exe cache get && lake build")
 
 def install_lean():
