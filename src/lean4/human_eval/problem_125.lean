@@ -58,8 +58,9 @@ let rec is_valid_path (k': Nat) (path: List Nat) (grid: List (List Nat)) : Prop 
 let spec (result: List Nat) :=
   let n := grid.length;
   (∀ i, i < n → (grid.get! i).length = n) →
-  (∀ i j, i < n → j < n ↔ ((grid.get! i).get! j) ∈ [1, n^2]) →
-  is_valid_path k result grid ∧ (∀ path, is_valid_path k path grid → lexographically_less result path);
+  (∀ i j, i < n → j < n → 1 ≤ (grid.get! i).get! j ∧ (grid.get! i).get! j ≤ n^2) →
+  grid.flatten.Nodup →
+  is_valid_path k result grid ∧ (∀ path, is_valid_path k path grid ∧ path ≠ result → lexographically_less result path)
 -- program terminates
 ∃ result, impl grid k = result ∧
 -- return value satisfies spec
