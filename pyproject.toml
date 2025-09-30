@@ -32,7 +32,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "PyYAML==6.0"
+    "PyYAML>=6.0"
 ]
 
 [project.urls]
