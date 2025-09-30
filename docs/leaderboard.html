@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLEVER Leaderboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        .table {
+            font-size: 14px;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            border-top: 2px solid #dee2e6;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .model-name {
+            text-align: left !important;
+            font-weight: 500;
+        }
+
+        .badge-custom {
+            font-size: 12px;
+            margin-right: 10px;
+        }
+
+        .task-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0 10px 0;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .metric-description {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .table {
+                font-size: 12px;
+            }
+            .container {
+                padding: 10px;
+            }
+        }
+
+        .legend {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="text-center mb-4">
+            <h1 class="display-4 fw-bold">🏆 CLEVER Leaderboard</h1>
+            <p class="lead">Curated Lean Verified Code Generation Benchmark</p>
+
+            <div class="mt-3">
+                <a href="https://github.com/trishullab/clever" class="badge bg-dark badge-custom text-decoration-none">
+                    GitHub Repository
+                </a>
+                <a href="https://arxiv.org/abs/2505.13938" class="badge bg-danger badge-custom text-decoration-none">
+                    📄 Paper
+                </a>
+                <a href="https://pypi.org/project/clever-bench/" class="badge bg-primary badge-custom text-decoration-none">
+                    📦 PyPI Package
+                </a>
+            </div>
+        </div>
+
+        <div class="legend">
+            <h5>Legend</h5>
+            <div class="legend-item">💚 Fully open-sourced method</div>
+            <div class="legend-item">💙 Partially open-sourced method</div>
+            <div class="legend-item"><strong>FS:</strong> Few-shot prompting with 1-2 examples</div>
+            <div class="legend-item"><strong>COPRA:</strong> Symbolic proof search agent</div>
+            <div class="legend-item"><strong>Compiled:</strong> Code is syntactically valid and type-checks</div>
+            <div class="legend-item"><strong>Proved:</strong> Proofs accepted by Lean's kernel</div>
+            <div class="legend-item"><strong>Pass@k-sec:</strong> Success rate within 600-second time budget (k=600)</div>
+        </div>
+
+        <!-- Overall End-to-End Performance -->
+        <div class="task-header">
+            🏆 End-to-End Performance Rankings
+        </div>
+        <div class="metric-description">
+            Complete pipeline success: specification certification + implementation certification (Pass@600-sec)
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 30%">Model</th>
+                        <th style="width: 20%">Approach</th>
+                        <th style="width: 15%">End-to-End</th>
+                        <th style="width: 15%">Problems Solved</th>
+                        <th style="width: 15%">Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="model-name">💙 GPT-4o mini</td>
+                        <td>Few-Shot</td>
+                        <td><strong>0.621%</strong></td>
+                        <td>1/161</td>
+                        <td>Problem 53</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td class="model-name">💙 Claude-3.7</td>
+                        <td>Few-Shot</td>
+                        <td><strong>0.621%</strong></td>
+                        <td>1/161</td>
+                        <td>Problem 53</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td class="model-name">💙 DeepSeek-R1</td>
+                        <td>Few-Shot</td>
+                        <td><strong>0.621%</strong></td>
+                        <td>1/161</td>
+                        <td>Problem 53</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td class="model-name">💙 GPT-4o</td>
+                        <td>COPRA-enhanced</td>
+                        <td><strong>0.621%</strong></td>
+                        <td>1/161</td>
+                        <td>Problem 53</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td class="model-name">💙 Claude-3.7</td>
+                        <td>COPRA-enhanced</td>
+                        <td><strong>0.621%</strong></td>
+                        <td>1/161</td>
+                        <td>Problem 53</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="model-name">💙 GPT-4o</td>
+                        <td>Few-Shot</td>
+                        <td>0%</td>
+                        <td>0/161</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Task-specific Performance -->
+        <div class="task-header">
+            📊 Detailed Performance Breakdown
+        </div>
+        <div class="metric-description">
+            Pass@600-sec rates for specification certification and implementation certification
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width: 20%; vertical-align: middle;">Model</th>
+                        <th rowspan="2" style="width: 15%; vertical-align: middle;">Approach</th>
+                        <th colspan="2" style="width: 25%; text-align: center; background-color: #e3f2fd;">Spec Certification</th>
+                        <th colspan="2" style="width: 25%; text-align: center; background-color: #f3e5f5;">Impl Certification</th>
+                        <th rowspan="2" style="width: 15%; vertical-align: middle;">End-to-End</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #e3f2fd;">Compiled</th>
+                        <th style="background-color: #e3f2fd;">Proved</th>
+                        <th style="background-color: #f3e5f5;">Compiled</th>
+                        <th style="background-color: #f3e5f5;">Proved</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-top: 3px solid #007bff;">
+                        <td colspan="7" class="text-center fw-bold" style="background-color: #f8f9fa;">Few-Shot Baseline</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">💙 GPT-4o</td>
+                        <td>Few-Shot</td>
+                        <td>84.472%</td>
+                        <td>0.621%</td>
+                        <td>68.323%</td>
+                        <td>0.621%</td>
+                        <td><strong>0%</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">💙 GPT-4o mini</td>
+                        <td>Few-Shot</td>
+                        <td>82.609%</td>
+                        <td>1.242%</td>
+                        <td>83.230%</td>
+                        <td>1.863%</td>
+                        <td><strong>0.621%</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">💙 Claude-3.7</td>
+                        <td>Few-Shot</td>
+                        <td>86.957%</td>
+                        <td>0.621%</td>
+                        <td>65.217%</td>
+                        <td>1.863%</td>
+                        <td><strong>0.621%</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">💙 DeepSeek-R1</td>
+                        <td>Few-Shot</td>
+                        <td>71.42%</td>
+                        <td>0.621%</td>
+                        <td>60.870%</td>
+                        <td>5.559%</td>
+                        <td><strong>0.621%</strong></td>
+                    </tr>
+                    <tr style="border-top: 3px solid #007bff;">
+                        <td colspan="7" class="text-center fw-bold" style="background-color: #f8f9fa;">COPRA Baseline</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">💙 GPT-4o</td>
+                        <td>COPRA-enhanced</td>
+                        <td>76.398%</td>
+                        <td>1.863%</td>
+                        <td>68.323%</td>
+                        <td>3.727%</td>
+                        <td><strong>0.621%</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">💙 Claude-3.7</td>
+                        <td>COPRA-enhanced</td>
+                        <td>81.366%</td>
+                        <td>1.242%</td>
+                        <td>65.217%</td>
+                        <td>8.696%</td>
+                        <td><strong>0.621%</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Submission Guidelines -->
+        <div class="mt-5 p-4 bg-light rounded">
+            <h5>📝 Submission Guidelines</h5>
+            <p>To add your results to this leaderboard:</p>
+            <ol>
+                <li><strong>Evaluate your approach</strong> using the <a href="https://pypi.org/project/clever-bench/">CLEVER Python API</a></li>
+                <li><strong>Document your methodology</strong> with a preprint or publication</li>
+                <li><strong>Submit your results</strong> by contacting us with evaluation metrics and methodology details</li>
+            </ol>
+            <p><strong>Contact:</strong> <a href="mailto:amitayush@utexas.edu">amitayush@utexas.edu</a></p>
+        </div>
+
+        <footer class="text-center mt-5 mb-3">
+            <p class="text-muted">
+                <small>
+                    CLEVER: Curated Lean Verified Code Generation Benchmark |
+                    <a href="https://github.com/trishullab/clever">GitHub</a> |
+                    <a href="https://arxiv.org/abs/2505.13938">Paper</a>
+                </small>
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
