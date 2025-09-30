@@ -18,7 +18,7 @@ packages = ["src/clever_bench"]
 
 [project]
 name = "clever-bench"
-version = "1.0.0"
+version = "1.0.1"
 authors = [
   { name="Amitayush Thakur", email="amitayush@utexas.edu" },
 ]
