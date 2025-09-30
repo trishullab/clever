@@ -3,6 +3,8 @@
 [![CI](https://github.com/trishullab/clever/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/trishullab/clever/actions/workflows/lean_action_ci.yml)
 [![PyPI version](https://badge.fury.io/py/clever-bench.svg)](https://badge.fury.io/py/clever-bench)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/clever-bench)](https://pypi.org/project/clever-bench/)
+[![arXiv](https://img.shields.io/badge/arXiv-2505.13938-b31b1b.svg)](https://arxiv.org/abs/2505.13938)
+[![🏆 leaderboard](https://img.shields.io/badge/🏆-leaderboard-ff8811)](https://trishullab.github.io/clever/leaderboard.html)
 
 ## Overview
 
@@ -79,6 +81,18 @@ CLEVER also supports multi-stage verification: the Python API automatically hide
 This process allows you to validate your solutions programmatically—whether you're using LLMs, proof agents, or writing Lean by hand.
 
 You can try our baselines here: [Baseline Provers](https://github.com/trishullab/clever-prover)
+
+## 🏆 Leaderboard
+
+View the latest results and submit your own: [**CLEVER Leaderboard**](https://trishullab.github.io/clever/leaderboard.html)
+
+We welcome submissions from the community! To add your results to the leaderboard:
+
+1. **Evaluate your approach** using the Python API described above
+2. **Document your methodology** with a preprint or publication
+3. **Submit your results** by contacting us with your evaluation metrics and methodology details
+
+For submissions, please contact: [amitayush@utexas.edu](mailto:amitayush@utexas.edu)
 
 
 ## Build Instructions
