@@ -17,7 +17,7 @@ packages = ["src/clever_bench"]
 "src/lean4/lakefile.lean"= "clever_bench/lean4/lakefile.lean"
 
 [project]
-name = "clever_bench"
+name = "clever-bench"
 version = "1.0.0"
 authors = [
   { name="Amitayush Thakur", email="amitayush@utexas.edu" },
