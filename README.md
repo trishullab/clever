@@ -32,8 +32,10 @@ To evaluate your LLM-generated solutions against the CLEVER benchmark, use the P
 ### 🔧 Steps
 
 0. **Installing the python package**:
-
-   First install the package by cloning the repository and then run `python -m build` (this will build the python package). Install the package thus built (should be in `dist/`). You can also use `pip install -e .`, if you don't want to use `clever` as an external package. PyPi package coming soon! After installing the package, run the command `clever-bench-install` (this will work on Linux, no prerequisite of installing Lean 4).
+   You can simply use `pip install clever-bench` to install the package from PyPi.
+   Alternatively, you can install from source by cloning the repository and then use `pip install -e .` 
+   
+   After installing the package, run the command `clever-bench-install` (this will work on Linux, no prerequisite of installing Lean 4).
 
    If you are not on Linux, then you will have install the Lean 4 dependency by yourself. After Lean 4 installation, you can run `cd <path-to-clever-package-installation/lean4-dir> && lake exe cache get && lake build` (or equivalent command) to build the Lean 4 environment (This is a one time step only).
 
@@ -52,7 +54,7 @@ To evaluate your LLM-generated solutions against the CLEVER benchmark, use the P
 
 3. **Get a problem and fill in your solution**:
    ```python
-   problem = task.get_view(3) # Abstraction to hide the staged problem details
+   problem = task.get_view(3) # Abstraction to hide the staged problem details and only show relevant fields for the selected task for problem with id 3
    problem.implementation = "<your Lean implementation>"
    problem.correctness_proof = "<your proof>"
    ```
