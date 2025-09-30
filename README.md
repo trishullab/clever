@@ -1,5 +1,9 @@
 # CLEVER: Curated Lean Verified Code Generation Benchmark
 
+[![CI](https://github.com/trishullab/clever/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/trishullab/clever/actions/workflows/lean_action_ci.yml)
+[![PyPI version](https://badge.fury.io/py/clever-bench.svg)](https://badge.fury.io/py/clever-bench)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/clever-bench)](https://pypi.org/project/clever-bench/)
+
 ## Overview
 
 CLEVER is a benchmark suite for **end-to-end code generation and formal verification** in Lean 4, adapted from the HumanEval dataset. The goal is to move beyond test-case-driven evaluation by requiring models to generate not only implementations but also formal specifications and proofs — all verifiable by Lean’s type checker.
