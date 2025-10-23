@@ -105,13 +105,10 @@ For submissions, please contact: [amitayush@utexas.edu](mailto:amitayush@utexas.
 
 You can find the paper describing CLEVER at https://arxiv.org/abs/2505.13938.
 ```bibtex
-@misc{thakur2025clever,
-      title={CLEVER: A Curated Benchmark for Formally Verified Code Generation}, 
-      author={Amitayush Thakur and Jasper Lee and George Tsoukalas and Meghana Sistla and Matthew Zhao and Stefan Zetzsche and Greg Durrett and Yisong Yue and Swarat Chaudhuri},
-      year={2025},
-      eprint={2505.13938},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2505.13938}, 
+@inproceedings{thakur2025clever,
+  title={CLEVER: A Curated Benchmark for Formally Verified Code Generation},
+  author={Amitayush Thakur and Jasper Lee and George Tsoukalas and Meghana Sistla and Matthew Zhao and Stefan Zetzsche and Greg Durrett and Yisong Yue and Swarat Chaudhuri},  
+  booktitle={39th Conference on Neural Information Processing Systems (NeurIPS 2025)},
+  year={2025}
 }
 ```
