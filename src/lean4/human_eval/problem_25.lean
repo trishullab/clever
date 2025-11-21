@@ -90,7 +90,5 @@ let result := implementation n
 use result
 simp [result]
 simp [implementation, Id.run]
-unfold List.foldl
-intro h_2_lt_n
 sorry
 -- end_def correctness_proof

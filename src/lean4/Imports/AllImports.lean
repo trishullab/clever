@@ -123,7 +123,7 @@ decreasing_by
     have h_temp : "".data = [] := by simp
     rw [h_temp] at h_non_empty_string
     rw [String.length] at h_paren_nil
-    rw [List.length_eq_zero] at h_paren_nil
+    rw [List.length_eq_zero_iff] at h_paren_nil
     contradiction
     have h_temp : paren_string.length > 0 := by linarith
     assumption
@@ -203,7 +203,7 @@ decreasing_by
     have h_temp : "".data = [] := by simp
     rw [h_temp] at h_non_empty_string
     rw [String.length] at h_paren_nil
-    rw [List.length_eq_zero] at h_paren_nil
+    rw [List.length_eq_zero_iff] at h_paren_nil
     contradiction
     have h_temp : paren_string.length > 0 := by linarith
     assumption
@@ -260,7 +260,7 @@ decreasing_by
     have h_temp : "".data = [] := by simp
     rw [h_temp] at h_non_empty_string
     rw [String.length] at h_paren_nil
-    rw [List.length_eq_zero] at h_paren_nil
+    rw [List.length_eq_zero_iff] at h_paren_nil
     contradiction
     have h_temp : paren_string.length > 0 := by linarith
     assumption

@@ -36,15 +36,15 @@ let planets := ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranu
 if planet1 ∉ planets ∨ planet2 ∉ planets then
   result = []
 else
-  let index1 := planets.indexOf planet1;
-  let index2 := planets.indexOf planet2;
+  let index1 := planets.idxOf planet1;
+  let index2 := planets.idxOf planet2;
   let minIdx := if index1 < index2 then index1 else index2;
   let maxIdx := if index1 < index2 then index2 else index1;
   (∀ str ∈ result, str ∈ planets) ∧
   (∀ planet ∈ planets, planet ∈ result ↔
-    planets.indexOf planet < maxIdx ∧
-    minIdx < planets.indexOf planet) ∧
-  result.Sorted (fun a b => planets.indexOf a < planets.indexOf b)
+    planets.idxOf planet < maxIdx ∧
+    minIdx < planets.idxOf planet) ∧
+  result.Sorted (fun a b => planets.idxOf a < planets.idxOf b)
 -- program termination
 ∃ result, impl planet1 planet2 = result ∧
 -- return value satisfies spec
