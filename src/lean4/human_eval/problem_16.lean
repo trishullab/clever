@@ -87,8 +87,6 @@ have h1: "".toLower = "" := by
   unfold String.map
   unfold String.mapAux
   simp
-  intros
-  contradiction
 simp [h1]
 rename_i head tail ih
 unfold String.toLower

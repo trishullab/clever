@@ -32,7 +32,7 @@ match result with
   (∀ num ∈ nums,
     let sum := digit_sum num;
     sum > head_sum ∨
-   (sum = head_sum ∧ nums.indexOf num ≥ nums.indexOf head))
+   (sum = head_sum ∧ nums.idxOf num ≥ nums.idxOf head))
   ∧ impl (nums.erase head) = tail
 -- program termination
 ∃ result, impl nums = result ∧
