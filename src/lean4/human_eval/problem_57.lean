@@ -28,8 +28,8 @@ j < numbers.length - 1 ∧
 (numbers[j+1]! < numbers[j]!);
 -- spec
 let spec (result: Bool) :=
-  1 < numbers.length →
-  result ↔ ¬non_ordered;
+  (1 < numbers.length) →
+  (result ↔ ¬non_ordered);
 -- program termination
 ∃ result, implementation numbers = result ∧
 spec result
