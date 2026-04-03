@@ -413,7 +413,7 @@ linarith
 theorem spec_isomorphism:
 ∀ impl,
 (∀ score_changes threshold, problem_spec impl score_changes threshold) ↔
-(∀ score_changes threshold, generated_spec impl score_changes threshold) := by
+(∀ score_changes threshold, generated_spec impl score_changes threshold) :=
 -- end_def spec_isomorphism
 -- start_def spec_isomorphism_proof
 sorry

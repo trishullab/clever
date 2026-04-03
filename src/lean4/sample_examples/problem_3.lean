@@ -53,6 +53,8 @@ def generated_spec
 (impl: Nat → Nat)
 -- inputs
 (n: Nat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
 -- spec
 let spec (result: Nat) :=
 match n with
@@ -62,7 +64,7 @@ match n with
 -- return value satisfies spec
 ∃ result, impl n = result ∧
 spec result
--- end_def generated_spec
+-- end_def generated_spec_body
 
 -- start_def iso_helper_lemmas
 lemma fib0_unique (n : ℕ) (h : fibonacci_non_computable 0 n) : n = 0 :=

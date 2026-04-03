@@ -82,7 +82,7 @@ else
 -- #test implementation 7 13 = some "0b1010"
 -- #test implementation 964 977 = some "0b1111001010"
 -- #test implementation 996 997 = some "0b1111100100"
--- #test implementation 185 546 = some "0b101101110"
+-- #test implementation 185 546 = some "0b101101101"
 -- #test implementation 362 496 = some "0b110101101"
 -- #test implementation 350 902 = some "0b1001110010"
 -- #test implementation 197 233 = some "0b11010111"

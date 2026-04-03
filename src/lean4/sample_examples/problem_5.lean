@@ -50,9 +50,11 @@ def generated_spec
 (impl: Nat → Nat)
 -- inputs
 (n: Nat) : Prop :=
+--end_def generated_spec
+--start_def generated_spec_body
 -- spec
 sorry
--- end_def generated_spec
+-- end_def generated_spec_body
 
 -- start_def spec_isomorphism
 theorem spec_isomorphism:
