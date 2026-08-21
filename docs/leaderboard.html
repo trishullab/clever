@@ -135,54 +135,62 @@
                 <tbody>
                     <tr>
                         <td>1</td>
+                        <td class="model-name">💙 Claude Code</td>
+                        <td>Agentic Proving (compiler-in-the-loop)</td>
+                        <td><strong>59/161</strong></td>
+                        <td><a href="#alt-spec-pipeline">alt-spec-pipeline</a></td>
+                        <td>67/161 (spec) + 104/161 (impl) = 171/282</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
                         <td class="model-name">💙 Claude-3.7</td>
                         <td>COPRA-enhanced</td>
                         <td><strong>1/161</strong></td>
-                        <td>Problem 53</td>
+                        <td><a href="#problem-53">Problem 53</a></td>
                         <td><strong>2/161 (spec) + 14/161 (impl) = 16/282</strong></td>
                     </tr>
                     <tr>
-                        <td>1</td>
+                        <td>2</td>
                         <td class="model-name">💚 DeepSeek-R1</td>
                         <td>Few-Shot</td>
                         <td><strong>1/161</strong></td>
-                        <td>Problem 53</td>
+                        <td><a href="#problem-53">Problem 53</a></td>
                         <td>1/161 (spec) + 9/161 (impl) = 10/282</td>
                     </tr>
                     <tr>
-                        <td>1</td>
+                        <td>2</td>
                         <td class="model-name">💚 GPT OSS 20b</td>
                         <td>COPRA-enhanced</td>
                         <td><strong>1/161</strong></td>
-                        <td>Problem 53</td>
+                        <td><a href="#problem-53">Problem 53</a></td>
                         <td>2/161 (spec) + 8/161 (impl) = 10/282</td>
                     </tr>
                     <tr>
-                        <td>1</td>
+                        <td>2</td>
                         <td class="model-name">💙 GPT-4o</td>
                         <td>COPRA-enhanced</td>
                         <td><strong>1/161</strong></td>
-                        <td>Problem 53</td>
+                        <td><a href="#problem-53">Problem 53</a></td>
                         <td>3/161 (spec) + 6/161 (impl) = 9/282</td>
                     </tr>
                     <tr>
-                        <td>1</td>
+                        <td>2</td>
                         <td class="model-name">💙 GPT-4o mini</td>
                         <td>Few-Shot</td>
                         <td><strong>1/161</strong></td>
-                        <td>Problem 53</td>
+                        <td><a href="#problem-53">Problem 53</a></td>
                         <td>2/161 (spec) + 3 / 161 (impl) = 5/282</td>
                     </tr>
                     <tr>
-                        <td>1</td>
+                        <td>2</td>
                         <td class="model-name">💙 Claude-3.7</td>
                         <td>Few-Shot</td>
                         <td><strong>1/161</strong></td>
-                        <td>Problem 53</td>
+                        <td><a href="#problem-53">Problem 53</a></td>
                         <td>1/161 (spec) + 3/161 (impl) = 4/282</td>
                     </tr>
                     <tr>
-                        <td>6</td>
+                        <td>7</td>
                         <td class="model-name">💙 GPT-4o</td>
                         <td>Few-Shot</td>
                         <td>0/161</td>
@@ -190,7 +198,7 @@
                         <td>1/161 (spec) + 1/161 (impl) = 2/282</td>
                     </tr>
                     <tr>
-                        <td>6</td>
+                        <td>7</td>
                         <td class="model-name">💙 GPT-5 mini (For Code Generation) + Kimina Prover (For proofs)</td>
                         <td>Few-Shot</td>
                         <td>0/161</td>
@@ -228,6 +236,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr style="border-top: 3px solid #007bff;">
+                        <td colspan="7" class="text-center fw-bold" style="background-color: #f8f9fa;">Agentic Proving Baseline</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">💙 Claude Code</td>
+                        <td>Agentic Proving (compiler-in-the-loop)</td>
+                        <td>100.00%</td>
+                        <td>41.615%</td>
+                        <td>94.410%</td>
+                        <td>64.596%</td>
+                        <td><strong>36.646%</strong></td>
+                    </tr>
                     <tr style="border-top: 3px solid #007bff;">
                         <td colspan="7" class="text-center fw-bold" style="background-color: #f8f9fa;">Few-Shot Baseline</td>
                     </tr>
@@ -299,6 +319,22 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <p class="metric-description">
+            *See <a href="#author-remarks">author remarks</a> below for additional context on Claude Code's results, including an alternative generated-specification pipeline.
+        </p>
+
+        <!-- Author Remarks -->
+        <div id="author-remarks" class="mt-5 p-4 bg-light rounded">
+            <h5>💬 Remarks</h5>
+            <ul class="mb-0">
+                <li id="alt-spec-pipeline">
+                    <strong>alt-spec-pipeline:</strong> The authors also evaluate an alternative generated-specification pipeline to account for valid alternative formalizations of ambiguous natural-language tasks, achieving <strong>154/161 (95.7%)</strong>, or <strong>154/157 (98.1%)</strong> after excluding identified benchmark issues; see <a href="https://arxiv.org/abs/2605.23772">Agentic Proving for Program Verification</a> for details.
+                </li>
+                <li id="problem-53">
+                    <strong>problem-53:</strong> Problem 53 — the easiest problem, solved by every other entry on this leaderboard — was solved as well.
+                </li>
+            </ul>
         </div>
 
         <!-- Submission Guidelines -->
