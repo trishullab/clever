@@ -32,7 +32,7 @@ string.data.all (fun c => c.isAlpha) →
 if string.length = 1 then
   result = if isVowel string.data[0]! ∨ isY string.data[0]! then 1 else 0
 else
-  result = (if isVowel string.data[0]! then 1 else 0) + implementation (string.drop 1);
+  result = (if isVowel string.data[0]! then 1 else 0) + implementation (string.drop 1).toString;
 -- program termination
 ∃ result, implementation string = result ∧
 spec result

@@ -33,7 +33,7 @@ let spec (result: Bool) :=
 (0 < b.length →
 result ↔ ((b.length ≤ a.length) ∧
   (∃ i : Nat, i < b.length ∧
-  let b_rotation := b.drop i ++ b.take i;
+  let b_rotation := (b.drop i).toString ++ (b.take i).toString;
   a.containsSubstr b_rotation)));
 -- program terminates
 ∃ result, impl a b = result ∧

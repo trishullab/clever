@@ -36,8 +36,8 @@ let spec (result: String) :=
     ∨
     (∃ pref s : String, text = pref ++ s ∧ pref ≠ "" ∧ (∀ ch, ch ∈ pref.toList → ch = ' ')
       ∧ let k := pref.length;
-        (k ≤ 2 → result = (String.replicate k '_') ++ (impl (text.drop k)))
-      ∧ (2 < k → result = "-" ++ (impl (text.drop k)))) )
+        (k ≤ 2 → result = (String.replicate k '_') ++ (impl (text.drop k).toString))
+      ∧ (2 < k → result = "-" ++ (impl (text.drop k).toString))) )
   )
 -- program termination
 ∃ result, impl text = result ∧

@@ -28,9 +28,8 @@ let spec (result: String) :=
   result.length = a.length ∧
   result.all (fun c => c = '0' ∨ c = '1') ∧
   (∀ i, i < a.length →
-  let i_pos := String.Pos.mk i;
-  (a.get i_pos = b.get i_pos → result.get i_pos = '0') ∧
-  (a.get i_pos ≠ b.get i_pos → result.get i_pos = '1'));
+  (a.data[i]! = b.data[i]! → result.data[i]! = '0') ∧
+  (a.data[i]! ≠ b.data[i]! → result.data[i]! = '1'));
 -- program termination
 ∃ result, implementation a b = result ∧
 spec result

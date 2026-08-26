@@ -30,7 +30,7 @@ let spec (result: String) :=
   encoded_chars.length = n ∧
   (∀ i : ℕ, i * 3 + 3 ≤ n →
     extract encoded_chars (i * 3) (i * 3 + 2) =
-      [original_chars.get! (i * 3 + 1), original_chars.get! (i * 3 + 2), original_chars.get! (i * 3)]) ∧
+      [original_chars[i * 3 + 1]!, original_chars[i * 3 + 2]!, original_chars[i * 3]!]) ∧
   (n % 3 ≠ 0 → extract encoded_chars (n - n % 3) (n - 1) =
     extract original_chars (n - n % 3) (n - 1));
 -- program termination

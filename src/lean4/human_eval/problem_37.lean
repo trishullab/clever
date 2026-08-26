@@ -25,9 +25,9 @@ def problem_spec
 let spec (result: List Int) :=
   l.length = result.length ∧
   let even_idx := (List.range l.length).filter (λ i => i % 2 = 0);
-  let even_val_in_result := even_idx.map (λ i => result.get! i);
-  let even_val := even_idx.map (λ i => l.get! i);
-  (∀ i, i < l.length → (i % 2 ≠ 0 → l.get! i = result.get! i)) ∧
+  let even_val_in_result := even_idx.map (λ i => result[i]!);
+  let even_val := even_idx.map (λ i => l[i]!);
+  (∀ i, i < l.length → (i % 2 ≠ 0 → l[i]! = result[i]!)) ∧
   List.Sorted Int.le even_val_in_result ∧
   even_val.all (λ x => even_val_in_result.count x = even_val.count x);
 -- program termination
@@ -61,10 +61,10 @@ def implementation (l: List Int) : List Int :=
 -- end_def implementation_signature
 -- start_def implementation
 let even_idx := (List.range l.length).filter (λ i => i % 2 = 0);
-let even_val := even_idx.map (λ i => l.get! i);
+let even_val := even_idx.map (λ i => l[i]!);
 let even_val_sorted := List.mergeSort even_val;
 let result := l.mapIdx (λ i v =>
-  if i % 2 = 0 then even_val_sorted.get! (i / 2)
+  if i % 2 = 0 then even_val_sorted[i / 2]!
   else v);
 result
 -- end_def implementation

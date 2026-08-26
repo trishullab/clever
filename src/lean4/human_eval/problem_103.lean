@@ -36,7 +36,7 @@ let spec (result: Option String) :=
     let xs := List.Ico n (m+1);
     let avg := xs.sum / xs.length;
     (val.take 2 = "0b") ∧
-    (Nat.ofDigits 2 ((val.drop 2).toList.map (fun c => c.toNat - '0'.toNat)).reverse = avg)))
+    (Nat.ofDigits 2 ((val.drop 2).toString.toList.map (fun c => c.toNat - '0'.toNat)).reverse = avg)))
 -- program termination
 ∃ result, implementation n m = result ∧
 spec result

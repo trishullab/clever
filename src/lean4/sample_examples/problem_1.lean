@@ -801,8 +801,7 @@ exact h_stop
 -- Case 2: where implementation.loop score_changes threshold 0 0 ≠ 0
 simp [h_implementation_stop]
 have h_implementation_stop': 0 < implementation.loop score_changes threshold 0 0 := by
-  by_contra
-  rename_i h_implementation_stop_false
+  by_contra h_implementation_stop_false
   simp at h_implementation_stop_false
   contradiction
 have h_continue := implementation_loop_invariant_continue score_changes threshold 0 0 h_rounds_played h_implementation_stop'

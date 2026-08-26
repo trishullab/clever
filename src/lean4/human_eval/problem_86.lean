@@ -29,8 +29,8 @@ def problem_spec
 -- spec
 let spec (result : String) :=
   result.length = s.length ∧
-  let words := result.split (fun c => c = ' ');
-  let s_words := s.split (fun c => c = ' ');
+  let words := result.splitToList (fun c => c = ' ');
+  let s_words := s.splitToList (fun c => c = ' ');
   s_words.length = words.length ∧
   ∀ i, i < words.length →
     words[i]!.length = s_words[i]!.length ∧
