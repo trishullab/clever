@@ -31,7 +31,7 @@ def problem_spec
 let spec (result : Bool) :=
   result ↔
   (3 ≤ s.length) ∧
-  ¬ (∃ i j, i < j ∧ j < s.length ∧ j - i ≤ 2 ∧ s.data.get! i = s.data.get! j)
+  ¬ (∃ i j, i < j ∧ j < s.length ∧ j - i ≤ 2 ∧ s.data[i]! = s.data[j]!)
 -- program termination
 ∃ result,
   implementation s = result ∧

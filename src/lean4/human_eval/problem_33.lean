@@ -25,9 +25,9 @@ def problem_spec
 let spec (result: List Int) :=
   l.length = result.length ∧
   let every_third_idx := (List.range l.length).filter (λ i => i % 3 = 0);
-  let every_third_val_in_result := every_third_idx.map (λ i => result.get! i);
-  let every_third_val := every_third_idx.map (λ i => l.get! i);
-  (∀ i, i < l.length → (i % 3 ≠ 0 → l.get! i = result.get! i)) ∧
+  let every_third_val_in_result := every_third_idx.map (λ i => result[i]!);
+  let every_third_val := every_third_idx.map (λ i => l[i]!);
+  (∀ i, i < l.length → (i % 3 ≠ 0 → l[i]! = result[i]!)) ∧
   List.Sorted Int.le every_third_val_in_result ∧
   every_third_val.all (λ x => every_third_val_in_result.count x = every_third_val.count x);
 -- program termination
@@ -61,10 +61,10 @@ def implementation (l: List Int) : List Int :=
 -- end_def implementation_signature
 -- start_def implementation
 let every_third_idx := (List.range l.length).filter (λ i => i % 3 = 0);
-let every_third_val := every_third_idx.map (λ i => l.get! i);
+let every_third_val := every_third_idx.map (λ i => l[i]!);
 let every_third_val_sorted := List.mergeSort every_third_val;
 let result := l.mapIdx (λ i v =>
-  if i % 3 = 0 then every_third_val_sorted.get! (i / 3)
+  if i % 3 = 0 then every_third_val_sorted[i / 3]!
   else v);
 result
 -- end_def implementation

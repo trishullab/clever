@@ -22,7 +22,7 @@ def problem_spec
 -- spec
 let numbers_within_threshold :=
 (∃ i j, i < numbers.length ∧ j < numbers.length ∧
-i ≠ j ∧ |numbers.get! i - numbers.get! j| < threshold);
+i ≠ j ∧ |numbers[i]! - numbers[j]!| < threshold);
 let spec (res: Bool) :=
 numbers.length > 1 →
 if res then numbers_within_threshold else ¬numbers_within_threshold;
@@ -273,14 +273,12 @@ by_cases h_1_lt_tail : 1 < tail.length
 simp [h_1_lt_tail] at ih
 obtain ⟨ i, h_i_lt_tail_len, h_i_in_threshold ⟩ := ih
 use i + 1
-have h_i_lt_tail_len' : i + 1 < tail.length + 1 := by linarith
-simp [h_i_lt_tail_len']
+refine ⟨by omega, ?_⟩
 obtain ⟨ j, h_j_lt_tail_len, h_i_neq_j, h_j_in_threshold ⟩ := h_i_in_threshold
-use j + 1
-simp [h_j_lt_tail_len]
-simp [h_i_neq_j]
-simp [h_i_lt_tail_len, h_j_lt_tail_len] at h_j_in_threshold
-assumption
+refine ⟨j + 1, by omega, ?_, ?_⟩
+· simp [h_i_neq_j]
+· simp [h_i_lt_tail_len, h_j_lt_tail_len] at h_j_in_threshold ⊢
+  exact h_j_in_threshold
 use 0
 simp
 use 1
@@ -292,7 +290,7 @@ simp [h_tail_empty] at h_tail_has_close_elements
 simp at h_1_lt_tail
 have h_0_lt_tail_len : tail.length = 1 := by linarith
 have h_tail_singleton: ∃ x, tail = [x] := by
-  rw [List.length_eq_one] at h_0_lt_tail_len
+  rw [List.length_eq_one_iff] at h_0_lt_tail_len
   assumption
 obtain ⟨ x, h_tail_singleton ⟩ := h_tail_singleton
 simp [h_0_lt_tail_len]

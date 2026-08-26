@@ -22,7 +22,7 @@ def problem_spec
 :=
 -- spec
 let spec (result: List Nat) :=
-let paren_space_split := paren_string.split (fun x => x = ' ');
+let paren_space_split := paren_string.splitToList (fun x => x = ' ');
 result.length = paren_space_split.length ∧
 ∀ i, i < result.length →
 let group := paren_space_split[i]!;
@@ -58,7 +58,7 @@ sorry
 def implementation (paren_string: String) : List Nat :=
 -- end_def implementation_signature
 -- start_def implementation
-(paren_string.split (fun x => x = ' ')).map (fun x => count_max_paren_depth x)
+(paren_string.splitToList (fun x => x = ' ')).map (fun x => count_max_paren_depth x)
 -- end_def implementation
 
 -- Uncomment the following test cases after implementing the function

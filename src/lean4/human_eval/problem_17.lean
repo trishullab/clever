@@ -33,7 +33,7 @@ let not_map := fun
 let spec (result: List Nat) :=
 let space_split := string.splitOn " ";
 space_split.length = result.length ∧
-∀ i < result.length, not_map (space_split.get! i) = result.get! i;
+∀ i < result.length, not_map (space_split[i]!) = result[i]!;
 -- program termination
 ∃ result, implementation string = result ∧
 spec result

@@ -94,8 +94,7 @@ simp [h]
 rename_i h
 simp at h
 have h1: 0 < numbers.length := by
-  by_contra
-  rename_i h2
+  by_contra h2
   simp at h2
   contradiction
 simp [h1]

@@ -22,7 +22,7 @@ def problem_spec
 -- spec
 let spec (result: Nat) :=
 let string_idx := {i: Nat | i < string.length}.toFinset
-let characters := string_idx.image (fun i => string.toList.get! i)
+let characters := string_idx.image (fun i => string.toList[i]!)
 let lowercase_characters := characters.image (fun c => c.toLower)
 result = lowercase_characters.card;
 -- program termination
@@ -80,17 +80,12 @@ simp [result]
 simp [implementation]
 rcases string with ⟨data⟩
 induction data
-simp
+try simp
 have h1: "".toLower = "" := by
   unfold String.toLower
   unfold Char.toLower
   unfold String.map
   unfold String.mapAux
   simp
-simp [h1]
-rename_i head tail ih
-unfold String.toLower
-rw [String.map_eq]
-simp
 sorry
 -- end_def correctness_proof

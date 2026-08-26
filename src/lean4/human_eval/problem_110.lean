@@ -37,11 +37,11 @@ let spec (result : String) :=
     lst1_idxs.Nodup ∧
     lst2_idxs.Nodup ∧
     ∀ i, i < lst1.length →
-      (i ∉ lst1_idxs → Even (lst1.get! i)) ∧
+      (i ∉ lst1_idxs → Even (lst1[i]!)) ∧
       (i ∈ lst1_idxs →
         -- find the (a, b) in exchange where a = i
         let i_idx := (lst1_idxs.indexesOf i).head!
-        Even (lst2.get! (lst2_idxs.get! i_idx)))
+        Even (lst2[lst2_idxs[i_idx]!]!))
   (bool_result → result = "YES") ∧
   (result = "NO" → ¬ bool_result) ∧
   (result ≠ "YES" ∧ result ≠ "NO" → False)

@@ -34,11 +34,11 @@ let spec (result: Option (List String) × Option Nat) :=
     (words = none ↔ ∀ ch, ch ∈ text.toList →  (ch = ',' ∨ ch = ' ')) ∧
     (∀ num, ord = some num → (text.get! 0).toNat = num) ∧
     (∀ lst, words = some lst → ∀ i, i < lst.length →
-      let str := lst.get! i;
+      let str := lst[i]!;
       text.containsSubstr str) ∧
     (∀ lst, words = some lst →
-      let first := text.takeWhile (fun c => c ≠ ',' ∧ c ≠ ' ');
-      let nextImpl := impl (text.drop (first.length + 1));
+      let first := (text.takeWhile (fun c => c ≠ ',' ∧ c ≠ ' ')).toString;
+      let nextImpl := impl ((text.drop (first.length + 1)).toString);
       let nextWords := nextImpl.fst;
       (∃ nextLst, nextWords = some nextLst ∧
         lst = [first] ++ nextLst))

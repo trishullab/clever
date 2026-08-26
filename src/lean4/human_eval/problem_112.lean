@@ -35,7 +35,7 @@ let spec (result : String × Bool) :=
     result_str =
     (implementation
       (String.join ((s.data.filter (fun x => x ≠ c.data.head!)).map (fun c => String.mk [c])))
-      (c.drop 1)).fst)
+      (c.drop 1).toString).fst)
 
 -- program termination
 ∃ result,

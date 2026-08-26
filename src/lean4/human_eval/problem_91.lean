@@ -28,7 +28,7 @@ let spec (result : Nat) :=
   match s.data.findIdx? (λ c => c = '.' ∨ c = '?' ∨ c = '!') with
   | some i =>
     let j := i + 1;
-    let substring := s.drop j;
+    let substring := (s.drop j).toString;
     result = (if is_sentence_is_boredom substring then 1 else 0) + implementation substring
   | none =>
     result = if is_sentence_is_boredom s then 1 else 0

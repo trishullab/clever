@@ -47,10 +47,10 @@ let spec (result: Int) :=
     let char_val := num_val num.toList[0]!;
     let is_prime_hex := Nat.Prime char_val ∧ char_val ≤ 15;
     (is_prime_hex →
-      (1 < num.length → result = 1 + implementation (num.drop 1)) ∧
+      (1 < num.length → result = 1 + implementation (num.drop 1).toString) ∧
       (1 = num.length → result = 1)) ∧
     (¬is_prime_hex →
-      (1 < num.length → result = implementation (num.drop 1)) ∧
+      (1 < num.length → result = implementation (num.drop 1).toString) ∧
       (1 = num.length → result = 0))
   )
 -- program termination

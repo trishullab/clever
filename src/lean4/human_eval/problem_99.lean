@@ -33,10 +33,10 @@ let is_valid_string :=
 let spec (result : Option Int) := match result with
   | some result =>
     is_valid_string ∧
-    let parts := s.split (fun c => c = '.')
+    let parts := s.splitToList (fun c => c = '.')
     (parts.length = 1 → result = s.toInt!) ∧
     (parts.length = 2 →
-      let integer_part := parts.get! 0
+      let integer_part := parts[0]!
       let is_negative := s.data.head! = '-'
       |((integer_part.toInt! - result) : ℚ)| ≤ 0.5 ∧
       (is_negative → |((integer_part.toInt! - result) : ℚ)| = 0.5 → integer_part.toInt? < result) ∧

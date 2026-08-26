@@ -32,7 +32,7 @@ def problem_spec
 let spec (result : List Nat) :=
   match n with
   | 0 => result = []
-  | n => n > 0 → (∀ i, i < result.length → (Nat.Prime (result.get! i)) ∧ (result.get! i) < n) ∧
+  | n => n > 0 → (∀ i, i < result.length → (Nat.Prime (result[i]!)) ∧ (result[i]!) < n) ∧
          (∀ i : Nat, i < n → Nat.Prime i → i ∈ result)
 -- program termination
 ∃ result,

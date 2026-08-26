@@ -40,8 +40,8 @@ let last_pos := result.revPosOf '.';
 0 < extensions.length ∧ extensions.all (fun x => 0 < x.length) ∧ 0 < class_name.length →
 0 < result.length ∧
 last_pos.isSome ∧
-let class_name' := result.take (last_pos.get!).byteIdx;
-let extension_name := result.drop ((last_pos.get!).byteIdx + 1);
+let class_name' := (result.take (last_pos.get!).byteIdx).toString;
+let extension_name := (result.drop ((last_pos.get!).byteIdx + 1)).toString;
 class_name' = class_name ∧
 extension_name ∈ extensions ∧
 let strength_of_extensions := extensions.map (fun ext => strength ext);

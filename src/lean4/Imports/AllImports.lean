@@ -72,15 +72,11 @@ sample_problems:
 def string_eq_iff_data_eq (s1: String) (s2: String)
 : s1.data = s2.data ↔ s1 = s2 :=
 by
-  apply Iff.intro
-  intro h
-  cases s1
-  cases s2
-  simp at h
-  simp [h]
-  intro h
-  apply String.data_eq_of_eq
-  exact h
+  constructor
+  · intro h
+    exact String.ext h
+  · intro h
+    exact congrArg String.data h
 -- end_def helper_definitions
 
 -- start_def helper_definitions
@@ -104,29 +100,22 @@ if paren_string.isEmpty then
 else
   let c := paren_string.get! 0
   if c == '(' then
-    string_is_paren_balanced_helper (paren_string.drop 1) (num_open + 1)
+    string_is_paren_balanced_helper (String.ofList (paren_string.toList.drop 1)) (num_open + 1)
   else if c == ')' then
-    string_is_paren_balanced_helper (paren_string.drop 1) (num_open - 1)
+    string_is_paren_balanced_helper (String.ofList (paren_string.toList.drop 1)) (num_open - 1)
   else
-    string_is_paren_balanced_helper (paren_string.drop 1) num_open
+    string_is_paren_balanced_helper (String.ofList (paren_string.toList.drop 1)) num_open
 termination_by paren_string.length
 decreasing_by
   all_goals
   {
-    rename_i h_non_empty_string
-    rw [String.drop_eq, String.length]
-    simp
+    simp only [String.length_ofList, List.length_drop]
+    have h_non_empty_string : ¬ paren_string.isEmpty = true := by assumption
     rw [String.isEmpty_iff] at h_non_empty_string
-    by_cases h_paren_nil : paren_string.length ≤ 0
-    rw [Nat.le_zero_eq] at h_paren_nil
-    rw [←string_eq_iff_data_eq] at h_non_empty_string
-    have h_temp : "".data = [] := by simp
-    rw [h_temp] at h_non_empty_string
-    rw [String.length] at h_paren_nil
-    rw [List.length_eq_zero_iff] at h_paren_nil
-    contradiction
-    have h_temp : paren_string.length > 0 := by linarith
-    assumption
+    have hne : paren_string.toList ≠ [] := by simpa using h_non_empty_string
+    have hpos : 0 < paren_string.toList.length := List.length_pos_of_ne_nil hne
+    have hlen : paren_string.length = paren_string.toList.length := by simp
+    omega
   }
 -- end_def helper_definitions
 
@@ -182,31 +171,24 @@ if paren_string.isEmpty then
 else
   let c := paren_string.get! 0
   if c == '(' then
-    count_paren_groups_helper (paren_string.drop 1) (num_open + 1) num_groups
+    count_paren_groups_helper (String.ofList (paren_string.toList.drop 1)) (num_open + 1) num_groups
   else if c == ')' then
     let new_num_groups :=
     if num_open == 1 then num_groups + 1 else num_groups
-    count_paren_groups_helper (paren_string.drop 1) (num_open - 1) new_num_groups
+    count_paren_groups_helper (String.ofList (paren_string.toList.drop 1)) (num_open - 1) new_num_groups
   else
-    count_paren_groups_helper (paren_string.drop 1) num_open num_groups
+    count_paren_groups_helper (String.ofList (paren_string.toList.drop 1)) num_open num_groups
 termination_by paren_string.length
 decreasing_by
   all_goals
   {
-    rename_i h_non_empty_string
-    rw [String.drop_eq, String.length]
-    simp
+    simp only [String.length_ofList, List.length_drop]
+    have h_non_empty_string : ¬ paren_string.isEmpty = true := by assumption
     rw [String.isEmpty_iff] at h_non_empty_string
-    by_cases h_paren_nil : paren_string.length ≤ 0
-    rw [Nat.le_zero_eq] at h_paren_nil
-    rw [←string_eq_iff_data_eq] at h_non_empty_string
-    have h_temp : "".data = [] := by simp
-    rw [h_temp] at h_non_empty_string
-    rw [String.length] at h_paren_nil
-    rw [List.length_eq_zero_iff] at h_paren_nil
-    contradiction
-    have h_temp : paren_string.length > 0 := by linarith
-    assumption
+    have hne : paren_string.toList ≠ [] := by simpa using h_non_empty_string
+    have hpos : 0 < paren_string.toList.length := List.length_pos_of_ne_nil hne
+    have hlen : paren_string.length = paren_string.toList.length := by simp
+    omega
   }
 -- end_def helper_definitions
 
@@ -241,29 +223,22 @@ else
   let c := paren_string.get! 0
   if c == '(' then
     let new_num_open := num_open + 1
-    count_max_paren_depth_helper (paren_string.drop 1) (new_num_open) (max_depth.max new_num_open.toNat)
+    count_max_paren_depth_helper (String.ofList (paren_string.toList.drop 1)) (new_num_open) (max_depth.max new_num_open.toNat)
   else if c == ')' then
-    count_max_paren_depth_helper (paren_string.drop 1) (num_open - 1) max_depth
+    count_max_paren_depth_helper (String.ofList (paren_string.toList.drop 1)) (num_open - 1) max_depth
   else
-    count_max_paren_depth_helper (paren_string.drop 1) num_open max_depth
+    count_max_paren_depth_helper (String.ofList (paren_string.toList.drop 1)) num_open max_depth
 termination_by paren_string.length
 decreasing_by
   all_goals
   {
-    rename_i h_non_empty_string
-    rw [String.drop_eq, String.length]
-    simp
+    simp only [String.length_ofList, List.length_drop]
+    have h_non_empty_string : ¬ paren_string.isEmpty = true := by assumption
     rw [String.isEmpty_iff] at h_non_empty_string
-    by_cases h_paren_nil : paren_string.length ≤ 0
-    rw [Nat.le_zero_eq] at h_paren_nil
-    rw [←string_eq_iff_data_eq] at h_non_empty_string
-    have h_temp : "".data = [] := by simp
-    rw [h_temp] at h_non_empty_string
-    rw [String.length] at h_paren_nil
-    rw [List.length_eq_zero_iff] at h_paren_nil
-    contradiction
-    have h_temp : paren_string.length > 0 := by linarith
-    assumption
+    have hne : paren_string.toList ≠ [] := by simpa using h_non_empty_string
+    have hpos : 0 < paren_string.toList.length := List.length_pos_of_ne_nil hne
+    have hlen : paren_string.length = paren_string.toList.length := by simp
+    omega
   }
 -- end_def helper_definitions
 

@@ -29,7 +29,7 @@ let spec (result: Nat) :=
 if string.length = 1 then
   result = if isUpper string.data[0]! then string.data[0]!.toNat else 0
 else
-  result = (if isUpper string.data[0]! then string.data[0]!.toNat else 0) + implementation (string.drop 1);
+  result = (if isUpper string.data[0]! then string.data[0]!.toNat else 0) + implementation (string.drop 1).toString;
 -- program termination
 ∃ result, implementation string = result ∧
 spec result

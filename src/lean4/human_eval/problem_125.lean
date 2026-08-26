@@ -41,24 +41,24 @@ def problem_spec
 -- spec
 let lexographically_less (a b: List Nat) : Prop :=
   a.length = b.length ∧ a.length = k ∧
-  (∃ i, i < k ∧ a.get! i < b.get! i ∧
-  (∀ j, j < i → a.get! j = b.get! j));
+  (∃ i, i < k ∧ a[i]! < b[i]! ∧
+  (∀ j, j < i → a[j]! = b[j]!));
 let rec is_valid_path (k': Nat) (path: List Nat) (grid: List (List Nat)) : Prop :=
   let n := grid.length;
   path.length = k' →
   (∃ i j,
-    (i < n ∧ j < n ∧ path.get! 0 = (grid.get! i).get! j) ∧
+    (i < n ∧ j < n ∧ path[0]! = (grid[i]!)[j]!) ∧
     (1 < path.length →
       ( ∃ i' j', i' < n ∧ j' < n ∧
-        (path.get! 1 = (grid.get! i').get! j') ∧
+        (path[1]! = (grid[i']!)[j']!) ∧
         ((abs ((i: Int) - (i': Int)) = 1 ∧ j = j') ∨
          (abs ((j: Int) - (j': Int)) = 1 ∧ i = i'))) ∧
       (is_valid_path (k' - 1) (path.drop 1) grid))
   );
 let spec (result: List Nat) :=
   let n := grid.length;
-  (∀ i, i < n → (grid.get! i).length = n) →
-  (∀ i j, i < n → j < n ↔ ((grid.get! i).get! j) ∈ [1, n^2]) →
+  (∀ i, i < n → (grid[i]!).length = n) →
+  (∀ i j, i < n → j < n ↔ ((grid[i]!)[j]!) ∈ [1, n^2]) →
   is_valid_path k result grid ∧ (∀ path, is_valid_path k path grid → lexographically_less result path);
 -- program terminates
 ∃ result, impl grid k = result ∧

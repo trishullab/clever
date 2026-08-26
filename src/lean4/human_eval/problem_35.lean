@@ -22,8 +22,8 @@ def problem_spec
 -- spec
 let spec (result: Int) :=
   l.length > 0 →
-  ((∀ i, i < l.length → l.get! i ≤ result) ∧
-  (∃ i, i < l.length ∧ l.get! i = result));
+  ((∀ i, i < l.length → l[i]! ≤ result) ∧
+  (∃ i, i < l.length ∧ l[i]! = result));
 -- program termination
 ∃ result, implementation l = result ∧
 spec result
