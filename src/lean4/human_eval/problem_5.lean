@@ -27,8 +27,6 @@ def problem_spec
 -- spec
 let spec (result: List Int) :=
 (result.length = 0 ∧ result = numbers) ∨
-(result.length = 2 ∧ numbers.length = 1 ∧
-result[0]! = numbers[0]! ∧ result[1]! = delimeter) ∨
 (result.length = 2 * numbers.length - 1 ∧
 ∀ i, i < numbers.length →
 result[2 * i]! = numbers[i]! ∧
