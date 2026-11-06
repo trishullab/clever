@@ -22,20 +22,22 @@ def problem_spec
 -- inputs
 (s: String) :=
 -- spec
+let chars := string.toList
+let isDelim (c : Char) : Prop := c = '.' ∨ c = '?' ∨ c = '!'
+-- position i is the start of a sentence consisting of the word "I"
+let startsBoredom (i : Nat) : Prop :=
+  i < chars.length ∧
+  chars[i]! = 'I' ∧
+  (∀ j, j < i → ¬ (chars[j]!).isWhitespace →
+      ∃ k, j ≤ k ∧ k < i ∧ isDelim chars[k]!) ∧
+  (i + 1 = chars.length ∨ (chars[i+1]!).isWhitespace ∨ isDelim chars[i+1]!)
 let spec (result : Nat) :=
-  let is_sentence_is_boredom (s: String) : Bool :=
-    (s.startsWith "I " ∨ s.startsWith " I") ∧ '.' ∉ s.data ∧ '?' ∉ s.data ∧ '!' ∉ s.data
-  match s.data.findIdx? (λ c => c = '.' ∨ c = '?' ∨ c = '!') with
-  | some i =>
-    let j := i + 1;
-    let substring := (s.drop j).toString;
-    result = (if is_sentence_is_boredom substring then 1 else 0) + implementation substring
-  | none =>
-    result = if is_sentence_is_boredom s then 1 else 0
+  ∃ boredomStarts : Finset Nat,
+    (∀ i, i ∈ boredomStarts ↔ startsBoredom i) ∧
+    result = boredomStarts.card
 -- program termination
-∃ result,
-  implementation s = result ∧
-  spec result
+∃ result, implementation string = result ∧
+spec result
 -- end_def problem_spec
 
 -- start_def generated_spec
