@@ -27,9 +27,9 @@ def problem_spec
 :=
 -- spec
 let spec (result: List String) :=
-(∀ i, i < result.length → result[i]!.containsSubstr substring →
-∀ j, j < strings.length ∧ strings[j]!.containsSubstr substring → strings[j]! ∈ result →
-∀ j, j < result.length → result.count result[j]! = strings.count result[j]!);
+(∀ i, i < result.length → result[i]!.containsSubstr substring ∧ 
+result.count result[i]! = strings.count result[i]!) ∧
+(∀ j, j < strings.length ∧ strings[j]!.containsSubstr substring → strings[j]! ∈ result);
 -- program termination
 ∃ result, implementation strings substring = result ∧
 spec result

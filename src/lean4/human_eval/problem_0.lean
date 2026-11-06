@@ -24,7 +24,6 @@ let numbers_within_threshold :=
 (∃ i j, i < numbers.length ∧ j < numbers.length ∧
 i ≠ j ∧ |numbers[i]! - numbers[j]!| < threshold);
 let spec (res: Bool) :=
-numbers.length > 1 →
 if res then numbers_within_threshold else ¬numbers_within_threshold;
 -- program terminates
 ∃ result, impl numbers threshold = result ∧
